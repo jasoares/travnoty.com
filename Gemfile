@@ -21,7 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem 'httparty'
 gem 'rspec-rails', '~> 2.0', group: [:development, :test]
 
 group :development do
@@ -36,6 +36,7 @@ group :test do
   gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'fakeweb'
   gem 'capybara'
 end
 

@@ -1,0 +1,181 @@
+---
+:ae:
+  :country: United Arab Emirates
+  :language: ar
+:ar:
+  :country: Argentina
+  :language: es
+:asia:
+  :country: Asia
+  :language: th
+:au:
+  :country: Australia
+  :language: au
+:ba:
+  :country: Bosnia And Herzegovina
+  :language: bs
+:bg:
+  :country: Bulgaria
+  :language: bg
+:br:
+  :country: Brazil
+  :language: pt
+:cl:
+  :country: Chile
+  :language: es
+:cn:
+  :country: China
+  :language: cn
+:cz:
+  :country: Czech Republic
+  :language: cz
+:de:
+  :country: Germany
+  :language: de
+:dk:
+  :country: Denmark
+  :language: dk
+:ee:
+  :country: Estonia
+  :language: ee
+:eg:
+  :country: Egypt
+  :language: ar
+:com:
+  :country: International
+  :language: en
+:es:
+  :country: Spain
+  :language: es
+:fi:
+  :country: Finland
+  :language: fi
+:fr:
+  :country: France
+  :language: fr
+:gq:
+  :country: Travian Team
+  :language: en
+:gr:
+  :country: Greece
+  :language: gr
+:hk:
+  :country: Hong Kong
+  :language: hk
+:hr:
+  :country: Croatia
+  :language: hr
+:hu:
+  :country: Hungary
+  :language: hu
+:id:
+  :country: Indonesia
+  :language: id
+:il:
+  :country: Israel
+  :language: he
+:in:
+  :country: India
+  :language: in
+:ine:
+  :country: India
+  :language: in
+:ir:
+  :country: Iran, Islamic Republic Of
+  :language: ir
+:it:
+  :country: Italy
+  :language: it
+:jp:
+  :country: Japan
+  :language: jp
+:kr:
+  :country: South Korea
+  :language: ko
+:lt:
+  :country: Lithuania
+  :language: lt
+:lv:
+  :country: Latvia
+  :language: lv
+:ma:
+  :country: Morocco
+  :language: fr
+:mx:
+  :country: Mexico
+  :language: es
+:my:
+  :country: Malaysia
+  :language: my
+:net:
+  :country: Spain
+  :language: es
+:nl:
+  :country: Netherlands
+  :language: nl
+:no:
+  :country: Norway
+  :language: no
+:nz:
+  :country: New Zealand
+  :language: en
+:ph:
+  :country: Philippines
+  :language: ph
+:pk:
+  :country: Pakistan
+  :language: en
+:pl:
+  :country: Poland
+  :language: pl
+:pt:
+  :country: Portugal
+  :language: pt
+:ro:
+  :country: Romania
+  :language: ro
+:rs:
+  :country: Serbia
+  :language: sr
+:ru:
+  :country: Russian Federation
+  :language: ru
+:sa:
+  :country: Saudi Arabia
+  :language: ar
+:se:
+  :country: Sweden
+  :language: sv
+:si:
+  :country: Slovenia
+  :language: sl
+:sk:
+  :country: Slovakia
+  :language: sk
+:arabia:
+  :country: Arabia
+  :language: ar
+:th:
+  :country: Thailand
+  :language: th
+:tr:
+  :country: Turkey
+  :language: tr
+:tw:
+  :country: Taiwan, Province Of China
+  :language: tw
+:ua:
+  :country: Ukraine
+  :language: uk
+:uk:
+  :country: United Kingdom
+  :language: en
+:us:
+  :country: United States
+  :language: en
+:vn:
+  :country: Viet Nam
+  :language: vi
+:za:
+  :country: South Africa
+  :language: en

@@ -71,6 +71,7 @@ GEM
     factory_girl_rails (4.1.0)
       factory_girl (~> 4.1.0)
       railties (>= 3.0.0)
+    fakeweb (1.3.0)
     ffi (1.2.0)
     gherkin (2.11.5)
       json (>= 1.4.6)
@@ -90,6 +91,9 @@ GEM
       guard (>= 1.1)
       rspec (~> 2.11)
     hike (1.2.1)
+    httparty (0.9.0)
+      multi_json (~> 1.0)
+      multi_xml
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.1.4)
@@ -109,6 +113,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.19)
     multi_json (1.3.7)
+    multi_xml (0.5.1)
     nokogiri (1.5.5)
     polyglot (0.3.3)
     pry (0.9.10)
@@ -199,10 +204,12 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   factory_girl_rails (~> 4.0)
+  fakeweb
   guard
   guard-cucumber
   guard-livereload
   guard-rspec
+  httparty
   jquery-rails
   rails (= 3.2.9)
   rb-inotify

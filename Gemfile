@@ -22,6 +22,7 @@ end
 
 gem 'jquery-rails'
 gem 'httparty'
+gem 'nokogiri'
 gem 'rspec-rails', '~> 2.0', group: [:development, :test]
 
 group :development do

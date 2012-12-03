@@ -215,6 +215,7 @@ DEPENDENCIES
   guard-rspec
   httparty
   jquery-rails
+  nokogiri
   rails (= 3.2.9)
   rb-inotify
   rspec-rails (~> 2.0)

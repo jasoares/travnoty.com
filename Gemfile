@@ -38,6 +38,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'fakeweb'
   gem 'capybara'
+  gem 'simplecov', :require => false
 end
 
 # To use ActiveModel has_secure_password

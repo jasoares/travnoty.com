@@ -6,5 +6,7 @@ class CreateHubs < ActiveRecord::Migration
       t.string :code
       t.timestamps
     end
+    add_index :hubs, :host, :unique => true
+    add_index :hubs, :code, :unique => true
   end
 end

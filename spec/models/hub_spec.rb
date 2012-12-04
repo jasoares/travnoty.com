@@ -18,6 +18,11 @@ describe Hub do
       FactoryGirl.build(:hub, host: '').should have_at_least(1).error_on(:host)
     end
 
+    it 'should be unique' do
+      FactoryGirl.create(:hub, host: 'http://www.travian.net/')
+      FactoryGirl.build(:hub, host: 'http://www.travian.NET/').should have_at_least(1).error_on(:host)
+    end
+
     it 'should require the protocol' do
       FactoryGirl.build(:hub, host: 'www.travian.com.br').should have_at_least(1).error_on(:host)
     end
@@ -38,6 +43,11 @@ describe Hub do
   describe '#code' do
     it 'is required' do
       FactoryGirl.build(:hub, code: '').should have_at_least(1).error_on(:code)
+    end
+
+    it 'should be unique' do
+      FactoryGirl.create(:hub, code: 'it')
+      FactoryGirl.build(:hub, code: 'it').should have_at_least(1).error_on(:code)
     end
 
     it 'should not accept codes with length smaller than 2' do

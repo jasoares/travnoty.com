@@ -2,8 +2,8 @@ class Hub < ActiveRecord::Base
   attr_accessible :code, :host, :name
 
   validates :name, presence: true
-  validates :host, travian_host: true
-  validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: true }, format: { with: /\A[a-z]{2,6}\Z/ }
+  validates :host, uniqueness: { case_sensitive: false }, travian_host: true
+  validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{2,6}\Z/ }
 
   class << self
 

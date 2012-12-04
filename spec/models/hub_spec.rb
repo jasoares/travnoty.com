@@ -32,7 +32,7 @@ describe Hub do
     end
 
     it 'requires the last backslash' do
-      FactoryGirl.build(:hub, host: 'http://www.travian.com')
+      FactoryGirl.build(:hub, host: 'http://www.travian.com').should have_at_least(1).error_on(:host)
     end
 
     it 'accepts a valid uri' do

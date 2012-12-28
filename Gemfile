@@ -12,11 +12,6 @@ gem 'pg'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer', :platforms => :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
 
@@ -33,6 +28,9 @@ group :development do
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-cucumber'
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'libv8', '~> 3.11.8'
+  gem 'therubyracer', :platforms => :ruby
 end
 
 group :test do
@@ -52,6 +50,7 @@ end
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'thin'
 
 # Deploy with Capistrano
 # gem 'capistrano'

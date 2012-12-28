@@ -29,7 +29,11 @@ module Travnoty
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    config.active_record.observers = :hub_observer, :server_observer
+    config.after_initialize do
+    # If config.active_record.observers is not nil, we must load ActiveRecord::Base forcibly.
+      _ = ActiveRecord::Base if config.active_record.observers
+    end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

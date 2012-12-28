@@ -1,0 +1,15 @@
+%h3= "#{@server.name}'s :"
+
+%p Changes:
+%table
+  %thead
+    %tr
+      %th Attribute
+      %th was
+      %th is now
+  %tbody
+    - @server.changes.each do |change|
+      %tr
+        %td= change[0]
+        %td= change[1][0]
+        %td= change[1][1]

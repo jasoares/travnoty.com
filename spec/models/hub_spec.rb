@@ -63,16 +63,15 @@ describe Hub do
         FactoryGirl.build(:hub, code: 'arabia').should be_valid
       end
     end
-  end
 
-  describe '.update!' do
-    it 'delegates to Hub.fetch_list! to fetch data' do
-      Hub.should_receive(:fetch_list!).once.and_return('pt' => {'code' => :pt, 'host' => 'http://www.travian.pt/', 'name' => 'Portugal'})
-      Hub.update!
-    end
+    describe '#language' do
+      it 'is required' do
+        FactoryGirl.build(:hub, language: '').should have_at_least(1).error_on(:language)
+      end
 
-    it 'updates the hubs table with all travian hubs' do
-      expect { Hub.update! }.to change { Hub.count }.from(0).to(55)
+      it 'should not accept a language with length smaller than 2' do
+        FactoryGirl.build(:hub, language: 'p').should have_at_least(1).error_on(:language)
+      end
     end
   end
 end

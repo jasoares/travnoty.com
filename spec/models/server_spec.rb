@@ -60,26 +60,4 @@ describe Server do
       FactoryGirl.build(:server, world_id: '').should have_at_least(1).error_on(:world_id)
     end
   end
-
-  describe '#register' do
-    it 'is required' do
-      FactoryGirl.build(:server, register: nil).should have_at_least(1).error_on(:register)
-    end
-  end
-
-  describe '#login' do
-    it 'is required' do
-      FactoryGirl.build(:server, login: nil).should have_at_least(1).error_on(:login)
-    end
-  end
-
-  describe '.update!' do
-    before(:each) do
-      @pt_hub = double('Hub', :host => 'http://www.travian.pt/')
-    end
-
-    it 'updates the servers table with all servers from portugal when passed the portugal hub' do
-      expect { Server.update!(@pt_hub) }.to change { Server.count }.from(0).to(353)
-    end
-  end
 end

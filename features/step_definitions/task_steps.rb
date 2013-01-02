@@ -1,15 +1,10 @@
 require 'rake'
 
-def require_rake_tasks(filename=nil)
-  rake = Rake::Application.new
-  Rake.application = rake
+When /^I run the task `rake ([\w\:]+)(?:\[(.+)\])?`$/ do |task, arg|
+  @rake = Rake::Application.new
+  Rake.application = @rake
   Rake.application.rake_require 'active_record/railties/databases'
-  Rake.application.rake_require(filename) if filename
+  Rake.application.rake_require 'tasks/update'
   Rake::Task.define_task(:environment)
-  rake
-end
-
-When /^I run the task `rake (.+)`$/ do |task|
-  rake = require_rake_tasks
-  rake[task].invoke
+  @rake[task].invoke(arg)
 end

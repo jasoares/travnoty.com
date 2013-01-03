@@ -1,0 +1,24 @@
+%h3= @subject
+
+%h4 Server
+%table
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Host
+      %th Speed
+      %th Start Date
+      %th End Date
+      %th Version
+      %th World ID
+  %tbody
+    %tr
+      %td= @server.name
+      %td= @server.code
+      %td= @server.host
+      %td= @server.speed
+      %td= @server.start_date
+      %td= @server.end_date
+      %td= @server.version
+      %td= @server.world_id

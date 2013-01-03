@@ -3,15 +3,10 @@ class UpdateReporter < ActionMailer::Base
 
   ADMIN = 'jsoaresgeral@gmail.com'
 
-  def changed_hub(hub)
-    @hub = hub
-
-    mail to: ADMIN, subject: "#{hub.name}'s hub was changed"
-  end
-
-  def changed_server(server)
+  def server_status(server, action=:started)
     @server = server
-
-    mail to: ADMIN, subject: "#{server.host} was changed"
+    @subject = "Server #{server.host} has #{action.to_s}"
+    mail to: ADMIN, subject: @subject
   end
+
 end

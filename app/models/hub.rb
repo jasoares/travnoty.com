@@ -7,4 +7,19 @@ class Hub < ActiveRecord::Base
   validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{2,6}\Z/ }
   validates :language, presence: true, length: { minimum: 2 }
 
+  def update_servers!
+    servers_found = []
+    Travian.hubs[code.to_sym].servers.map do |server|
+      record = Server.find_or_initialize_by_host(server.host)
+      if record.new_record?
+        record.hubs << self
+        record.update_attributes(server.attributes)
+      end
+      servers_found << record
+    end
+    (self.servers - servers_found).each do |s|
+      s.update_attributes(end_date: Date.today)
+    end
+  end
+
 end

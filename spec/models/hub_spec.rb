@@ -73,5 +73,22 @@ describe Hub do
         FactoryGirl.build(:hub, language: 'p').should have_at_least(1).error_on(:language)
       end
     end
+
+    describe '#active_servers' do
+      before(:all) do
+        @active = FactoryGirl.create(:server, hubs: [hub], end_date: nil)
+        FactoryGirl.create(:server, hubs: [hub], end_date: 6.days.ago)
+        FactoryGirl.create(:server)
+      end
+
+      it 'should return only the active servers from this hub' do
+        hub.active_servers.should == [@active]
+      end
+
+      after(:all) do
+        Server.destroy_all
+        Hub.destroy_all
+      end
+    end
   end
 end

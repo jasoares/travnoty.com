@@ -7,6 +7,10 @@ class Hub < ActiveRecord::Base
   validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{2,6}\Z/ }
   validates :language, presence: true, length: { minimum: 2 }
 
+  def active_servers
+    Server.find_by_hub(code).active
+  end
+
   def update_servers!
     servers_found = []
     Travian.hubs[code.to_sym].servers.map do |server|

@@ -9,4 +9,8 @@ class Server < ActiveRecord::Base
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
   validates :world_id, presence: true
 
+  scope :find_by_hub, lambda {|code| includes(:hubs).where("hubs.code = ?", code) }
+  scope :active, where("end_date IS NULL")
+  scope :archived, where("end_date IS NOT NULL")
+
 end

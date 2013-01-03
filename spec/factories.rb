@@ -7,12 +7,13 @@ FactoryGirl.define do
   end
 
   factory :server do
-    name        'Servidor 3'
-    host        'http://ts3.travian.pt/'
+    sequence(:name) {|n| "Servidor#{n}" }
+    sequence(:host) {|n| "http://ts#{n}.travian.pt/" }
+    sequence(:code) {|n| "ts#{n}" }
     speed       1
-    start_date  Time.utc(2012, 8, 27).to_date
+    start_date  180.days.ago
     end_date    nil
     version     '4.0'
-    world_id    'pt33'
+    sequence(:world_id) {|n| "pt#{n}#{n}" }
   end
 end

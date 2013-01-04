@@ -21,7 +21,7 @@ class Hub < ActiveRecord::Base
       end
       servers_found << record
     end
-    (self.servers - servers_found).each do |s|
+    (self.active_servers - servers_found).each do |s|
       s.update_attributes(end_date: Date.today)
     end
   end

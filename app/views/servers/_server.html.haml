@@ -1,0 +1,16 @@
+%tr
+  %td.flag= image_tag "iso_flags/24/#{server.hubs.first.code}.png", alt: server.hubs.first.name, title: server.hubs.first.name
+  %td.name= server.name
+  %td.link= link_to strip_host(server.host), server.host, target: "_blank"
+  %td.players
+    = image_tag 'travian_player_icon.gif', alt: 'Players', title: 'Players'
+    =# server.players
+  %td.start_date
+    = image_tag 'travian_clock_icon.png', alt: 'Start Date', title: 'Start Date'
+    = server.start_date
+  %td.end_date
+    = image_tag 'travian_clock_icon_reverse.png', alt: 'End Date', title: 'End Date'
+    = server.end_date
+  %td= server.speed
+  %td.world_id= server.world_id
+  %td= link_to "Show", server_path(server)

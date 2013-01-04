@@ -1,6 +1,11 @@
 Travnoty::Application.routes.draw do
   get "home/welcome"
 
+  match '/hubs' => 'hubs#index', :as => 'hubs'
+  match '/hubs/:id' => 'hubs#show', :as => 'hub'
+  match '/servers' => 'servers#index', :as => 'servers'
+  match '/servers/:id' => 'servers#show', :as => 'server'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

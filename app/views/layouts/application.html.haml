@@ -1,0 +1,11 @@
+!!! 5
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) + " - Travnoty" : "Travnoty - The Travian Notifier"
+    %meta{content: "Travnoty", name: "application-name" }
+    %meta{content: content_for?(:description) ? yield(:description) : "The Travian account notifier for attacks and resources capacity.", :name => "description" }
+    = stylesheet_link_tag :application, :media => "all"
+    = javascript_include_tag :application
+    = csrf_meta_tags
+  %body
+    = yield

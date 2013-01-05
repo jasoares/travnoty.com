@@ -12,6 +12,14 @@ td {
   background: #aaeeaa;
   padding: 1px 8px;
   font-size: 1em;
+
+  a {
+    color: #448822;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
 }
 .flag {
   padding-top: 4px;

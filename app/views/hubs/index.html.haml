@@ -1,17 +1,18 @@
 - content_for(:title) { "Hubs" }
-%h1 Listing hubs
+%section.box
+  %h1 Travian Server Hubs
 
-%table
-  %thead
-    %tr
-      %th
-      %th Name
-      %th Host
-      %th
-  %tbody
-    - @hubs.each do |hub|
+  %table
+    %thead
       %tr
-        %td.flag= image_tag "iso_flags/24/#{hub.code}.png", :alt => hub.name, :title => hub.name
-        %td= hub.name
-        %td= link_to strip_host(hub.host), hub.host
-        %td= link_to 'Show', hub
+        %th
+        %th Name
+        %th Host
+        %th
+    %tbody
+      - @hubs.each do |hub|
+        %tr
+          %td.flag= image_tag "iso_flags/24/#{hub.code}.png", :alt => hub.name, :title => hub.name
+          %td= hub.name
+          %td= link_to strip_host(hub.host), hub.host
+          %td= link_to 'Show', hub

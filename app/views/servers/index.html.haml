@@ -1,31 +1,32 @@
 - content_for(:title) { "Servers" }
-%h1 Servers
+%section.box
+  %h1 Travian Servers
 
-%table
-  %thead
-    %tr
-      %th.flag Flag
-      %th Name
-      %th Host
-      %th Players
-      %th Start Date
-      %th End Date
-      %th Speed
-      %th World Id
-      %th Details
-  %tbody
-    - @servers.each do |server|
-      = render :partial => "server", :locals => { :server => server }
-  %tfoot
-    %tr
-      %td
-      %td Total
-      %td= "Servers: #{@total_servers}"
-      %td
-        = image_tag 'travian_player_icon.gif'
-        = @total_players
-      %td
-      %td
-      %td
-      %td
-      %td
+  %table
+    %thead
+      %tr
+        %th.flag Flag
+        %th Name
+        %th Host
+        %th Players
+        %th Start Date
+        %th End Date
+        %th Speed
+        %th World Id
+        %th Details
+    %tbody
+      - @servers.each do |server|
+        = render :partial => "server", :locals => { :server => server }
+    %tfoot
+      %tr
+        %td
+        %td Total
+        %td= "Servers: #{@total_servers}"
+        %td
+          = image_tag 'travian_player_icon.gif'
+          = @total_players
+        %td
+        %td
+        %td
+        %td
+        %td

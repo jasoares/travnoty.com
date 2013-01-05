@@ -1,11 +1,12 @@
-%p
-  %p= "Hub: #{@server.name}"
-  %p= "Host: #{@server.host}"
-  %p= "Host: #{@server.code}"
-  %p= "Start date: #{@server.start_date}"
-  %p= "End date: #{@server.end_date}"
-  %p= "Speed: #{@server.speed}"
-  %p= "Version: #{@server.version}"
-  %p= "World ID: #{@server.world_id}"
-\
-= link_to 'Back', servers_path
+%section.box
+  %h1= "Server: #{@server.name}"
+  %p
+    %p= "Host: #{@server.host}"
+    %p= "Host: #{@server.code}"
+    %p= "Start date: #{@server.start_date}"
+    %p= "End date: #{@server.end_date}"
+    %p= "Speed: #{@server.speed}"
+    %p= "Version: #{@server.version}"
+    %p= "World ID: #{@server.world_id}"
+  \
+  = link_to 'Back', servers_path

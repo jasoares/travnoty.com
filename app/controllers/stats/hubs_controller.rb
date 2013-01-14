@@ -1,4 +1,4 @@
-class HubsController < ApplicationController
+class Stats::HubsController < ApplicationController
   def index
     @hubs = Hub.all
   end

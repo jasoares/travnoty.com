@@ -2,7 +2,7 @@
 %html
   %head
     %title= content_for?(:title) ? yield(:title) + " - Travnoty" : "Travnoty - The Travian Notifier"
-    %meta{content: content_for?(:description) ? yield(:description) : "The Travian account notifier for attacks and resources capacity.", :name => "description" }
+    %meta{content: content_for?(:description) ? yield(:description) : "The Travian account notifier for attacks and resource capacity.", :name => "description" }
     = stylesheet_link_tag :application, :media => "all"
     = javascript_include_tag :application
     = csrf_meta_tags
@@ -10,11 +10,15 @@
     %header
       %nav
         %ul
-          %li= link_to "Home", root_url
+          %li= link_to "Home", root_url(subdomain: false)
           %li= link_to "Hubs", hubs_path
           %li= link_to "Servers", servers_path
           %li Download
           %li.right Sign Up
-
     %section#content
       = yield
+    %footer
+      %ul
+        %li About
+        %li Contact
+        %li Travnoty.com &copy;2012

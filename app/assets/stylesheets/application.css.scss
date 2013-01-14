@@ -85,4 +85,20 @@ html, body {
     margin: 0 auto;
     text-align: left;
   }
+
+  footer {
+    text-align: right;
+    margin: 20px 0;
+    width: 980px;
+    margin: 0 auto;
+    ul {
+      background: rgba(255,255,255,.4);
+      border-radius: 5px;
+      padding: 20px;
+      li {
+        display: inline;
+        padding: 10px;
+      }
+    }
+  }
 }

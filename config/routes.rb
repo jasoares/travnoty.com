@@ -1,10 +1,16 @@
-Travnoty::Application.routes.draw do
-  get "home/welcome"
+require 'stats'
 
-  match '/hubs' => 'hubs#index', :as => 'hubs'
-  match '/hubs/:id' => 'hubs#show', :as => 'hub'
-  match '/servers' => 'servers#index', :as => 'servers'
-  match '/servers/:id' => 'servers#show', :as => 'server'
+Travnoty::Application.routes.draw do
+
+  constraints(Stats) do
+    match '/' => 'stats/hubs#index'
+    match '/hubs' => 'stats/hubs#index'
+    match '/hubs/:id' => 'stats/hubs#show', :as => 'hub'
+    match '/servers' => 'stats/servers#index', :as => 'servers'
+    match '/servers/:id' => 'stats/servers#show', :as => 'server'
+  end
+
+  get "home/welcome"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

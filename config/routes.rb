@@ -1,5 +1,21 @@
+require 'subdomain'
+require 'api_version'
+
 Travnoty::Application.routes.draw do
-  get "home/welcome"
+
+  scope :module => :api, constraints: Subdomain[:api] do
+    scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do
+      get 'hubs' => 'hubs#index'
+      get 'hubs/:id' => 'hubs#show'
+      get 'hubs/:id/servers' => 'hubs#servers'
+      get 'hubs/:id/active_servers' => 'hubs#active_servers'
+      get 'hubs/:id/archived_servers' => 'hubs#archived_servers'
+      get 'servers' => 'servers#index'
+      get 'servers/:id' => 'servers#show', id: /\d+/
+      get 'servers/active' => 'servers#active'
+      get 'servers/archived' => 'servers#archived'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -7,4 +7,5 @@ When /^I run the task `rake ([\w\:]+)(?:\[(.+)\])?`$/ do |task, arg|
   Rake.application.rake_require 'tasks/update'
   Rake::Task.define_task(:environment)
   @rake[task].invoke(arg)
+  @rake[task].reenable
 end

@@ -7,5 +7,5 @@ Feature: Seed Data
     Given I have no hubs
     And I have no servers
     When I run the task `rake db:seed`
-    Then I should have 53 hubs
-    And I should have 299 servers
+    Then I should have loaded the hubs
+    And I should have loaded the servers

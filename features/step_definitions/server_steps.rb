@@ -31,6 +31,10 @@ Then /^I should have (\d+) servers in the (\w{2,6}) hub$/ do |n, hub|
   Server.joins(:hubs).where("hubs.code = 'pt'").count.should == n.to_i
 end
 
+Then /^I should have loaded the servers$/ do
+  Server.count.should > 200
+end
+
 Then /^I should have (\d+) servers in the (\w{2,6}) hub with an end date$/ do |n, hub|
   Server.joins(:hubs).where("hubs.code = 'pt' AND servers.end_date IS NOT NULL").count.should == n.to_i
 end

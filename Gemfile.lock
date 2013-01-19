@@ -1,8 +1,9 @@
 GIT
   remote: https://254485ce725581c10ab8df4133e7b24c01c784b8:x-oauth-basic@github.com/jasoares/travian.git
-  revision: 3cbd4215f06dee3737e59e70383f2bea0ad71475
+  revision: 70544972c665a2c463948a4dacda624fd268f347
+  tag: v0.3.0
   specs:
-    travian (0.2.1)
+    travian (0.3.0)
       activesupport (~> 3.2.9)
       httparty (~> 0.9.0)
       nokogiri (~> 1.5.5)
@@ -219,6 +220,7 @@ GEM
     websocket (1.0.6)
     xpath (1.0.0)
       nokogiri (~> 1.3)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -249,3 +251,4 @@ DEPENDENCIES
   thin
   travian!
   uglifier (>= 1.0.3)
+  yaml_db

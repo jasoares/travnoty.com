@@ -4,6 +4,7 @@ class CreateServers < ActiveRecord::Migration
       t.string :name
       t.string :code
       t.string :host
+      t.references :hub
       t.integer :speed
       t.date :start_date
       t.date :end_date
@@ -11,6 +12,6 @@ class CreateServers < ActiveRecord::Migration
       t.string :world_id
       t.timestamps
     end
-    add_index :servers, :host, :unique => true
+    add_index :servers, :end_date
   end
 end

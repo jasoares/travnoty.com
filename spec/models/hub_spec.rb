@@ -22,6 +22,7 @@ describe Hub do
       it 'should be unique' do
         FactoryGirl.create(:hub, host: 'http://www.travian.net/')
         FactoryGirl.build(:hub, host: 'http://www.travian.NET/').should have_at_least(1).error_on(:host)
+        Hub.destroy_all
       end
 
       it 'should require the protocol' do
@@ -49,6 +50,7 @@ describe Hub do
       it 'should be unique' do
         FactoryGirl.create(:hub, code: 'it')
         FactoryGirl.build(:hub, code: 'it').should have_at_least(1).error_on(:code)
+        Hub.destroy_all
       end
 
       it 'should not accept codes with length smaller than 2' do
@@ -76,8 +78,8 @@ describe Hub do
 
     describe '#active_servers' do
       before(:all) do
-        @active = FactoryGirl.create(:server, hubs: [hub], end_date: nil)
-        FactoryGirl.create(:server, hubs: [hub], end_date: 6.days.ago)
+        @active = FactoryGirl.create(:server, hub: hub, end_date: nil)
+        FactoryGirl.create(:server, hub: hub, end_date: 6.days.ago)
         FactoryGirl.create(:server)
       end
 
@@ -88,6 +90,68 @@ describe Hub do
       after(:all) do
         Server.destroy_all
         Hub.destroy_all
+      end
+    end
+
+    describe '#servers' do
+      context 'when called on a mirror' do
+        before(:each) do
+          @main_hub = FactoryGirl.create(:hub)
+          @main_hub.servers << FactoryGirl.build(:server)
+          @hub = FactoryGirl.build(:hub, mirrors_hub_id: @main_hub.id)
+        end
+
+        it 'returns the server list of it\'s main hub' do
+          @hub.servers.should == @main_hub.servers
+        end
+
+        after(:each) do
+          Hub.destroy_all
+          Server.destroy_all
+        end
+      end
+
+      context 'when called on a main hub' do
+        before(:each) do
+          @main_hub = FactoryGirl.create(:hub)
+          @main_hub.servers << FactoryGirl.build(:server)
+        end
+
+        it 'returns it\'s server list' do
+          Hub.first.servers.should == @main_hub.servers
+        end
+
+        after(:each) do
+          Hub.destroy_all
+          Server.destroy_all
+        end
+      end
+    end
+
+    describe '#mirror?' do
+      context 'when called on a mirror hub' do
+        before(:each) do
+          @main_hub = FactoryGirl.create(:hub)
+          @hub = FactoryGirl.build(:hub, mirrors_hub_id: @main_hub.id)
+        end
+
+        it 'returns true' do
+          @hub.mirror?.should be true
+        end
+
+        after(:each) do
+          Hub.destroy_all
+        end
+      end
+
+      context 'when called on a main hub' do
+        before(:each) do
+          @hub = FactoryGirl.build(:hub, mirrors_hub_id: nil)
+        end
+
+        it 'returns false' do
+          @hub.mirror?.should be false
+        end
       end
     end
   end

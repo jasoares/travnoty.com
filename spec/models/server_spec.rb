@@ -61,28 +61,6 @@ describe Server do
     end
   end
 
-  describe '.find_by_hub' do
-    before(:all) do
-      pt_hub = FactoryGirl.create(:hub)
-      @pt_server = FactoryGirl.create(:server, hubs: [pt_hub])
-      br_hub = FactoryGirl.create(:hub, name: 'Brasil', host: 'http://www.travian.com.br/', code: 'br')
-      FactoryGirl.create(:server, hubs: [br_hub])
-    end
-
-    it 'should return the portuguese servers when passed :pt' do
-      Server.find_by_hub(:pt).should == [@pt_server]
-    end
-
-    it 'the servers returned should not be read only' do
-      Server.find_by_hub(:pt).first.readonly?.should be false
-    end
-
-    after(:all) do
-      Hub.destroy_all
-      Server.destroy_all
-    end
-  end
-
   shared_context 'active and archived servers' do
     before(:all) do
       @active = FactoryGirl.create(:server)

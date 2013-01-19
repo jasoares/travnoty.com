@@ -1,5 +1,7 @@
 class Hub < ActiveRecord::Base
-  has_and_belongs_to_many :servers
+  has_many :mirrors, class_name: 'Hub', foreign_key: 'mirrors_hub_id'
+  belongs_to :main_hub, class_name: 'Hub', foreign_key: 'mirrors_hub_id'
+  has_many :servers
   attr_accessible :code, :host, :name, :language
 
   validates :name, presence: true
@@ -7,23 +9,23 @@ class Hub < ActiveRecord::Base
   validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{2,6}\Z/ }
   validates :language, presence: true, length: { minimum: 2 }
 
+  scope :mirrors, where('mirrors_hub_id IS NOT NULL')
+  scope :main_hubs, where('mirrors_hub_id IS NULL')
+
   def active_servers
-    Server.find_by_hub(code).active
+    servers.active
   end
 
-  def update_servers!
-    servers_found = []
-    Travian.hubs[code.to_sym].servers.map do |server|
-      record = Server.find_or_initialize_by_host(server.host)
-      if record.new_record?
-        record.hubs << self
-        record.update_attributes(server.attributes)
-      end
-      servers_found << record
-    end
-    (self.active_servers - servers_found).each do |s|
-      s.update_attributes(end_date: Date.today)
-    end
+  def archived_servers
+    servers.archived
   end
 
+  def mirror?
+    mirrors_hub_id ? true : false
+  end
+
+  alias_method :my_servers, :servers
+  def servers
+    mirror? ? main_hub.servers : my_servers
+  end
 end

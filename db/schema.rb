@@ -11,31 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231140829) do
+ActiveRecord::Schema.define(:version => 20121204041907) do
 
   create_table "hubs", :force => true do |t|
     t.string   "name"
     t.string   "host"
     t.string   "code"
     t.string   "language"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "mirrors_hub_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "hubs", ["code"], :name => "index_hubs_on_code", :unique => true
   add_index "hubs", ["host"], :name => "index_hubs_on_host", :unique => true
 
-  create_table "hubs_servers", :id => false, :force => true do |t|
-    t.integer "hub_id"
-    t.integer "server_id"
-  end
-
-  add_index "hubs_servers", ["hub_id", "server_id"], :name => "index_hubs_servers_on_hub_id_and_server_id", :unique => true
-
   create_table "servers", :force => true do |t|
     t.string   "name"
     t.string   "code"
     t.string   "host"
+    t.integer  "hub_id"
     t.integer  "speed"
     t.date     "start_date"
     t.date     "end_date"
@@ -45,6 +40,6 @@ ActiveRecord::Schema.define(:version => 20121231140829) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "servers", ["host"], :name => "index_servers_on_host", :unique => true
+  add_index "servers", ["end_date"], :name => "index_servers_on_end_date"
 
 end

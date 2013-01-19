@@ -9,8 +9,8 @@ class UpdateReporter < ActionMailer::Base
     mail to: ADMIN, subject: @subject
   end
 
-  def update_error(code, msg)
-    @hub = Hub.find_by_code(code)
+  def update_error(hub, msg)
+    @hub = hub
     @subject = "Error updating #{@hub.name}'s hub"
     @msg = msg
     mail to: ADMIN, subject: @subject

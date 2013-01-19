@@ -1,10 +1,15 @@
+require 'updater'
+
 namespace :update do
   desc 'Update database Travian servers for the passed hub code'
   task :servers, [:hub] => :environment do |t, args|
-    begin
-      Hub.find_by_code(args[:hub]).update_servers!
-    rescue Exception => msg
-      UpdateReporter.update_error(args[:hub], msg).deliver
+    if args[:hub].nil?
+      Updater.detect_finished_servers
+      Updater.detect_new_servers
+    else
+      hub = Hub.find_by_code(args[:hub])
+      Updater.detect_finished_servers_from(hub)
+      Updater.detect_new_servers_from(hub)
     end
   end
 

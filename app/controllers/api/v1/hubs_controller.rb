@@ -10,14 +10,14 @@ class Api::V1::HubsController < ApplicationController
   end
 
   def servers
-    respond_with Server.joins(:hubs).where('hubs_servers.hub_id = ?', params[:id])
+    respond_with Hub.find(params[:id]).servers
   end
 
   def active_servers
-    respond_with Server.joins(:hubs).active.where('hubs_servers.hub_id = ?', params[:id])
+    respond_with Hub.find(params[:id]).active_servers
   end
 
   def archived_servers
-    respond_with Server.joins(:hubs).archived.where('hubs_servers.hub_id = ?', params[:id])
+    respond_with Hub.find(params[:id]).archived_servers
   end
 end

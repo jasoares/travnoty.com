@@ -25,7 +25,7 @@ gem 'yaml_db', group: [:development, :test]
 
 group :development do
   gem 'guard'
-  gem 'rb-inotify', :require => false
+  gem 'rb-inotify', '~> 0.8.8', :require => false
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-cucumber'

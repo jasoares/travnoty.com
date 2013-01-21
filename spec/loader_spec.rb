@@ -47,4 +47,14 @@ describe Loader, online: true do
 
     after { Server.destroy_all }
   end
+
+  describe '.load_rounds', online: true do
+    fake 'www.travian.com'
+    before { FakeDb.load_snapshot 'hubs_detected_servers' }
+
+    it 'loads all server rounds into the database' do
+      FakeWeb.allow { expect { Loader.load_rounds }.to change { Round.count }.from(0).to(Server.count) }
+    end
+  end
+
 end

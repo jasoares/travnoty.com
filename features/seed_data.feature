@@ -9,3 +9,4 @@ Feature: Seed Data
     When I run the task `rake db:seed`
     Then I should have loaded the hubs
     And I should have loaded the servers
+    And I should have loaded the rounds

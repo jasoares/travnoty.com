@@ -7,4 +7,5 @@ Server.observers.disable :all do
   Loader.load_hubs
   Loader.detect_mirrors
   Loader.load_servers
+  Loader.load_rounds
 end

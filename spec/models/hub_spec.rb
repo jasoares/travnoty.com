@@ -76,23 +76,6 @@ describe Hub do
       end
     end
 
-    describe '#active_servers' do
-      before(:all) do
-        @active = FactoryGirl.create(:server, hub: hub, end_date: nil)
-        FactoryGirl.create(:server, hub: hub, end_date: 6.days.ago)
-        FactoryGirl.create(:server)
-      end
-
-      it 'should return only the active servers from this hub' do
-        hub.active_servers.should == [@active]
-      end
-
-      after(:all) do
-        Server.destroy_all
-        Hub.destroy_all
-      end
-    end
-
     describe '#servers' do
       context 'when called on a mirror' do
         before(:each) do

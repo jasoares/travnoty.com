@@ -11,9 +11,6 @@ FactoryGirl.define do
     sequence(:host) {|n| "http://ts#{n}.travian.pt/" }
     sequence(:code) {|n| "ts#{n}" }
     speed       1
-    start_date  180.days.ago.to_date
-    end_date    nil
-    version     '4.0'
     sequence(:world_id) {|n| "pt#{n}#{n}" }
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204041907) do
+ActiveRecord::Schema.define(:version => 20130121012452) do
 
   create_table "hubs", :force => true do |t|
     t.string   "name"
@@ -32,14 +32,9 @@ ActiveRecord::Schema.define(:version => 20121204041907) do
     t.string   "host"
     t.integer  "hub_id"
     t.integer  "speed"
-    t.date     "start_date"
-    t.date     "end_date"
-    t.string   "version"
     t.string   "world_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  add_index "servers", ["end_date"], :name => "index_servers_on_end_date"
 
 end

@@ -12,14 +12,6 @@ class Hub < ActiveRecord::Base
   scope :mirrors, where('mirrors_hub_id IS NOT NULL')
   scope :main_hubs, where('mirrors_hub_id IS NULL')
 
-  def active_servers
-    servers.active
-  end
-
-  def archived_servers
-    servers.archived
-  end
-
   def mirror?
     mirrors_hub_id ? true : false
   end

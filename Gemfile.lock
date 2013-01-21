@@ -1,7 +1,7 @@
 GIT
   remote: https://254485ce725581c10ab8df4133e7b24c01c784b8:x-oauth-basic@github.com/jasoares/travian.git
-  revision: b26c9b0874983b932e77d760e1e3fe2618358853
-  tag: v0.3.1
+  revision: 8e4c1b00d78df0843462c2d8171ef52ab783c361
+  tag: v0.3.2
   specs:
     travian (0.3.1)
       activesupport (~> 3.2.9)

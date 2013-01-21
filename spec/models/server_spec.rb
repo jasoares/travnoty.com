@@ -39,50 +39,9 @@ describe Server do
     end
   end
 
-  describe '#start_date' do
-    it 'is required' do
-      FactoryGirl.build(:server, start_date: nil).should have_at_least(1).error_on(:start_date)
-    end
-  end
-
-  describe '#version' do
-    it 'is required' do
-      FactoryGirl.build(:server, version: '').should have_at_least(1).error_on(:version)
-    end
-
-    it 'should be in format "\d.\d[.\d]"' do
-      FactoryGirl.build(:server, version: '12').should have_at_least(1).error_on(:version)
-    end
-  end
-
   describe '#world_id' do
     it 'is required' do
       FactoryGirl.build(:server, world_id: '').should have_at_least(1).error_on(:world_id)
-    end
-  end
-
-  shared_context 'active and archived servers' do
-    before(:all) do
-      @active = FactoryGirl.create(:server)
-      @archived = FactoryGirl.create(:server, end_date: 5.days.ago)
-    end
-
-    after(:all) do
-      Server.destroy_all
-    end
-  end
-
-  describe '.active' do
-    include_context 'active and archived servers'
-    it 'should return only serves with end_date equal to nil' do
-      Server.active.should == [@active]
-    end
-  end
-
-  describe '.archived' do
-    include_context 'active and archived servers'
-    it 'should return only servers with end_data different from nil' do
-      Server.archived.should == [@archived]
     end
   end
 end

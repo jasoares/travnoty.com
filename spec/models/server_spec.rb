@@ -7,6 +7,17 @@ describe Server do
     server.should be_valid
   end
 
+  describe '#round' do
+    before(:each) do
+      @round = FactoryGirl.build(:round)
+      server.rounds << @round
+    end
+
+    it 'returns the rounds of the server' do
+      server.rounds.should == [@round]
+    end
+  end
+
   describe '#host' do
     it 'is required' do
       FactoryGirl.build(:server, host: '').should have_at_least(1).error_on(:host)

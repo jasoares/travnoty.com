@@ -13,4 +13,10 @@ FactoryGirl.define do
     speed       1
     sequence(:world_id) {|n| "pt#{n}#{n}" }
   end
+
+  factory :round do
+    start_date   Date.new(2012,12,17).to_datetime
+    end_date     nil
+    version      '4.0'
+  end
 end

@@ -31,7 +31,7 @@ describe Loader, online: true do
 
     it_behaves_like 'a reporter'
 
-    after { Hub.destroy_all }
+    after(:all) { Hub.delete_all }
   end
 
   describe '.load_servers' do
@@ -45,7 +45,7 @@ describe Loader, online: true do
 
     it_behaves_like 'a reporter'
 
-    after { Server.destroy_all }
+    after(:all) { Hub.delete_all; Server.delete_all }
   end
 
   describe '.load_rounds', online: true do

@@ -22,7 +22,7 @@ describe Hub do
       it 'should be unique' do
         FactoryGirl.create(:hub, host: 'http://www.travian.net/')
         FactoryGirl.build(:hub, host: 'http://www.travian.NET/').should have_at_least(1).error_on(:host)
-        Hub.destroy_all
+        Hub.delete_all
       end
 
       it 'should require the protocol' do
@@ -50,7 +50,7 @@ describe Hub do
       it 'should be unique' do
         FactoryGirl.create(:hub, code: 'it')
         FactoryGirl.build(:hub, code: 'it').should have_at_least(1).error_on(:code)
-        Hub.destroy_all
+        Hub.delete_all
       end
 
       it 'should not accept codes with length smaller than 2' do
@@ -89,8 +89,8 @@ describe Hub do
         end
 
         after(:each) do
-          Hub.destroy_all
-          Server.destroy_all
+          Hub.delete_all
+          Server.delete_all
         end
       end
 
@@ -105,8 +105,8 @@ describe Hub do
         end
 
         after(:each) do
-          Hub.destroy_all
-          Server.destroy_all
+          Hub.delete_all
+          Server.delete_all
         end
       end
     end
@@ -120,10 +120,6 @@ describe Hub do
 
         it 'returns true' do
           @hub.mirror?.should be true
-        end
-
-        after(:each) do
-          Hub.destroy_all
         end
       end
 

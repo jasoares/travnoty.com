@@ -10,7 +10,7 @@ module Loader
   end
 
   def load_servers
-    Travian.hubs.each do |hub|
+    Travian.hubs(preload: :all).each do |hub|
       hub_record = Hub.find_by_code(hub.code)
       hub.servers.each do |server|
         record = Server.new(server.attributes)
@@ -22,7 +22,7 @@ module Loader
   end
 
   def detect_mirrors
-    Travian.hubs.each do |hub|
+    Travian.hubs(preload: :servers).each do |hub|
       record = Hub.find_by_code(hub.code)
       next unless record
       if hub.mirrored_hub
@@ -35,7 +35,7 @@ module Loader
   end
 
   def load_rounds
-    Travian.hubs.each do |hub|
+    Travian.hubs(preload: :all).each do |hub|
       next if hub.is_mirror?
       hub.servers.each do |server|
         server_record = Server.find_by_host(server.host)

@@ -3,19 +3,11 @@ require 'loader'
 
 describe Loader, online: true do
 
-  shared_examples_for 'a reporter', speed: :normal do
-    it 'does not raise an exception when hub connection fails' do
-      expect { procedure.call }.to_not raise_error
-    end
-  end
-
   describe '.load_hubs' do
     let(:procedure) { lambda { Loader.load_hubs } }
     it 'loads all hubs into the database', speed: :slow do
       FakeWeb.allow { expect { Loader.load_hubs }.to change{ Hub.count }.from(0).to(55) }
     end
-
-    it_behaves_like 'a reporter'
 
     after { Hub.destroy_all }
   end
@@ -29,8 +21,6 @@ describe Loader, online: true do
       FakeWeb.allow { expect { Loader.detect_mirrors }.to change{ Hub.where('mirrors_hub_id IS NOT NULL').count }.from(0).to(4) }
     end
 
-    it_behaves_like 'a reporter'
-
     after(:all) { Hub.delete_all }
   end
 
@@ -42,8 +32,6 @@ describe Loader, online: true do
     it 'loads all servers into the database', speed: :slow do
       FakeWeb.allow { expect { Loader.load_servers }.to change { Server.count }.from(0) }
     end
-
-    it_behaves_like 'a reporter'
 
     after(:all) { Hub.delete_all; Server.delete_all }
   end

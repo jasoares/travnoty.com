@@ -15,7 +15,7 @@ module Loader
       hub.servers.each do |server|
         record = Server.new(server.attributes)
         hub_record.servers << record
-      end if hub_record && !hub.is_mirror?
+      end if hub_record && !hub.mirror?
     end
   rescue Travian::ConnectionTimeout => msg
     puts "Could not connect to hub/server (#{msg})"
@@ -36,7 +36,7 @@ module Loader
 
   def load_rounds
     Travian.hubs(preload: :all).each do |hub|
-      next if hub.is_mirror?
+      next if hub.mirror?
       hub.servers.each do |server|
         server_record = Server.find_by_host(server.host)
         next unless server_record

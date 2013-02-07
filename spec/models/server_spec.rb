@@ -23,20 +23,26 @@ describe Server do
       FactoryGirl.build(:server, host: '').should have_at_least(1).error_on(:host)
     end
 
-    it 'should require the protocol' do
-      FactoryGirl.build(:server, host: 'www.travian.com.br').should have_at_least(1).error_on(:host)
+    it 'should be unique' do
+      FactoryGirl.create(:hub, host: 'ts1.travian.net')
+      FactoryGirl.build(:hub, host: 'ts1.travian.net').should have_at_least(1).error_on(:host)
+      Hub.delete_all
     end
 
-    it 'should be of the form "http://x.travian.x[.x]"' do
-      FactoryGirl.build(:server, host: 'http://www.travnoty.com/').should have_at_least(1).error_on(:host)
+    it 'should not accept the protocol' do
+      FactoryGirl.build(:server, host: 'http://ts1.travian.com.br').should have_at_least(1).error_on(:host)
     end
 
-    it 'requires the last backslash' do
-      FactoryGirl.build(:server, host: 'http://www.travian.com')
+    it 'should be of the form "\w+.travian.\w+(?:\.\w+)?"' do
+      FactoryGirl.build(:server, host: 'ts3.travnoty.com').should have_at_least(1).error_on(:host)
     end
 
-    it 'accepts a valid uri' do
-      FactoryGirl.build(:server, host: 'http://www.travian.com.br/').should be_valid
+    it 'should not have neither the path or the last backslash' do
+      FactoryGirl.build(:server, host: 'ts1.travian.com/').should have_at_least(1).error_on(:host)
+    end
+
+    it 'accepts a valid host' do
+      FactoryGirl.build(:hub, host: 'tx4.travian.com.br').should be_valid
     end
   end
 

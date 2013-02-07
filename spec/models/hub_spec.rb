@@ -20,25 +20,25 @@ describe Hub do
       end
 
       it 'should be unique' do
-        FactoryGirl.create(:hub, host: 'http://www.travian.net/')
-        FactoryGirl.build(:hub, host: 'http://www.travian.NET/').should have_at_least(1).error_on(:host)
+        FactoryGirl.create(:hub, host: 'www.travian.net')
+        FactoryGirl.build(:hub, host: 'www.travian.net').should have_at_least(1).error_on(:host)
         Hub.delete_all
       end
 
-      it 'should require the protocol' do
-        FactoryGirl.build(:hub, host: 'www.travian.com.br').should have_at_least(1).error_on(:host)
+      it 'should not accept a host with the protocol' do
+        FactoryGirl.build(:hub, host: 'http://www.travian.com.br').should have_at_least(1).error_on(:host)
       end
 
-      it 'should be of the form "http://x.travian.x[.x]"' do
-        FactoryGirl.build(:hub, host: 'http://www.travnoty.com/').should have_at_least(1).error_on(:host)
+      it 'should be of the form "\w+.travian.\w+(?:\.\w+)?"' do
+        FactoryGirl.build(:hub, host: 'www.travnoty.com').should have_at_least(1).error_on(:host)
       end
 
-      it 'requires the last backslash' do
-        FactoryGirl.build(:hub, host: 'http://www.travian.com').should have_at_least(1).error_on(:host)
+      it 'should not accept a host with the last backslash' do
+        FactoryGirl.build(:hub, host: 'www.travian.com/').should have_at_least(1).error_on(:host)
       end
 
-      it 'accepts a valid uri' do
-        FactoryGirl.build(:hub, host: 'http://www.travian.com.br/').should be_valid
+      it 'accepts a valid host' do
+        FactoryGirl.build(:hub, host: 'www.travian.com.br').should be_valid
       end
     end
 

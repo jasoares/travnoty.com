@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'httparty'
 gem 'nokogiri'
-gem 'travian', git: 'https://254485ce725581c10ab8df4133e7b24c01c784b8:x-oauth-basic@github.com/jasoares/travian.git', tag: 'v0.7.0'
+gem 'travian', git: 'https://254485ce725581c10ab8df4133e7b24c01c784b8:x-oauth-basic@github.com/jasoares/travian.git', tag: 'v0.7.1'
 gem 'rspec-rails', '~> 2.0', group: [:development, :test]
 gem 'yaml_db', group: [:development, :test]
 

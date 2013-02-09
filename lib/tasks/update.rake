@@ -1,23 +1,12 @@
 require 'updater'
 
 namespace :update do
-  desc 'Update database Travian servers for the passed hub code'
-  task :servers, [:hub] => :environment do |t, args|
-    if args[:hub].nil?
-      Updater.detect_finished_servers
-      Updater.detect_new_servers
-    else
-      hub = Hub.find_by_code(args[:hub])
-      Updater.detect_finished_servers_from(hub)
-      Updater.detect_new_servers_from(hub)
-    end
-  end
-
-  desc 'Update all database Travian servers'
-  task :hubs => :environment do
-    Hub.all.each do |hub|
-      Rake::Task['update:servers'].invoke(hub.code)
-      Rake::Task['update:servers'].reenable
-    end
+  desc 'Update servers and rounds from Travian'
+  task :servers => :environment do
+    Updater.detect_new_servers
+    Updater.detect_ended_rounds
+    Updater.detect_new_rounds
+    Updater.detect_first_server_round
+    Updater.check_for_missing_running_rounds
   end
 end

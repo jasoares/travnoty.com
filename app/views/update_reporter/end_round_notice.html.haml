@@ -1,0 +1,22 @@
+%h3= "The current round of #{@server.host} ended today"
+
+%h4= raw "Server: #{link_to @server.host, @server.url}"
+%table
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Host
+      %th Speed
+      %th World ID
+      %th Started
+      %th Ended
+  %tbody
+    %tr
+      %td= @server.name
+      %td= @server.code
+      %td= link_to @server.host, @server.url
+      %td= @server.speed
+      %td= @server.world_id
+      %td= l @round.start_date
+      %td= l @round.end_date

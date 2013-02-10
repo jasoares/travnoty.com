@@ -10,4 +10,17 @@ class UpdateReporter < ActionMailer::Base
     mail to: ADMIN, subject: @subject
   end
 
+  def start_round_notice(round)
+    @round = round
+    @server = round.server
+    @subject = "#{@round.server.host} is starting a new round on #{I18n.l round.start_date}"
+    mail to: ADMIN, subject: @subject
+  end
+
+  def end_round_notice(round)
+    @round = round
+    @server = round.server
+    @subject = "#{@round.server.host}'s round just ended today"
+    mail to: ADMIN, subject: @subject
+  end
 end

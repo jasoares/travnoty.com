@@ -52,6 +52,7 @@ describe Round do
   end
 
   describe '.latest' do
+    before(:all) { Round.observers.disable :all }
     it 'returns the first round when ordered by start_date' do
       current_round = FactoryGirl.create(:round, start_date: DateTime.new(2012,12,8))
       old_round = FactoryGirl.create(:round, start_date: DateTime.new(2011,12,25), end_date: DateTime.new(2012,11,2))
@@ -59,5 +60,6 @@ describe Round do
     end
 
     after(:each) { Round.delete_all }
+    after(:all) { Round.observers.enable :all }
   end
 end

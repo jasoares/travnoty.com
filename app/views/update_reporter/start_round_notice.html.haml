@@ -1,0 +1,18 @@
+%h3= "A new round of #{@round.server.host} is starting on #{ l @round.start_date}"
+
+%h4 Server
+%table
+  %thead
+    %tr
+      %th Name
+      %th Code
+      %th Host
+      %th Speed
+      %th World ID
+  %tbody
+    %tr
+      %td= @round.server.name
+      %td= @round.server.code
+      %td= @round.server.host
+      %td= @round.server.speed
+      %td= @round.server.world_id

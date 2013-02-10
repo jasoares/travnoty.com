@@ -1,6 +1,6 @@
-%h3= "A new round of #{@round.server.host} is starting on #{ l @round.start_date}"
+%h3= "A new round of #{@server.host} is starting on #{l @round.start_date}"
 
-%h4 Server
+%h4= raw "Server: #{link_to @server.host, @server.url}"
 %table
   %thead
     %tr
@@ -11,8 +11,8 @@
       %th World ID
   %tbody
     %tr
-      %td= @round.server.name
-      %td= @round.server.code
-      %td= @round.server.host
-      %td= @round.server.speed
-      %td= @round.server.world_id
+      %td= @server.name
+      %td= @server.code
+      %td= @server.host
+      %td= @server.speed
+      %td= @server.world_id

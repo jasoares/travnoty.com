@@ -5,8 +5,6 @@ class Round < ActiveRecord::Base
   validates :start_date, presence: true
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
-  scope :by_server, lambda {|server| { conditions: { server_id: server.id } } }
-
   def running?
     end_date.nil? && !restarting?
   end

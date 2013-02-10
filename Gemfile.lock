@@ -1,5 +1,5 @@
 GIT
-  remote: https://:x-oauth-basic@github.com/jasoares/travian.git
+  remote: git@github.com:jasoares/travian.git
   revision: 6a8e15249bf31f3245f7373dc24129369de2d268
   tag: v0.7.1
   specs:

@@ -1,5 +1,5 @@
 class UpdateReporter < ActionMailer::Base
-  default from: "jsoaresgeral@gmail.com"
+  default from: "internal@travnoty.com"
 
   ADMIN = 'jsoaresgeral@gmail.com'
 

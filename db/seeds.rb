@@ -3,7 +3,7 @@
 
 require 'loader'
 
-Server.observers.disable :all do
+Round.observers.disable :all do
   Loader.load_hubs
   Loader.load_servers
   Loader.load_rounds

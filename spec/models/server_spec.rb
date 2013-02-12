@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Server do
   let(:server) { FactoryGirl.build(:server) }
-  let(:ended_round) { FactoryGirl.build(:round, start_date: DateTime.new(2012,1,8), end_date: DateTime.new(2012,12,7)) }
-  let(:archived_round) { FactoryGirl.build(:round, start_date: DateTime.new(2010,12,2), end_date: DateTime.new(2011,12,22)) }
-  let(:running_round) { FactoryGirl.build(:round) }
-  let(:restarting_round) { FactoryGirl.build(:round, start_date: DateTime.new(2013,2,12)) }
+  let(:ended_round) { FactoryGirl.build(:ended_round) }
+  let(:archived_round) { FactoryGirl.build(:archived_round) }
+  let(:running_round) { FactoryGirl.build(:running_round) }
+  let(:restarting_round) { FactoryGirl.build(:restarting_round) }
 
   it 'should be valid' do
     server.should be_valid

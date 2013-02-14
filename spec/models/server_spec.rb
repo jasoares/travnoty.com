@@ -13,6 +13,11 @@ describe Server do
       expect(build(:server, host: 'ts1.travian.net').errors_on(:host)).to include("has already been taken")
     end
 
+    it 'should be case insensitive on uniqueness validation' do
+      create(:server, host: 'ts1.travian.net')
+      expect(build(:server, host: 'ts1.TRAVIAN.net').errors_on(:host)).to include("has already been taken")
+    end
+
     it 'should not accept the protocol' do
       expect(build(:server, host: 'http://ts1.travian.com.br').errors_on(:host)).to include("is not a valid travian host")
     end

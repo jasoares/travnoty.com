@@ -3,18 +3,6 @@ require 'spec_helper'
 describe Server do
   it { build_stubbed(:server).should be_valid }
 
-  describe '#current_round' do
-    it 'returns the current running round when there is one' do
-      create(:server_with_rounds).current_round.should_not be_ended
-    end
-
-    it 'returns the last ended round when there are no running rounds' do
-      server = create(:server, :with_ended_rounds)
-      round = server.rounds.max {|r1,r2| r1.start_date <=> r2.start_date }
-      server.current_round.should == round
-    end
-  end
-
   describe '#host' do
     it 'is required' do
       expect(build(:server, host: '').errors_on(:host)).to include("can't be blank")
@@ -39,6 +27,13 @@ describe Server do
 
     it 'accepts a valid host' do
       expect(build(:server, host: 'tx4.travian.com.br')).to be_valid
+    end
+  end
+
+  describe '#rounds' do
+    it 'should return a list of rounds ordered by start date from newer to older' do
+      server = create(:server_with_rounds)
+      server.rounds.each_slice(2).all? { |r1,r2| r1.start_date > r2.start_date }.should be true
     end
   end
 

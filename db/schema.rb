@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121034414) do
+ActiveRecord::Schema.define(:version => 20130214142208) do
 
   create_table "hubs", :force => true do |t|
     t.string   "name"
     t.string   "host"
     t.string   "code"
     t.string   "language"
-    t.integer  "mirrors_hub_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.integer  "main_hub_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "hubs", ["code"], :name => "index_hubs_on_code", :unique => true

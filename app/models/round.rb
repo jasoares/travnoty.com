@@ -3,7 +3,8 @@ class Round < ActiveRecord::Base
   attr_accessible :end_date, :start_date, :version
 
   validates :start_date, presence: true
-  validates :end_date, date_coherence: true
+  validates :start_date, uniqueness: { scope: :server_id }
+  validates :end_date, date_coherence: true, uniqueness: { scope: :server_id }
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
   def self.running

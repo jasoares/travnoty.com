@@ -39,6 +39,18 @@ describe Round do
     it 'is required' do
       build(:round).should have_at_least(1).error_on(:start_date)
     end
+
+    it 'should be older than the end date when there is one' do
+      round = build(:round, start_date: 300.days.ago.to_datetime, end_date: 1.year.ago.to_datetime)
+      expect(round.errors_on(:start_date)).to include('must be before the end date')
+    end
+  end
+
+  describe '#end_date' do
+    it 'should be newer than start_date when provided' do
+      round = build(:round, start_date: 300.days.ago.to_datetime, end_date: 1.year.ago.to_datetime)
+      expect(round.errors_on(:end_date)).to include('must be after the start date')
+    end
   end
 
   describe '#version' do

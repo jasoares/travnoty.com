@@ -3,6 +3,7 @@ class Round < ActiveRecord::Base
   attr_accessible :end_date, :start_date, :version
 
   validates :start_date, presence: true
+  validates :end_date, date_coherence: true
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
   def self.running

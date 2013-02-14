@@ -50,6 +50,10 @@ describe Server do
     it 'should be an integer' do
       build(:server, speed: 'x3').should have_at_least(1).error_on(:speed)
     end
+
+    it 'should not accept a speed of 0' do
+      build(:server, speed: 0).should have_at_least(1).error_on(:speed)
+    end
   end
 
   describe '#url' do

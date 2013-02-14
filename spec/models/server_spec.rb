@@ -1,110 +1,60 @@
 require 'spec_helper'
 
 describe Server do
-  let(:server) { FactoryGirl.build(:server) }
-  let(:ended_round) { FactoryGirl.build(:ended_round) }
-  let(:archived_round) { FactoryGirl.build(:archived_round) }
-  let(:running_round) { FactoryGirl.build(:running_round) }
-  let(:restarting_round) { FactoryGirl.build(:restarting_round) }
-
-  it 'should be valid' do
-    server.should be_valid
-  end
+  it { build_stubbed(:server).should be_valid }
 
   describe '#current_round' do
-    before(:all) { Timecop.freeze(Time.new(2013,2,8)) }
-
-    context 'given a server with an ended and a running round' do
-      before(:each) do
-        server.rounds += [ended_round, running_round]
-        server.save
-      end
-
-      it 'returns the current not ended round' do
-        server.current_round.should == running_round
-      end
-
-      after(:each) { Server.delete_all }
+    it 'returns the current running round when there is one' do
+      create(:server_with_rounds).current_round.should_not be_ended
     end
 
-    context 'given there is no running round' do
-      before(:each) do
-        server.rounds += [ended_round, archived_round]
-        server.save
-      end
-
-      it 'returns the last ended round' do
-        server.current_round.should == ended_round
-      end
-
-      after(:each) { Server.delete_all }
-    end
-
-    after(:all) { Timecop.return }
-  end
-
-  describe '#running?' do
-    it 'calls #running? on the current_round return value' do
-      round = double('Round')
-      round.should_receive(:running?).and_return(true)
-      server.should_receive(:current_round).and_return(round)
-      server.running?
-    end
-  end
-
-  describe '#ended?' do
-    it 'calls #ended? on the current_round return value' do
-      round = double('Round')
-      round.should_receive(:ended?).and_return(true)
-      server.should_receive(:current_round).and_return(round)
-      server.ended?
-    end
-  end
-
-  describe '#restarting?' do
-    it 'calls #restarting? on the current_round return value' do
-      round = double('Round')
-      round.should_receive(:restarting?).and_return(true)
-      server.should_receive(:current_round).and_return(round)
-      server.restarting?
+    it 'returns the last ended round when there are no running rounds' do
+      server = create(:server, :with_ended_rounds)
+      round = server.rounds.max {|r1,r2| r1.start_date <=> r2.start_date }
+      server.current_round.should == round
     end
   end
 
   describe '#host' do
     it 'is required' do
-      FactoryGirl.build(:server, host: '').should have_at_least(1).error_on(:host)
+      expect(build(:server, host: '').errors_on(:host)).to include("can't be blank")
     end
 
     it 'should be unique' do
-      FactoryGirl.create(:hub, host: 'ts1.travian.net')
-      FactoryGirl.build(:hub, host: 'ts1.travian.net').should have_at_least(1).error_on(:host)
-      Hub.delete_all
+      create(:server, host: 'ts1.travian.net')
+      expect(build(:server, host: 'ts1.travian.net').errors_on(:host)).to include("has already been taken")
     end
 
     it 'should not accept the protocol' do
-      FactoryGirl.build(:server, host: 'http://ts1.travian.com.br').should have_at_least(1).error_on(:host)
+      expect(build(:server, host: 'http://ts1.travian.com.br').errors_on(:host)).to include("is not a valid travian host")
     end
 
     it 'should be of the form "\w+.travian.\w+(?:\.\w+)?"' do
-      FactoryGirl.build(:server, host: 'ts3.travnoty.com').should have_at_least(1).error_on(:host)
+      expect(build(:server, host: 'ts3.travnoty.com').errors_on(:host)).to include("is not a valid travian host")
     end
 
     it 'should not have neither the path or the last backslash' do
-      FactoryGirl.build(:server, host: 'ts1.travian.com/').should have_at_least(1).error_on(:host)
+      expect(build(:server, host: 'ts1.travian.com/').errors_on(:host)).to include("is not a valid travian host")
     end
 
     it 'accepts a valid host' do
-      FactoryGirl.build(:hub, host: 'tx4.travian.com.br').should be_valid
+      expect(build(:server, host: 'tx4.travian.com.br')).to be_valid
     end
   end
 
   describe '#speed' do
     it 'is required' do
-      FactoryGirl.build(:server, speed: nil).should have_at_least(1).error_on(:speed)
+      build(:server, speed: nil).should have_at_least(1).error_on(:speed)
     end
 
     it 'should be an integer' do
-      FactoryGirl.build(:server, speed: 'x3').should have_at_least(1).error_on(:speed)
+      build(:server, speed: 'x3').should have_at_least(1).error_on(:speed)
+    end
+  end
+
+  describe '#url' do
+    it 'returns the host prefixed with the protocol "http://"' do
+      build_stubbed(:server, host: 'ts1.travian.com').url.should == "http://ts1.travian.com"
     end
   end
 end

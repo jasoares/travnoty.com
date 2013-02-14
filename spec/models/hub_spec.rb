@@ -1,137 +1,115 @@
 require 'spec_helper'
 
 describe Hub do
-  context 'given a sample hub record' do
-    let(:hub) { FactoryGirl.build(:hub) }
+  it 'should be valid' do
+    build(:hub).should be_valid
+  end
 
-    it 'should be valid' do
-      hub.should be_valid
+  describe '#name' do
+    it 'is required' do
+      build(:hub, name: '').should have_at_least(1).error_on(:name)
+    end
+  end
+
+  describe '#host' do
+    it 'is required' do
+      build(:hub, host: '').should have_at_least(1).error_on(:host)
     end
 
-    describe '#name' do
-      it 'is required' do
-        FactoryGirl.build(:hub, name: '').should have_at_least(1).error_on(:name)
-      end
+    it 'should be unique' do
+      create(:hub, host: 'www.travian.net')
+      build(:hub, host: 'www.travian.net').should have_at_least(1).error_on(:host)
     end
 
-    describe '#host' do
-      it 'is required' do
-        FactoryGirl.build(:hub, host: '').should have_at_least(1).error_on(:host)
-      end
-
-      it 'should be unique' do
-        FactoryGirl.create(:hub, host: 'www.travian.net')
-        FactoryGirl.build(:hub, host: 'www.travian.net').should have_at_least(1).error_on(:host)
-        Hub.delete_all
-      end
-
-      it 'should not accept a host with the protocol' do
-        FactoryGirl.build(:hub, host: 'http://www.travian.com.br').should have_at_least(1).error_on(:host)
-      end
-
-      it 'should be of the form "\w+.travian.\w+(?:\.\w+)?"' do
-        FactoryGirl.build(:hub, host: 'www.travnoty.com').should have_at_least(1).error_on(:host)
-      end
-
-      it 'should not accept a host with the last backslash' do
-        FactoryGirl.build(:hub, host: 'www.travian.com/').should have_at_least(1).error_on(:host)
-      end
-
-      it 'accepts a valid host' do
-        FactoryGirl.build(:hub, host: 'www.travian.com.br').should be_valid
-      end
+    it 'should be unique regardless of case' do
+      create(:hub, host: 'www.travian.NET')
+      build(:hub, host: 'www.travian.net').should have_at_least(1).error_on(:host)
     end
 
-    describe '#code' do
-      it 'is required' do
-        FactoryGirl.build(:hub, code: '').should have_at_least(1).error_on(:code)
-      end
-
-      it 'should be unique' do
-        FactoryGirl.create(:hub, code: 'it')
-        FactoryGirl.build(:hub, code: 'it').should have_at_least(1).error_on(:code)
-        Hub.delete_all
-      end
-
-      it 'should not accept codes with length smaller than 2' do
-        FactoryGirl.build(:hub, code: 'P').should have_at_least(1).error_on(:code)
-      end
-
-      it 'should not accept numbers' do
-        FactoryGirl.build(:hub, code: 'W3').should have_at_least(1).error_on(:code)
-      end
-
-      it 'should accept up to 6 letters for bigger codes like "arabia"' do
-        FactoryGirl.build(:hub, code: 'arabia').should be_valid
-      end
+    it 'should not accept a host with the protocol' do
+      build(:hub, host: 'http://www.travian.com.br').should have_at_least(1).error_on(:host)
     end
 
-    describe '#language' do
-      it 'is required' do
-        FactoryGirl.build(:hub, language: '').should have_at_least(1).error_on(:language)
-      end
-
-      it 'should not accept a language with length smaller than 2' do
-        FactoryGirl.build(:hub, language: 'p').should have_at_least(1).error_on(:language)
-      end
+    it 'should be of the form "\w+.travian.\w+(?:\.\w+)?"' do
+      build(:hub, host: 'www.travnoty.com').should have_at_least(1).error_on(:host)
     end
 
-    describe '#servers' do
-      context 'when called on a mirror' do
-        before(:each) do
-          @main_hub = FactoryGirl.create(:hub)
-          @main_hub.servers << FactoryGirl.build(:server)
-          @hub = FactoryGirl.build(:hub, mirrors_hub_id: @main_hub.id)
-        end
+    it 'should not accept a host with the last backslash' do
+      build(:hub, host: 'www.travian.com/').should have_at_least(1).error_on(:host)
+    end
 
-        it 'returns the server list of it\'s main hub' do
-          @hub.servers.should == @main_hub.servers
-        end
+    it 'accepts a valid host' do
+      build(:hub, host: 'www.travian.com.br').should be_valid
+    end
+  end
 
-        after(:each) do
-          Hub.delete_all
-          Server.delete_all
-        end
+  describe '#code' do
+    it 'is required' do
+      build(:hub, code: '').should have_at_least(1).error_on(:code)
+    end
+
+    it 'should be unique' do
+      create(:hub, code: 'it')
+      build(:hub, code: 'it').should have_at_least(1).error_on(:code)
+    end
+
+    it 'should not accept codes with length smaller than 2' do
+      build(:hub, code: 'P').should have_at_least(1).error_on(:code)
+    end
+
+    it 'should not accept numbers' do
+      build(:hub, code: 'W3').should have_at_least(1).error_on(:code)
+    end
+
+    it 'should accept up to 6 letters for bigger codes like "arabia"' do
+      build(:hub, code: 'arabia').should be_valid
+    end
+  end
+
+  describe '#language' do
+    it 'is required' do
+      build(:hub, language: '').should have_at_least(1).error_on(:language)
+    end
+
+    it 'should not accept a language with length smaller than 2' do
+      build(:hub, language: 'p').should have_at_least(1).error_on(:language)
+    end
+  end
+
+  describe '#servers' do
+    context 'when called on a mirror' do
+      before(:each) do
+        @main_hub = create(:hub)
+        @main_hub.servers << build(:server)
+        @hub = build(:hub, mirrors_hub_id: @main_hub.id)
       end
 
-      context 'when called on a main hub' do
-        before(:each) do
-          @main_hub = FactoryGirl.create(:hub)
-          @main_hub.servers << FactoryGirl.build(:server)
-        end
-
-        it 'returns it\'s server list' do
-          Hub.first.servers.should == @main_hub.servers
-        end
-
-        after(:each) do
-          Hub.delete_all
-          Server.delete_all
-        end
+      it 'returns the server list of it\'s main hub' do
+        @hub.servers.should == @main_hub.servers
       end
     end
 
-    describe '#mirror?' do
-      context 'when called on a mirror hub' do
-        before(:each) do
-          @main_hub = FactoryGirl.create(:hub)
-          @hub = FactoryGirl.build(:hub, mirrors_hub_id: @main_hub.id)
-        end
-
-        it 'returns true' do
-          @hub.mirror?.should be true
-        end
+    context 'when called on a main hub' do
+      before(:each) do
+        @main_hub = create(:hub)
+        @main_hub.servers << build(:server)
       end
 
-      context 'when called on a main hub' do
-        before(:each) do
-          @hub = FactoryGirl.build(:hub, mirrors_hub_id: nil)
-        end
-
-        it 'returns false' do
-          @hub.mirror?.should be false
-        end
+      it 'returns it\'s server list' do
+        Hub.first.servers.should == @main_hub.servers
       end
+    end
+  end
+
+  describe '#mirror?' do
+    after(:each) { Hub.delete_all }
+
+    it 'returns true when called on a mirror hub' do
+      create(:mirror_hub).mirror?.should be true
+    end
+
+    it 'returns false when called on a main hub' do
+      build(:main_hub).mirror?.should be false
     end
   end
 end

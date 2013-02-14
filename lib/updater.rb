@@ -20,14 +20,17 @@ module Updater
     Round.includes(:server).ended.each do |round|
       server_record = round.server
       server = Travian::Server(round.server)
-      server_record.rounds << Round.new(start_date: server.restart_date) if server.restarting?
+      round = Round.new(start_date: server.restart_date, version: server.version)
+      server_record.rounds << round if server.restarting?
     end
   end
 
   def detect_first_server_round
     Server.without_rounds.each do |server_record|
       server = Travian::Server(server_record)
-      server_record.rounds << Round.new(start_date: server.restart_date) if server.restarting?
+      round = Round.new(start_date: server.restart_date, version: server.version)
+      log "Detected a new round restarting on #{round.start_date}, version #{round.version}"
+      server_record.rounds << round if server.restarting?
     end
   end
 
@@ -39,5 +42,11 @@ module Updater
       next if server_record.host == 'ts2.travian.ph'
       raise StandardError, "This should not have happened #{server.host}"
     end
+  end
+
+  private
+
+  def log(message)
+    Rails.logger.info "[TravianUpdater:#{Time.now}] #{message}"
   end
 end

@@ -20,7 +20,7 @@ class Round < ActiveRecord::Base
   class << self
 
     def latest
-      order('start_date DESC').first
+      order('start_date desc').first
     end
 
     def running

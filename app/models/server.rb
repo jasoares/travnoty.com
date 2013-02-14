@@ -25,27 +25,4 @@ class Server < ActiveRecord::Base
   def url
     "http://#{host}"
   end
-
-  module Scopes
-    def ended
-      without_rounds + Round.includes(:server).ended.map(&:server)
-    end
-
-    def restarting
-      Round.includes(:server).restarting.map(&:server)
-    end
-
-    def running
-      Round.includes(:server).running.map(&:server)
-    end
-
-    def without_rounds
-      includes(:rounds).where('rounds.id is null')
-    end
-
-    def classic
-      where('host LIKE ?', 'tc%')
-    end
-  end
-  extend Scopes
 end

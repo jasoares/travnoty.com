@@ -9,8 +9,13 @@ class Hub < ActiveRecord::Base
   validates :code, length: { minimum: 2 }, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]{2,6}\Z/ }
   validates :language, presence: true, length: { minimum: 2 }
 
-  scope :mirrors, where('mirrors_hub_id IS NOT NULL')
-  scope :main_hubs, where('mirrors_hub_id IS NULL')
+  def self.mirrors
+    where('mirrors_hub_id is not null')
+  end
+
+  def self.main_hubs
+    where('mirrors_hub_id is null')
+  end
 
   def mirror?
     mirrors_hub_id ? true : false

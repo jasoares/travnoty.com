@@ -5,6 +5,18 @@ class Round < ActiveRecord::Base
   validates :start_date, presence: true
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
+  def self.running
+    where('end_date is null AND start_date < ?', Time.now.utc)
+  end
+
+  def self.restarting
+    where('start_date > ?', Time.now.utc)
+  end
+
+  def self.ended
+    select('rounds.server_id').group('rounds.server_id').having('every(rounds.end_date is not null)')
+  end
+
   def running?
     end_date.nil? && !restarting?
   end
@@ -15,25 +27,5 @@ class Round < ActiveRecord::Base
 
   def restarting?
     start_date > Time.now.utc
-  end
-
-  class << self
-
-    def latest
-      order('start_date desc').first
-    end
-
-    def running
-      where('end_date is null AND start_date < ?', Time.now.utc)
-    end
-
-    def restarting
-      where('start_date > ?', Time.now.utc)
-    end
-
-    def ended
-      select('rounds.server_id').group('rounds.server_id').having('every(rounds.end_date is not null)')
-    end
-
   end
 end

@@ -51,14 +51,6 @@ describe Round do
     end
   end
 
-  describe '.latest' do
-    it 'returns the first round when ordered by start_date' do
-      current_round = create(:running_round)
-      create(:ended_round)
-      Round.latest.should == current_round
-    end
-  end
-
   describe '.ended' do
     let(:server) { create(:server) }
 

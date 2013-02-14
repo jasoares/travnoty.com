@@ -69,7 +69,7 @@ FactoryGirl.define do
     host                { "www.travian.#{code}" }
     sequence(:language) { |n| hub_codes.values[n][:language] }
 
-    factory :hub_with_mirrors do
+    trait :with_mirrors do
       ignore do
         mirrors_count 2
       end
@@ -81,6 +81,13 @@ FactoryGirl.define do
 
     factory :mirror_hub do
       main_hub
+    end
+
+    trait :with_servers do
+      after(:create) do |hub|
+        main_hub = hub.mirror? ? hub.main_hub : hub
+        FactoryGirl.create_list(:server, 3, :hub => main_hub)
+      end
     end
   end
 end

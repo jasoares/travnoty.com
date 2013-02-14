@@ -78,25 +78,17 @@ describe Hub do
 
   describe '#servers' do
     context 'when called on a mirror' do
-      before(:each) do
-        @main_hub = create(:hub)
-        @main_hub.servers << build(:server)
-        @hub = build(:hub, mirrors_hub_id: @main_hub.id)
-      end
-
       it 'returns the server list of it\'s main hub' do
-        @hub.servers.should == @main_hub.servers
+        mirror = create(:mirror_hub, :with_servers)
+        mirror.servers.should == mirror.main_hub.servers
       end
     end
 
     context 'when called on a main hub' do
-      before(:each) do
-        @main_hub = create(:hub)
-        @main_hub.servers << build(:server)
-      end
-
-      it 'returns it\'s server list' do
-        Hub.first.servers.should == @main_hub.servers
+      it 'calls the default relation method' do
+        main_hub = stub_model(Hub)
+        main_hub.should_receive(:my_servers)
+        main_hub.servers
       end
     end
   end

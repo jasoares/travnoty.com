@@ -33,7 +33,8 @@ FactoryGirl.define do
 
       after(:create) do |server, eval|
         FactoryGirl.create(:running_round, :server => server)
-        FactoryGirl.create_list(:ended_round, eval.rounds_count - 1, :server => server)
+        rounds = FactoryGirl.build_list(:ended_round, eval.rounds_count - 1)
+        rounds.reverse.each { |round| server.rounds << round }
       end
     end
 
@@ -55,7 +56,8 @@ FactoryGirl.define do
       end
 
       after(:create) do |server, eval|
-        FactoryGirl.create_list(:ended_round, eval.rounds_count, :server => server)
+        rounds = FactoryGirl.build_list(:ended_round, eval.rounds_count)
+        rounds.reverse.each { |round| server.rounds << round }
       end
     end
   end

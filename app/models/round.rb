@@ -2,9 +2,9 @@ class Round < ActiveRecord::Base
   belongs_to :server
   attr_accessible :end_date, :start_date, :version
 
-  validates :start_date, presence: true
-  validates :start_date, uniqueness: { scope: :server_id }
   validates :server_id, presence: true
+  validates :start_date, presence: true, uniqueness: { scope: :server_id }
+  validates :start_date, cross_rounds_date_coherence: true
   validates :end_date, date_coherence: true, uniqueness: { scope: :server_id }
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
@@ -17,9 +17,16 @@ class Round < ActiveRecord::Base
   end
 
   def self.ended
-    select('server_id').
-    group('server_id').
-    having('every(end_date is not null)')
+    select('rounds.server_id').
+    group('rounds.server_id').
+    having('every(rounds.end_date is not null)')
+  end
+
+  def self.last_end_date_by(server)
+    round = select('MAX(end_date) AS end_date').
+      where(:server_id => server.id).
+      group(:server_id).first
+    round and round.end_date
   end
 
   def running?

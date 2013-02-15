@@ -87,18 +87,6 @@ describe Round do
     end
   end
 
-  describe '.ended' do
-    it 'returns a Round with its server id when all rounds end_date is set' do
-      server = create(:server, :with_ended_rounds)
-      Round.ended.first.server_id.should == server.id
-    end
-
-    it 'returns no round with server id when at least one round is not ended' do
-      create(:server_with_rounds)
-      Round.ended.should == []
-    end
-  end
-
   describe '.restarting' do
     it 'returns the rounds with start_date in the future' do
       server = create(:server, :with_restarting_round, :with_ended_rounds)
@@ -110,6 +98,34 @@ describe Round do
     it 'returns all rounds which start_date is in the past and end_date is null' do
       server = create(:server, :with_running_round, :with_ended_rounds)
       Round.running.should == [server.rounds.first]
+    end
+  end
+
+  describe '.last_end_date_by' do
+    context 'given a server with only ended rounds' do
+      let(:server) { create(:server, :with_ended_rounds) }
+
+      it 'returns the end_date of the latest ended round' do
+        last_ended_round = server.rounds.order('end_date DESC').first
+        Round.last_end_date_by(server).should == last_ended_round.end_date
+      end
+    end
+
+    context 'given a server with ended and running rounds' do
+      let(:server) { create(:server_with_rounds, rounds_count: 3) }
+
+      it 'returns the end_date of the latest ended round' do
+        last_ended_round = server.rounds.order('end_date DESC')[1]
+        Round.last_end_date_by(server).should == last_ended_round.end_date
+      end
+    end
+
+    context 'given a server with no rounds' do
+      let(:server) { create(:server) }
+
+      it 'returns the nil' do
+        Round.last_end_date_by(server).should == nil
+      end
     end
   end
 end

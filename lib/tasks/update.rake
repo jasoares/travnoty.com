@@ -6,7 +6,6 @@ namespace :update do
     Updater.detect_new_servers
     Updater.detect_ended_rounds
     Updater.detect_new_rounds
-    Updater.detect_first_server_round
     Updater.check_for_missing_running_rounds
   end
 end

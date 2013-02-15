@@ -88,34 +88,28 @@ describe Round do
   end
 
   describe '.ended' do
-    let(:server) { create(:server) }
-
     it 'returns a Round with its server id when all rounds end_date is set' do
-      server.rounds << create(:ended_round)
-      server.rounds << create(:ended_round)
+      server = create(:server, :with_ended_rounds)
       Round.ended.first.server_id.should == server.id
     end
 
     it 'returns no round with server id when at least one round is not ended' do
-      server.rounds << create(:running_round)
-      server.rounds << create(:ended_round)
+      create(:server_with_rounds)
       Round.ended.should == []
     end
   end
 
   describe '.restarting' do
     it 'returns the rounds with start_date in the future' do
-      create(:ended_round)
-      future_round = create(:restarting_round)
-      Round.restarting.should == [future_round]
+      server = create(:server, :with_restarting_round, :with_ended_rounds)
+      Round.restarting.should == [server.rounds.first]
     end
   end
 
   describe '.running' do
     it 'returns all rounds which start_date is in the past and end_date is null' do
-      running_round = create(:running_round)
-      create(:ended_round)
-      Round.running.should == [running_round]
+      server = create(:server, :with_running_round, :with_ended_rounds)
+      Round.running.should == [server.rounds.first]
     end
   end
 end

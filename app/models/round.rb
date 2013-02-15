@@ -4,6 +4,7 @@ class Round < ActiveRecord::Base
 
   validates :start_date, presence: true
   validates :start_date, uniqueness: { scope: :server_id }
+  validates :server_id, presence: true
   validates :end_date, date_coherence: true, uniqueness: { scope: :server_id }
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
@@ -16,7 +17,9 @@ class Round < ActiveRecord::Base
   end
 
   def self.ended
-    select('rounds.server_id').group('rounds.server_id').having('every(rounds.end_date is not null)')
+    select('server_id').
+    group('server_id').
+    having('every(end_date is not null)')
   end
 
   def running?

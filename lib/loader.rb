@@ -7,7 +7,7 @@ module Loader
       hub = Travian::Hub(record)
       next unless hub.mirror?
       main_hub = Hub.find_by_code(hub.mirrored_hub.code)
-      record.update_attribute(:mirrors_hub_id, main_hub.id)
+      record.update_attribute(:main_hub_id, main_hub.id)
     end
   rescue Travian::ConnectionTimeout => msg
     puts "Could not connect to hub '#{Travian::MAIN_HUB}'(main hub) (#{msg})"

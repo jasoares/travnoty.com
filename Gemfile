@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'httparty'
 gem 'nokogiri'
-gem 'travian', git: "git@github.com:jasoares/travian.git", tag: 'v0.7.2'
+gem 'travian', git: "https://travnoty:136d61d3c9624a770ba085e559839d6f83b22cb3@github.com/jasoares/travian.git", tag: 'v0.7.2'
 gem 'rspec-rails', '~> 2.0', group: [:development, :test]
 gem 'timecop', group: [:development, :test]
 gem 'yaml_db', group: [:development, :test]

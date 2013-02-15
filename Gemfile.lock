@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:jasoares/travian.git
+  remote: https://travnoty:136d61d3c9624a770ba085e559839d6f83b22cb3@github.com/jasoares/travian.git
   revision: bf23e5ad40d63fc1980b9427e531c32b5c72ea1f
   tag: v0.7.2
   specs:

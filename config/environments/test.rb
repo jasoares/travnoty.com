@@ -34,4 +34,7 @@ Travnoty::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Set the TravianLoader source for this environment
+  config.travian_loader_source = :travian_proxy
 end

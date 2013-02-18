@@ -43,4 +43,7 @@ Travnoty::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Set the TravianLoader source for this environment
+  config.travian_loader_source = :travian_proxy
 end

@@ -1,10 +1,12 @@
+require 'travian_loader'
+
 module Loader
   extend self
 
   def load_hubs
-    Travian.hubs(mirrors: true).each {|hub| Hub.create(hub.attributes) }
+    TravianLoader.hubs(mirrors: true).each {|hub| Hub.create(hub.attributes) }
     Hub.all.each do |record|
-      hub = Travian::Hub(record)
+      hub = TravianLoader::Hub(record)
       next unless hub.mirror?
       main_hub = Hub.find_by_code(hub.mirrored_hub.code)
       record.update_attribute(:main_hub_id, main_hub.id)
@@ -14,7 +16,7 @@ module Loader
   end
 
   def load_servers
-    Travian.servers.each do |server|
+    TravianLoader.servers.each do |server|
       hub_record = Hub.find_by_code(server.hub_code)
       hub_record.servers << Server.new(server.attributes) if hub_record
     end
@@ -23,7 +25,7 @@ module Loader
   end
 
   def load_rounds
-    Travian.servers.each do |server|
+    TravianLoader.servers.each do |server|
       next unless server.running? || server.restarting?
       server_record = Server.find_by_host(server.host)
       next unless server_record

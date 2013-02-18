@@ -11,6 +11,18 @@ Given /^I have a server with the following rounds$/ do |table|
   end
 end
 
+Given /^the following (?:new )?servers(?: exist| were announced)?$/ do |table|
+  hash = TravianProxy.data
+  table.hashes.each do |server|
+    server['speed'] = server['speed'].to_i
+    server['start_date'] = DateTime.strptime(server['start_date'], "%d-%m-%Y")
+    hub = server.delete('hub')
+    hash[hub][:servers] ||= {}
+    hash[hub][:servers].merge!({ server['code'] => server })
+  end
+  TravianProxy.data = hash.with_indifferent_access
+end
+
 Given /^I have a server with no rounds$/ do
   @server = FactoryGirl.create(:server)
 end
@@ -19,7 +31,7 @@ Then /^it should rollback$/ do
   (@server.rounds << @round).should be false
 end
 
-Then /^I should have (\d+) servers?$/ do |n|
+Then /^I should (?:still )?have (?:loaded )?(\d+) servers?$/ do |n|
   Server.count.should == n.to_i
 end
 

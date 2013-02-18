@@ -24,7 +24,7 @@ Then /^I should end up with (\d+) rounds?$/ do |n|
   Server.find(@server).rounds.size.should be n.to_i
 end
 
-Then /^I should have (\d+) rounds?$/ do |n|
+Then /^I should have (?:loaded )?(\d+) rounds?$/ do |n|
   Round.count.should == n.to_i
 end
 

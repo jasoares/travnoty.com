@@ -1,11 +1,16 @@
 require 'rake'
 
-When /^I run the task `rake ([\w\:]+)(?:\[(.+)\])?`$/ do |task, arg|
-  @rake = Rake::Application.new
-  Rake.application = @rake
-  Rake.application.rake_require 'active_record/railties/databases'
-  Rake.application.rake_require 'tasks/update'
-  Rake::Task.define_task(:environment)
-  @rake[task].invoke(arg)
-  @rake[task].reenable
+Rake.application.rake_require 'active_record/railties/databases'
+Rake.application.rake_require 'tasks/update'
+Rake::Task.define_task(:environment)
+
+Given /^I have a clean database$/ do
+  step "I have no hubs"
+  step "I have no servers"
+  step "I have no rounds"
+end
+
+When /^I run the task `rake (\w+(?:\:\w+))`$/ do |task|
+  Rake::Task[task].reenable
+  Rake.application.invoke_task task
 end

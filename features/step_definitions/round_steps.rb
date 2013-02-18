@@ -28,6 +28,10 @@ Then /^I should have (?:loaded )?(\d+) rounds?$/ do |n|
   Round.count.should == n.to_i
 end
 
-Then /^I should have loaded the rounds$/ do
-  Round.count.should > 200
+Then /^I should (?:now )?have (?:only )?(\d+) running rounds?$/ do |n|
+  Round.running.count.should == n.to_i
+end
+
+Then /^I should (?:now )?have (?:only )?(\d+) ended rounds?$/ do |n|
+  Round.ended.count.should == n.to_i
 end

@@ -16,6 +16,10 @@ class Round < ActiveRecord::Base
     where('start_date > ?', Time.now.utc)
   end
 
+  def self.ended
+    where('end_date is not null')
+  end
+
   def self.last_end_date_by(server)
     round = select('MAX(end_date) AS end_date').
       where(:server_id => server.id).

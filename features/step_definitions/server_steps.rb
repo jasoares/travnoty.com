@@ -27,6 +27,15 @@ Given /^I have a server with no rounds$/ do
   @server = FactoryGirl.create(:server)
 end
 
+Given /^the following servers no longer exist$/ do |table|
+  hash = TravianProxy.data
+  table.hashes.each do |server|
+    hub, code = server.values
+    hash[hub][:servers][code][:start_date] = nil
+  end
+  TravianProxy.data = hash
+end
+
 Then /^it should rollback$/ do
   (@server.rounds << @round).should be false
 end
@@ -35,6 +44,6 @@ Then /^I should (?:still )?have (?:loaded )?(\d+) servers?$/ do |n|
   Server.count.should == n.to_i
 end
 
-Then /^I should have loaded the servers$/ do
-  Server.count.should > 200
+Then /^I should have (\d+) restarting servers?$/ do |n|
+  Server.restarting.size.should == n.to_i
 end

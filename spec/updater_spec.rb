@@ -119,10 +119,17 @@ describe Updater do
       Updater.send :add_server, server
     end
 
-    it 'calls log with "Added the new server ts1.travian.net"' do
-      Hub.stub_chain(:find_by_code, :servers, :<<)
+    it 'calls log with "Added the new server ts1.travian.net" when a server is added' do
+      Hub.stub_chain(:find_by_code, :servers, :<<).and_return(true)
       Server.stub(:new)
       Updater.should_receive(:log).with("Server ts1.travian.net added.")
+      Updater.send :add_server, server
+    end
+
+    it 'does not call log if the server fails validations' do
+      Hub.stub_chain(:find_by_code, :servers, :<<).and_return(false)
+      Server.stub(:new)
+      Updater.should_not_receive(:log)
       Updater.send :add_server, server
     end
   end

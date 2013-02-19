@@ -29,8 +29,8 @@ module Updater
   private
 
   def add_server(server)
-    Hub.find_by_code(server.hub_code).servers << Server.new(server.attributes)
-    log("Server #{server.host} added.")
+    added = Hub.find_by_code(server.hub_code).servers << Server.new(server.attributes)
+    log("Server #{server.host} added.") if added
   end
 
   def add_round(round, server_record)

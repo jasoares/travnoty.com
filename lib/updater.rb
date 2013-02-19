@@ -17,8 +17,12 @@ module Updater
 
   def detect_new_rounds
     Server.ended.each do |server|
-      round = TravianLoader::Server(server)
-      add_round(round, server) if round.restarting?
+      begin
+        round = TravianLoader::Server(server)
+        add_round(round, server) if round.restarting?
+      rescue Travian::ConnectionTimeout => e
+        warn(e.message)
+      end
     end
   end
 
@@ -41,5 +45,9 @@ module Updater
 
   def log(message)
     Rails.logger.info "[TravianUpdater:#{DateTime.now}] #{message}"
+  end
+
+  def warn(message)
+    Rails.logger.warn "[TravianUpdater:#{DateTime.now}][Warning] #{message}"
   end
 end

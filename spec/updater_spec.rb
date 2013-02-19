@@ -72,6 +72,34 @@ describe Updater do
       Updater.should_not_receive(:add_round)
       Updater.detect_new_rounds
     end
+
+    context 'when a Travian::ConnectionTimeout is raised' do
+      let(:host) { 'finals.travian.com' }
+      let(:trace) { 'Timeout::Error' }
+      let(:server1) { stub_model(Server, host: 'finals.travian.com') }
+      let(:server2) { stub_model(Server, host: 'ts1.travian.com') }
+      let(:round1) { double('Travian::Server1', host: 'finals.travian.com') }
+      let(:round2) { double('Travian::Server2', host: 'ts1.travian.com', restarting?: false) }
+
+      before do
+        Server.stub(:ended).and_return([server1, server2])
+        TravianLoader.stub(:Server) do |server|
+          next round1 if server.host == server1.host
+          next round2 if server.host == server2.host
+        end
+        round1.stub(:restarting?).and_raise(Travian::ConnectionTimeout.new(host, trace))
+      end
+
+      it 'rescues the exception and continues on the next server' do
+        round2.should_receive(:restarting?).and_return(false)
+        Updater.detect_new_rounds
+      end
+      it 'logs the exception' do
+        message = "[TravianUpdater:#{DateTime.now}][Warning] Error connecting to '#{host}' (#{trace})"
+        Rails.logger.should_receive(:warn).with(message)
+        Updater.detect_new_rounds
+      end
+    end
   end
 
   describe '.add_server' do
@@ -138,6 +166,14 @@ describe Updater do
       message = "Current round ended for server ts1.travian.net"
       Rails.logger.should_receive(:info).with("[TravianUpdater:#{DateTime.now}] #{message}")
       Updater.send :log, message
+    end
+  end
+
+  describe '.warn' do
+    it 'calls Rails.logger.warn with "[TravianUpdater:<timestamp>][Warning] <message>"' do
+      message = "Error connecting to 'finals.travian.com' (Timeout::Error)"
+      Rails.logger.should_receive(:warn).with("[TravianUpdater:#{DateTime.now}][Warning] #{message}")
+      Updater.send :warn, message
     end
   end
 end

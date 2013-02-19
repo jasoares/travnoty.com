@@ -155,16 +155,22 @@ describe Updater do
   end
 
   describe '.end_round' do
+    let(:round) { stub_model(Round, server: stub_model(Server, host: 'ts1.travian.net')) }
+
     it 'sets the end_date attribute of the passed round' do
-      round = stub_model(Round, server: stub_model(Server, host: 'ts1.travian.net'))
       round.should_receive(:update_attributes).with(end_date: Date.today.to_datetime)
       Updater.send :end_round, round
     end
 
-    it 'calls log with "Current round ended for server ts1.travian.net"' do
-      round = stub_model(Round, server: stub_model(Server, host: 'ts1.travian.net'))
-      round.stub(:update_attributes)
+    it 'calls log with "Current round ended for server ts1.travian.net" when it passes validations' do
+      round.stub(:update_attributes).and_return(true)
       Updater.should_receive(:log).with("Current round ended for server ts1.travian.net")
+      Updater.send :end_round, round
+    end
+
+    it 'does not call log when validations fail' do
+      round.stub(:update_attributes).and_return(false)
+      Updater.should_not_receive(:log)
       Updater.send :end_round, round
     end
   end

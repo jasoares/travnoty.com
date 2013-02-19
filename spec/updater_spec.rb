@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'updater'
-require 'travian_proxy'
 
 describe Updater do
   describe '.detect_new_servers' do

@@ -24,7 +24,7 @@ Feature: Seed Data
       | com | ts1        | ts1.travian.com           | Server 1    | com11    | 1     | 08-07-2012 |
       | de  | tcx8       | tcx8.travian.de           | Speed 8x    |          | 8     | 11-12-2012 |
       | tr  | cumhuriyet | cumhuriyet.travian.com.tr | Cumhuriyet  | tr8989   | 2     | 08-11-2012 |
-    When I run the task `rake db:seed`
+    When I run the task `rake travian:load`
     Then I should have loaded 8 hubs
     And I should have 2 mirrors
     And I should have 6 main hubs

@@ -24,7 +24,7 @@ Feature: Update servers
       | hub | code |
       | de  | ts7  |
       | net | ts10 |
-    When I run the task `rake update:servers`
+    When I run the task `rake travian:update`
     Then I should still have 4 servers
     But I should now have only 2 running rounds
     And I should have 2 ended rounds
@@ -37,5 +37,5 @@ Feature: Update servers
       | de  | tx3  | tx3.travian.de  | Speed 3x | dex18    | 1     | 22-02-2013 |
       | net | tx3  | tx3.travian.com | Speed 3x | comx18   | 1     | 25-02-2013 |
       | pt  | tx3  | tx3.travian.pt  | Speed 3x | ptx18    | 1     | 22-02-2013 |
-    When I run the task `rake update:servers`
+    When I run the task `rake travian:update`
     Then I should have 3 restarting servers

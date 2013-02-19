@@ -1,5 +1,3 @@
-require 'travian_proxy'
-
 module TravianLoader
   extend self
 
@@ -22,4 +20,6 @@ module TravianLoader
   end
 end
 
-TravianLoader.source = Rails.configuration.travian_loader_source.to_s.classify.constantize
+source = Rails.configuration.travian_loader_source
+require 'travian_proxy' if source == :travian_proxy
+TravianLoader.source = source.to_s.classify.constantize

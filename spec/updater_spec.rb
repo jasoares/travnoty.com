@@ -157,12 +157,13 @@ describe Updater do
   describe '.end_round' do
     it 'sets the end_date attribute of the passed round' do
       round = stub_model(Round, server: stub_model(Server, host: 'ts1.travian.net'))
-      round.should_receive(:update_attribute).with(:end_date, Date.today.to_datetime)
+      round.should_receive(:update_attributes).with(end_date: Date.today.to_datetime)
       Updater.send :end_round, round
     end
 
     it 'calls log with "Current round ended for server ts1.travian.net"' do
       round = stub_model(Round, server: stub_model(Server, host: 'ts1.travian.net'))
+      round.stub(:update_attributes)
       Updater.should_receive(:log).with("Current round ended for server ts1.travian.net")
       Updater.send :end_round, round
     end

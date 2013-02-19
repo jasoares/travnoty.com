@@ -39,7 +39,7 @@ module Updater
   end
 
   def end_round(round)
-    round.update_attribute(:end_date, Date.today.to_datetime)
+    round.update_attributes(end_date: Date.today.to_datetime)
     log("Current round ended for server #{round.server.host}")
   end
 

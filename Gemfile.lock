@@ -1,11 +1,11 @@
 GIT
   remote: https://travnoty:136d61d3c9624a770ba085e559839d6f83b22cb3@github.com/jasoares/travian.git
-  revision: bf23e5ad40d63fc1980b9427e531c32b5c72ea1f
-  tag: v0.7.2
+  revision: e4433a53f0368da6e9a129a941a1a6571ef09cd4
+  tag: v0.7.4
   specs:
-    travian (0.7.2)
-      httparty (~> 0.9.0)
-      nokogiri (~> 1.5.5)
+    travian (0.7.4)
+      httparty (~> 0.10.2)
+      nokogiri (~> 1.5.6)
 
 GEM
   remote: https://rubygems.org/
@@ -108,9 +108,9 @@ GEM
       railties (>= 3.1, < 4.1)
     hike (1.2.1)
     http_parser.rb (0.5.3)
-    httparty (0.9.0)
+    httparty (0.10.2)
       multi_json (~> 1.0)
-      multi_xml
+      multi_xml (>= 0.5.2)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-rails (2.2.1)
@@ -237,10 +237,8 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   haml-rails
-  httparty
   jquery-rails
   libv8 (~> 3.11.8)
-  nokogiri
   pg
   rails (= 3.2.11)
   rb-inotify (~> 0.8.8)

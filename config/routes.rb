@@ -3,7 +3,7 @@ require 'api_version'
 
 Travnoty::Application.routes.draw do
 
-  scope :module => :api, constraints: Subdomain[:api] do
+  scope :module => :api, constraints: Subdomain[:api], defaults: { format: :json } do
     scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do
       get 'hubs' => 'hubs#index'
       get 'hubs/:id' => 'hubs#show'

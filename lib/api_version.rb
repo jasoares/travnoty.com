@@ -15,6 +15,7 @@ class ApiVersion
   private
 
   def matches_version?(req)
+    return false unless req.headers['Accept']
     req.headers['Accept'].include?("application/vnd.travnoty.v#{@version}")
   end
 end

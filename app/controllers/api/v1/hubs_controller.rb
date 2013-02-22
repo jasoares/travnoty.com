@@ -1,4 +1,4 @@
-class Api::V1::HubsController < ApplicationController
+class Api::V1::HubsController < Api::V1::BaseController
   respond_to :json
 
   def index

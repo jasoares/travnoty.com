@@ -4,7 +4,7 @@ describe HomeController do
 
   describe "GET 'welcome'" do
     it "returns http success" do
-      get 'welcome'
+      get :welcome
       response.should be_success
     end
   end

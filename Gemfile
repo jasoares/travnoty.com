@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'newrelic_rpm'
 gem 'travian', git: "https://travnoty:136d61d3c9624a770ba085e559839d6f83b22cb3@github.com/jasoares/travian.git", tag: 'v0.7.5'
+gem 'devise'
 gem 'rspec-rails', '~> 2.0', group: [:development, :test]
 gem 'timecop', group: [:development, :test]
 gem 'yaml_db', group: [:development, :test]

@@ -1,9 +1,9 @@
 GIT
   remote: https://travnoty:136d61d3c9624a770ba085e559839d6f83b22cb3@github.com/jasoares/travian.git
-  revision: e4433a53f0368da6e9a129a941a1a6571ef09cd4
-  tag: v0.7.4
+  revision: 39444aa90ed51b31dd9e70c1586dc3966b5eb6ad
+  tag: v0.7.5
   specs:
-    travian (0.7.4)
+    travian (0.7.5)
       httparty (~> 0.10.2)
       nokogiri (~> 1.5.6)
 

@@ -2,6 +2,7 @@ require 'rake'
 
 Rake.application.rake_require 'active_record/railties/databases'
 Rake.application.rake_require 'tasks/travian'
+Rake.application.rake_require 'tasks/admin'
 Rake::Task.define_task(:environment)
 
 class Rake::Task

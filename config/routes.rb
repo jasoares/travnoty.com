@@ -3,9 +3,13 @@ require 'api_version'
 
 Travnoty::Application.routes.draw do
 
-  devise_for :users
+  ActiveAdmin.routes(self)
 
-  devise_for :admins
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
+  #devise_for :users
+
+  #devise_for :admins
 
   scope :module => :api, constraints: Subdomain[:api], defaults: { format: :json } do
     scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do

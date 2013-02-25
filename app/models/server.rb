@@ -31,6 +31,14 @@ class Server < ActiveRecord::Base
     rounds.first
   end
 
+  def start_date
+    current_round and current_round.start_date
+  end
+
+  def end_date
+    current_round and current_round.end_date
+  end
+
   def url
     "http://#{host}"
   end

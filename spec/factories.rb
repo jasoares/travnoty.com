@@ -1,4 +1,13 @@
 FactoryGirl.define do
+
+  sequence(:email) { |n| "johndoe#{n}@gmail.com" }
+
+  factory :user do
+    email    { generate(:email) }
+    password              'hersecretpassword'
+    password_confirmation 'hersecretpassword'
+  end
+
   sequence(:past_start_date, 1) { |n| n.years.ago.to_datetime }
   sequence(:past_end_date, 0)   { |n| (n.years + 20.days).ago.to_datetime }
 

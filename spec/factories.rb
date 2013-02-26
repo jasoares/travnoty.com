@@ -5,13 +5,11 @@ FactoryGirl.define do
   factory :user do
     email    { generate(:email) }
     password              'hersecretpassword'
-    password_confirmation 'hersecretpassword'
   end
 
   factory :admin do
     email { generate(:email) }
     password              'hersecretpassword'
-    password_confirmation 'hersecretpassword'
   end
 
   sequence(:past_start_date, 1) { |n| n.years.ago.to_datetime }

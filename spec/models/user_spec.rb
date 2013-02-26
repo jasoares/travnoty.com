@@ -33,15 +33,7 @@ describe User do
     end
 
     it 'must have a length of at least 8' do
-      expect(build(:user, password: '1234567', password_confirmation: '1234567').errors_on(:password)).to include("is too short (minimum is 8 characters)")
-    end
-  end
-
-  describe '#password_confirmation' do
-    context 'when creating a new record' do
-      it "can't be nil" do
-        expect(build(:user, password_confirmation: nil).errors_on(:password_confirmation)).to include("can't be blank")
-      end
+      expect(build(:user, password: '1234567').errors_on(:password)).to include("is too short (minimum is 8 characters)")
     end
   end
 end

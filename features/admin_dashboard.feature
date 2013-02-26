@@ -11,4 +11,10 @@ Feature: Administratin Dashboard
     And I fill in 'admin_email' with 'admin@travnoty.com'
     And I fill in 'admin_password' with 'adminpassword'
     When I press 'Sign in'
-    Then I should see 'signed in successfully'
+    Then I should see 'Signed in successfully.'
+
+  Scenario: sign out
+    Given I am on the 'admin' page
+    And I am signed in
+    When I click on 'Logout'
+    Then I should see 'Signed out successfully.'

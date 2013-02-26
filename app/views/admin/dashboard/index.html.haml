@@ -1,2 +1,15 @@
 %h1 Admin::Dashboard#index
 %p Find me in app/views/admin/dashboard/index.html.haml
+
+- if admin_signed_in?
+  = link_to 'Logout', destroy_admin_session_path, :method => :delete
+- else
+  = form_for(@admin, :as => :admin, :url => admin_session_path(@admin)) do |f|
+    %div
+      = f.label :email
+      = f.email_field :email, :autofocus => true
+    %div
+      = f.label :password
+      = f.password_field :password
+    %div
+      = f.submit "Sign in"

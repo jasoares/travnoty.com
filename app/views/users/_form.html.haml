@@ -1,0 +1,17 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    %div.error_messages
+      %h2 Form is invalid
+      %ul
+        - for message in @user.errors.full_messages
+          %li= message
+  %p
+    Email:
+    = text_field_tag :email
+  %p
+    = f.label :password
+    = f.password_field :password
+  %p
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  = submit_tag 'Register'

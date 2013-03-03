@@ -1,0 +1,25 @@
+%h2= "Welcome #{@user.try(:name) or @user.try(:username) or @user.email}"
+
+%div.account_info
+  %p
+    Name:
+    = @user.name
+  %p
+    Username:
+    = @user.username
+  %p
+    Emails:
+    %ul
+    - @user.emails.each do |email|
+      %li
+        = email.address
+        = email.confirmed_at
+  %p
+    Registered at:
+    = @user.created_at
+  %p
+    Seen:
+    = "#{@user.sign_in_count} times"
+  %p
+    Last seen:
+    = @user.last_sign_in_at

@@ -5,12 +5,13 @@ Travnoty::Application.routes.draw do
 
   get 'sign_out' => 'sessions#destroy', :as => 'sign_out'
   get 'sign_in' => 'sessions#new', :as => 'sign_in'
+  post 'sessions' => 'sessions#create'
+  
   get 'sign_up' => 'users#new', :as => 'sign_up'
   get 'profile' => 'users#profile', :as => 'profile'
+  post 'users' => 'users#create'
   get 'users/:id/confirm_email' => 'users#confirm_email', :as => 'confirm_email'
 
-  post 'users' => 'users#create'
-  post 'sessions' => 'sessions#create'
 
   scope :module => :api, constraints: Subdomain[:api], defaults: { format: :json } do
     scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do

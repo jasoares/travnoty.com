@@ -14,9 +14,64 @@
 
 html, body {
   margin: 0px;
-  background-color: #aaffaa;
-  font: 16px verdana, arial, helvetica, sans-serif;
+  background-color: #cfc;
+  font: 16px Helvetica, arial, freesans, clean, sans-serif;
   color: #5caf5c;
+}
+
+div {
+  margin: 0px;
+}
+
+h1, h2, h3, h4, p {
+  margin: .8em 0em;
+}
+
+ul, li {
+  display: inline;
+}
+
+h1 { font-size: 1.4em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.0em; }
+h4 { font-size: 0.8em; }
+
+#messages {
+  width: 400px;
+}
+
+#flash_alert, #flash_notice {
+  padding: 5px 20px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-top: 0px;
+}
+
+.alert {
+  color: #d55;
+  background-color: #fcc;
+  border: 1px solid #d55;
+}
+
+.notice {
+  color: #5d5;
+  background-color: #fff;
+  border: 1px solid #5d5;
+}
+
+input, select, textarea {
+  font-size: 13px;
+  line-height: 1.4em;
+}
+
+textarea, input {
+  padding: 3px 5px;
+  vertical-align: middle;
+  border-radius: 3px;
+  border-color: #fff;
+  &:focus {
+    border-color: #9f9;
+  }
 }
 
 a {
@@ -29,21 +84,16 @@ a {
   &:active { color: #fff; }
 }
 
-input {
-  vertical-align: middle;
-  border-radius: 3px;
-}
-
 .travnoty-logo {
   float: left;
-  line-height: 50px;
   display: inline;
-  padding: 3px 0px;
+  margin-left: -3px;
+  padding-top: 2px;
 }
 
 .wrap {
   position: relative;
-  width: 95%;
+  width: 80%;
   margin: 0 auto;
   min-height: 50px;
   min-width: 760px;
@@ -51,20 +101,32 @@ input {
 }
 
 .center {
+  position: relative;
+  width: 80%;
   margin: 0 auto;
   float: none;
   clear: both;
 }
 
+.content {
+  margin-top: 20px;
+  max-width: 1200px;
+  background-color: #fff;
+  padding: 10px 25px;
+  border-radius: 8px;
+}
+
 .form {
   h2 {
     background-color: #fff;
-    padding: 5px 20px;
+    padding: 8px 20px;
+    border-radius: 6px;
   }
 
   form {
     background-color: #fff;
-    padding: 20px 20px;
+    padding: 10px 15px;
+    border-radius: 6px;
   }
 
   .control-group {
@@ -73,19 +135,20 @@ input {
   }
 
   .control-label {
+    padding: 10px 10px;
     width: 200px;
     float: left;
+    text-align: right;
   }
 
   .control {
-    //border-color: #393;
-    //box-shadow: inset 0 1px 2px rgba(0,0,0,0.075), 0 0 5px rgba(81,167,232,0.5);
-    min-height: 30px;
+    border-color: #393;
+    min-height: 26px;
   }
 }
 
 #header {
-  background-color: #444;
+  background-color: #494949;
   color: #ffffff;
   height: 50px;
   border-bottom: 1px solid #393;
@@ -95,60 +158,37 @@ input {
       color: #8cdf8c;
     }
   }
-}
-
-#nav {
-  float: left;
 
   ul {
-    padding: 20px;
     margin: 0px;
+    padding: 15px 0px;
 
     li {
-      padding: 0px 20px;
       display: inline;
+      padding-left: 15px;
     }
   }
-}
 
-ul.sign {
-  float: right;
+  #nav {
+    float: left;
 
-  li {
-    display: inline;
-    padding: 0px 10px;
+    ul {
+      float: left;
+      margin-left: 100px;
+    }
+  }
+
+  ul.sign {
+    float: right;
   }
 }
 
-#messages {
-  p {
-    position: absolute;
-    text-align: center;
-    left: 800px;
-    top: 34px;
-    width: 300px;
-    font-size: 1em;
-    font-weight: bold;
-    padding: 10px 10px;
-    text-shadow: -1 -1 rgba(0, 0, 0, .7);
-    -webkit-text-shadow: -1 -1 1 rgba(0, 0, 0, .7);
-    -khtml-text-shadow: -1 -1 1 rgba(0, 0, 0, .7);
-    -moz-text-shadow: 1px 1px rgba(0, 0, 0, .7);
-    text-shadow: -1px -1px 1px #000;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    box-shadow: 1px 1px 5px #000;
-  }
+#content {
+  min-height: 400px;
+}
 
-  p.flash-error {
-    color: #ef3636;
-    background-color: #eeaabb;
-    border: 1px solid #ef3636;
-  }
-
-  p.flash-notice {
-    color: #519548;
-    background-color: #9acc77;
-    border: 1px solid #519548;
-  }
+#footer {
+  border-top: 1px solid #8cdf8c;
+  padding: 10px;
+  text-align: center;
 }

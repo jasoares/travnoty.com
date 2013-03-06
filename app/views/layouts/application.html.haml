@@ -18,8 +18,9 @@
         %nav#nav
           = render 'layouts/navigation'
         = render 'layouts/profile'
-    %article#content
-      #messages
+    %article#content.center
+      #messages.center
         = render 'layouts/messages'
       = yield
-    %footer#footer
+    %footer#footer.center
+      = render 'layouts/footer'

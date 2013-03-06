@@ -1,8 +1,10 @@
 = form_tag sessions_path do
   .control-group
-    = label_tag :email, 'Username or Email', :class => 'control-label'
-    = text_field_tag :email, params[:email], :class => 'control'
+    = label_tag :email, 'Username or Email:', :class => 'control-label'
+    = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
   .control-group
-    = label_tag :password, 'Password', :class => 'control-label'
-    = password_field_tag :password,'', :class => 'control'
-  = submit_tag "Sign in"
+    = label_tag :password, 'Password:', :class => 'control-label'
+    = password_field_tag :password, '', :class => 'control'
+  .control-group
+    = label_tag :submit, '', :class => 'control-label'
+    = submit_tag "Sign in"

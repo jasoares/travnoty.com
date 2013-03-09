@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   validates :username, uniqueness: { case_sensitive: false, allow_blank: true }
-  validates :password, presence: { :on => :create }, confirmation: true, length: { :within => 8..128 }
+  validates :password, presence: { :on => :create }, confirmation: true
+  validates :password, length: { :within => 8..128, :allow_blank => true }
   validates :emails, presence: true, associated_bubbling: true
 
   def email
@@ -48,10 +49,10 @@ class User < ActiveRecord::Base
 
   class << self
 
-    def authenticate(email_or_username, password)
-      email = Email.where(address: email_or_username).first
+    def authenticate(who, password)
+      email = Email.where(address: who).first
       user = email.try(:user)
-      user ||= User.where(username: email_or_username).first
+      user ||= User.where(username: who).first
       if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
         user
       else

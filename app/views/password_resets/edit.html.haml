@@ -10,10 +10,10 @@
               - for message in @user.errors.full_messages
                 %li= message
         .control-group
-          = f.label :password
+          = f.label :password, 'New Password'
           = f.password_field :password
         .control-group
-          = f.label :password_confirmation
+          = f.label :password_confirmation, 'Password confirmation'
           = f.password_field :password_confirmation
         .control-group
           = f.submit "Change password", :class => 'button primary'

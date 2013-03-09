@@ -12,7 +12,7 @@
     = yield(:head)
   %body
     %header#header
-      .container
+      .container.clearfix
         = link_to(root_url, :class => 'travnoty-logo') do
           = image_tag 'travnoty_logo_2_small.png', size: '128x40'
         %nav#nav

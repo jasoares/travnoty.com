@@ -2,19 +2,18 @@
   .control-group
     = f.label :name, 'Full Name'
     = f.text_field :name, :class => 'control'
-
-    = @user.errors.messages[:name] unless @user.errors[:name].empty?
+    - unless @user.errors[:name].empty?
+      %p.error= @user.errors.messages[:name]
   .control-group
-    = f.label :email
-    = f.text_field :email, :class => 'control', :type => 'email'
-    = @user.errors.messages[:email] unless @user.errors[:emails].empty?
+    = label_tag :email
+    = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
+    - unless @user.errors[:emails].empty?
+      %p.error= @user.errors.messages[:emails][1]
   .control-group
     = f.label :password
     = f.password_field :password, :class => 'control'
-    = @user.errors.messages[:password] unless @user.errors[:password].empty?
+    - unless @user.errors[:password].empty?
+      %p.error= @user.errors.messages[:password].first
     %p Tip: Must have at least 8 characters.
-  .control-group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, :class => 'control'
   .control-group
     = submit_tag 'Sign up', :class => 'button primary'

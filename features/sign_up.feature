@@ -9,6 +9,5 @@ Feature: Sign up
     And I fill in "Full Name" with "John Doe"
     And I fill in "Email" with "email@example.com"
     And I fill in "Password" with "mysecretpassword"
-    And I fill in "Password Confirmation" with "mysecretpassword"
     And I press "Sign up"
     Then I should be signed in

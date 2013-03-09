@@ -13,5 +13,10 @@
 
 .welcome form.new_user {
   margin-left: 60px;
+  margin-top: 10px;
   float: right;
+
+  input {
+    margin: 5px 0px;
+  }
 }

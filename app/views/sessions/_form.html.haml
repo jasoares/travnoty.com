@@ -1,10 +1,13 @@
 = form_tag sessions_path do
   .control-group
-    = label_tag :email, 'Username or Email:', :class => 'control-label'
+    = label_tag :email, 'Username or Email', :class => 'control-label'
     = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
   .control-group
-    = label_tag :password, 'Password:', :class => 'control-label'
+    = label_tag :password, 'Password', :class => 'control-label'
+    = link_to "(forgot password)", new_password_reset_path
     = password_field_tag :password, '', :class => 'control'
   .control-group
     = label_tag :submit, '', :class => 'control-label'
-    = submit_tag "Sign in"
+    = submit_tag "Sign in", :class => 'button primary'
+    or
+    = link_to 'Sign up', root_path

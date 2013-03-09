@@ -12,15 +12,12 @@
     = yield(:head)
   %body
     %header#header
-      .container
+      .wrap
         = link_to(root_url, :class => 'travnoty-logo') do
-          = image_tag 'travnoty_logo_2_small.png', size: '128x40'
-        %nav#nav
-          = render 'layouts/navigation' if current_user
+          = image_tag 'travnoty_logo_2.png', size: '160x45'
         = render 'layouts/profile'
     #content
-      .small-container
-        = render 'layouts/messages'
-      = yield
-    %footer#footer.container
+      .wrap
+        = yield
+    %footer#footer.center
       = render 'layouts/footer'

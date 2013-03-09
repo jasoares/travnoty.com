@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe UsersController do
 
-  describe "GET 'new'" do
+  describe "GET #new" do
     it "returns http success" do
       get 'new'
+
       response.should be_success
     end
 
@@ -12,9 +13,10 @@ describe UsersController do
       user = User.new
       get 'new'
 
-      assigns(:user).should be_a User
-      assigns(:user).should be_new_record
+      expect(assigns(:user)).to be_a_new(User)
     end
   end
 
+  describe 'GET #show' do
+  end
 end

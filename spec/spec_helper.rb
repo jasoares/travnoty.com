@@ -4,6 +4,7 @@ SimpleCov.start
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path("../support/user_helper.rb", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
@@ -44,6 +45,9 @@ RSpec.configure do |config|
 
   # Mixin FactoryGirl::Syntax::Methods
   config.include FactoryGirl::Syntax::Methods
+
+  # Mixin support/user_helper.rb
+  config.include UserHelper, type: :controller
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing

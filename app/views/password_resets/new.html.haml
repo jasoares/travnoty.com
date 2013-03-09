@@ -1,0 +1,11 @@
+%article#article.reset_password
+  .box.container
+    .box-header
+      %h2 Recover Password
+    .box-content.clearfix
+      = form_tag password_resets_path, method: 'post' do
+        .control-group
+          = label_tag :email
+          = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
+        .control-group
+          = submit_tag "Reset Password", :class => 'button primary'

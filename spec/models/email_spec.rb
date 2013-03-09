@@ -16,7 +16,7 @@ describe Email do
 
     it 'should be unique' do
       create(:email_with_user, address: 'johndoe@gmail.com')
-      expect(build(:email, address: 'johndoe@gmail.com').errors_on(:address)).to include('has already been taken')
+      expect(build(:email, address: 'johndoe@gmail.com').errors_on(:address)).to include('is already associated to an account')
     end
   end
 
@@ -102,7 +102,7 @@ describe Email do
     end
   end
 
-  describe '.confirmation_period_expired?' do
+  describe '#confirmation_period_expired?' do
     it 'returns true if the confirmation period expired' do
       Timecop.freeze(2.days.ago)
       email = create(:email_with_user)
@@ -118,7 +118,7 @@ describe Email do
     end
   end
 
-  describe '.send_confirmation_instructions' do
+  describe '#send_confirmation_instructions' do
     let(:email) { create(:email_with_user) }
 
     it 'sends an email in an after create filter' do
@@ -128,6 +128,22 @@ describe Email do
     it 'sends the email with the confirmation instructions' do
       mail = email.send :send_confirmation_instructions
       ActionMailer::Base.deliveries.last.should == mail
+    end
+  end
+
+  describe '#resend_confirmation_instructions' do
+    let(:email) { create(:email_with_user) }
+
+    it 'resends the confirmation email if the confirmation is pending' do
+      email.stub(:confirmation_pending? => true)
+      email.should_receive(:send_confirmation_instructions)
+      email.resend_confirmation_instructions
+    end
+
+    it 'does not send the confirmation email if it is already confirmed' do
+      email.stub(:confirmation_pending? => false)
+      email.should_not_receive(:send_confirmation_instructions)
+      email.resend_confirmation_instructions
     end
   end
 end

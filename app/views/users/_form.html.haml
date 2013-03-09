@@ -1,19 +1,20 @@
 = form_for @user do |f|
-  - if @user.errors.any?
-    %div.error_messages
-      %h2 Form is invalid
-      %ul
-        - for message in @user.errors.full_messages
-          %li= message
   .control-group
-    = label_tag :email, 'Email:', :class => 'control-label'
-    = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
+    = f.label :name, 'Full Name'
+    = f.text_field :name, :class => 'control'
+
+    = @user.errors.messages[:name] unless @user.errors[:name].empty?
   .control-group
-    = f.label :password, 'Password:', :class => 'control-label'
+    = f.label :email
+    = f.text_field :email, :class => 'control', :type => 'email'
+    = @user.errors.messages[:email] unless @user.errors[:emails].empty?
+  .control-group
+    = f.label :password
     = f.password_field :password, :class => 'control'
+    = @user.errors.messages[:password] unless @user.errors[:password].empty?
+    %p Tip: Must have at least 8 characters.
   .control-group
-    = f.label :password_confirmation, 'Password confirmation:', :class => 'control-label'
+    = f.label :password_confirmation
     = f.password_field :password_confirmation, :class => 'control'
   .control-group
-    = label_tag :submit, '', :class => 'control-label'
-    = submit_tag 'Sign up'
+    = submit_tag 'Sign up', :class => 'button primary'

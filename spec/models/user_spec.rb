@@ -69,4 +69,55 @@ describe User do
       user.password_hash.should be_a String
     end
   end
+
+  describe '#change_password' do
+    before(:each) do
+      @user = create(:user_with_email)
+      @user.send_password_reset
+    end
+
+    it 'resets the reset_password_token to nil when passed a valid password' do
+      @user.change_password(password: 'mysecretpassword')
+      @user.reset_password_token.should be_nil
+    end
+
+    it 'resets the reset_token_sent_at to nil when passed a valid password' do
+      @user.change_password(password: 'mysecretpassword')
+      @user.reset_token_sent_at.should be_nil
+    end
+
+    it 'changes the encrypted_password to the new password passed' do
+      expect {
+        @user.change_password(password: 'mysecretpassword')
+      }.to change { @user.password_hash }
+    end
+
+    it 'returns true if the password is successfully changed' do
+      @user.change_password(password: 'mysecretpassword').should be_true
+    end
+
+    it 'returns false if the password change fails' do
+      @user.change_password(password: 'secret').should be_false #fails validation
+    end
+  end
+
+  describe '#send_password_reset' do
+    let(:user) { create(:user_with_email) }
+
+    it 'generates the reset password token' do
+      expect { user.send_password_reset }.to change { user.reset_password_token }.from(nil)
+    end
+
+    it 'saves the current date to reset_token_sent_at' do
+      expect { user.send_password_reset }.to change { user.reset_token_sent_at }.from(nil)
+    end
+
+    it 'sends an email with the reset password instructions' do
+      mail = double('Mail')
+      mail.should_receive(:deliver)
+      UserMailer.should_receive(:password_reset).with(user).and_return(mail)
+      user.send_password_reset
+    end
+  end
+
 end

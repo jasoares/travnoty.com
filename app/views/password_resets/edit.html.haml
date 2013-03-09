@@ -1,0 +1,19 @@
+%article#article.reset_password
+  .box.container
+    .box-header
+      %h2 Change Password
+    .box-content.clearfix
+      = form_for @user, url: password_reset_path(params[:id]) do |f|
+        - if @user.errors.any?
+          .error_messages
+            %ul
+              - for message in @user.errors.full_messages
+                %li= message
+        .control-group
+          = f.label :password
+          = f.password_field :password
+        .control-group
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation
+        .control-group
+          = f.submit "Change password", :class => 'button primary'

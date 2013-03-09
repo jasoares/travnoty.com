@@ -1,4 +1,6 @@
-%div.wrap
-  #signup.center.form
-    %h2 Sign up
-    = render partial: 'users/form'
+%article#article.signup
+  .box.container
+    .box-header
+      %h2 Sign up
+    .box-content.clearfix
+      = render partial: 'users/form'

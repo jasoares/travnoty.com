@@ -5,7 +5,7 @@ class Email < ActiveRecord::Base
   before_create :generate_confirmation_token
   after_create  :send_confirmation_instructions
 
-  validates :address, presence: true, uniqueness: { case_sensitive: false }, email_format: true
+  validates :address, presence: true, uniqueness: { case_sensitive: false, message: 'is already associated to an account' }, email_format: true
   validates :user, presence: true
 
   def confirm
@@ -42,6 +42,10 @@ class Email < ActiveRecord::Base
       break unless Email.where(confirmation_token: self.confirmation_token).first
     end
     self.confirmation_sent_at = DateTime.now.utc
+  end
+
+  def resend_confirmation_instructions
+    send_confirmation_instructions if confirmation_pending?
   end
 
 protected

@@ -23,7 +23,7 @@ FactoryGirl.define do
 
     factory :user_with_email do
       after(:build) do |user|
-        user.emails << build(:email, user: user)
+        user.emails << build(:email, user: user, main_address: true)
       end
     end
   end

@@ -1,0 +1,26 @@
+%article#article.container
+  %h2= "Welcome #{@current_user.try(:name) or @current_user.try(:username) or @current_user.email}"
+
+  %div.account_info
+    %p
+      Name:
+      = @current_user.name
+    %p
+      Username:
+      = @current_user.username
+    %p
+      Emails:
+      %ul
+      - @current_user.emails.each do |email|
+        %li
+          = email.address
+          = email.confirmed_at
+    %p
+      Registered at:
+      = @current_user.created_at
+    %p
+      Seen:
+      = "#{@current_user.sign_in_count} times"
+    %p
+      Last seen:
+      = @current_user.last_sign_in_at

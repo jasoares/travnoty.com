@@ -20,8 +20,8 @@ class UsersController < ApplicationController
   end
 
   def confirm_email
-    email = Email.where(user_id: params[:id], confirmation_token: params[:confirmation_token]).first
-    if email.confirm
+    user = User.where(confirmation_token: params[:confirmation_token]).first
+    if user.confirm
       redirect_to sign_in_path, :notice => 'Email confirmed successfully!'
     else
       redirect_to resend_confirmation_path, :notice => 'Confirmation token not found'

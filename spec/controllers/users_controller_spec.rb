@@ -28,18 +28,18 @@ describe UsersController do
     context 'with valid attributes' do
       it 'saves the user id in the session' do
         expect {
-          post :create, email: 'johndoe@example.com', user: { password: 'mysecret' }
+          post :create, user: attributes_for(:user)
         }.to change { session[:user_id] }.from(nil).to(Integer)
       end
 
       it 'creates a new user with the associated email' do
         expect {
-          post :create, email: 'johndoe@example.com', user: { password: 'mysecret' }
+          post :create, user: attributes_for(:user)
         }.to change(User, :count).from(0).to(1)
       end
 
       it 'redirects to user profile with notice "Signed up!"' do
-        post :create, email: 'johndoe@example.com', user: { password: 'mysecret' }
+        post :create, user: attributes_for(:user)
 
         response.should redirect_to profile_path
       end
@@ -48,18 +48,18 @@ describe UsersController do
     context 'with invalid attributes' do
       it 'does not create a new user' do
         expect {
-          post :create, email: 'johndoe@example.com', user: { password: 'secret' }
+          post :create, user: attributes_for(:user, password: 'invalid')
         }.not_to change(User, :count)
       end
 
       it 'does not set user_id in the session' do
         expect {
-          post :create, email: 'johndoe@example.com', user: { password: 'secret' }
+          post :create, user: attributes_for(:user, password: 'invalid')
         }.not_to change { session[:user_id] }
       end
 
       it 're-renders the new method' do
-        post :create, email: 'johndoe@example.com', user: { password: 'secret' }
+        post :create, user: attributes_for(:user, password: 'invalid')
 
         response.should render_template :new
       end

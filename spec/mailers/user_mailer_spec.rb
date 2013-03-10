@@ -2,12 +2,12 @@ require "spec_helper"
 
 describe UserMailer do
   describe "email_confirmation" do
-    let(:email) { create(:email_with_user) }
-    let(:mail) { UserMailer.email_confirmation(email.user, email) }
+    let(:user) { create(:user) }
+    let(:mail) { UserMailer.email_confirmation(user) }
 
     it "renders the headers" do
       mail.subject.should eq("Welcome to Travnoty!")
-      mail.to.should eq([email.address])
+      mail.to.should eq([user.email])
       mail.from.should eq(["welcome@travnoty.com"])
     end
 

@@ -9,12 +9,8 @@
       Username:
       = @current_user.username
     %p
-      Emails:
-      %ul
-      - @current_user.emails.each do |email|
-        %li
-          = email.address
-          = email.confirmed_at
+      Email:
+      = @current_user.email
     %p
       Registered at:
       = @current_user.created_at

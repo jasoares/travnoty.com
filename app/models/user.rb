@@ -1,22 +1,21 @@
 class User < ActiveRecord::Base
   include BCrypt
+  include Extensions::Confirmable
 
-  has_many :emails
   attr_accessible :email, :name, :username, :password, :password_confirmation,
     :last_sign_in_at, :sign_in_count
 
   attr_accessor :password
 
-  before_save :encrypt_password
+  before_save   :encrypt_password
+  before_create :generate_confirmation_token
+  after_create  :send_confirmation_instructions
 
   validates :username, uniqueness: { case_sensitive: false, allow_blank: true }
   validates :password, presence: { :on => :create }, confirmation: true
   validates :password, length: { :within => 8..128, :allow_blank => true }
-  validates :emails, presence: true, associated_bubbling: true
-
-  def email
-    Email.where(user_id: self, main_address: true).first.address
-  end
+  validates :email, presence: true, email_format: true
+  validates :email, uniqueness: { case_sensitive: false, message: 'is already associated to an account' }
 
   def encrypt_password
     if password.present?
@@ -47,12 +46,20 @@ class User < ActiveRecord::Base
     end
   end
 
+protected
+
+  def send_confirmation_instructions
+    UserMailer.email_confirmation(self).deliver
+  end
+
+  def resend_confirmation_instructions
+    send_confirmation_instructions if confirmation_pending?
+  end
+
   class << self
 
-    def authenticate(who, password)
-      email = Email.where(address: who).first
-      user = email.try(:user)
-      user ||= User.where(username: who).first
+    def authenticate(handle, password)
+      user = User.where('users.email = ? OR users.username = ?', handle, handle).first
       if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
         user
       else

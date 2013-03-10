@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe SessionsController do
-  let(:user) { create(:user_with_email) }
+  let(:user) { create(:user) }
+  let(:params) { { handle: user.email, password: user.password } }
 
   describe "GET #new" do
     it "returns http success" do
@@ -10,7 +11,7 @@ describe SessionsController do
     end
 
     it 'redirects to users/profile when successfully signed in' do
-      post :create, email: user.email, password: user.password
+      post :create, params
       get :new
 
       response.should redirect_to profile_path
@@ -19,7 +20,7 @@ describe SessionsController do
 
   describe "POST #create" do
     it "redirects to users/profile when successfully signed in" do
-      post :create, email: user.email, password: user.password
+      post :create, params
       post :create
 
       response.should redirect_to profile_path
@@ -27,13 +28,13 @@ describe SessionsController do
     end
 
     it 'sets the session[:user_id] to the user id' do
-      post :create, email: user.email, password: user.password
+      post :create, params
 
       session[:user_id].should == user.id
     end
 
     it "renders new when invalid email or password are passed" do
-      post :create, email: '', password: ''
+      post :create, handle: '', password: ''
 
       response.should render_template :new
       flash[:alert].should == 'Invalid email or password'
@@ -42,14 +43,14 @@ describe SessionsController do
 
   describe "DELETE #destroy" do
     it 'deletes the user_id from session' do
-      post :create, email: user.email, password: user.password
+      post :create, params
       expect {
         delete :destroy
       }.to change { session[:user_id] }.from(user.id).to(nil)
     end
 
     it "redirects to the root_path" do
-      post :create, email: user.email, password: user.password
+      post :create, params
       delete :destroy
 
       response.should redirect_to root_path

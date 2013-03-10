@@ -4,7 +4,7 @@
       .control-group
         = f.text_field :name, :class => 'control', :placeholder => 'Full Name'
       .control-group
-        = text_field_tag :email, params[:email], :class => 'control', :type => 'email', :placeholder => 'Email'
+        = f.text_field :email, :class => 'control', :type => 'email', :placeholder => 'Email'
       .control-group
         = f.password_field :password, :class => 'control', :placeholder => 'Password'
         %p Tip: Must have at least 8 characters.

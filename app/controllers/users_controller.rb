@@ -8,9 +8,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    email = Email.new(address: params[:email], main_address: true)
-    email.user = @user
-    @user.emails = [email]
     if @user.save
       session[:user_id] = @user.id
       redirect_to profile_path, :notice => 'Signed Up!'

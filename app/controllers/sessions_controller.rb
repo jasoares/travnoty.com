@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:username_or_email], params[:password])
+    user = User.authenticate(params[:handle], params[:password])
     if user
       user.increment(:sign_in_count)
       user.update_attributes(last_sign_in_at: DateTime.now.utc)

@@ -9,14 +9,14 @@ Feature: Sign in
 
   Scenario: User signs in successfully with email and password
     When I go to the sign in page
-    And I fill in "username_or_email" with "johndoe@example.com"
+    And I fill in "Username or Email" with "johndoe@example.com"
     And I fill in "Password" with "mysecretpassword"
     And I press "Sign in"
     Then I should be signed in
 
   Scenario: User signs in successfully with username and password
     When I go to the sign in page
-    And I fill in "username_or_email" with "johndoe"
+    And I fill in "Username or Email" with "johndoe"
     And I fill in "Password" with "mysecretpassword"
     And I press "Sign in"
     Then I should be signed in

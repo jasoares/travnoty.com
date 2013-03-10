@@ -1,12 +1,13 @@
 = form_for @user do |f|
+  = @user.errors.full_messages unless @user.errors.empty?
   .control-group
     = f.label :name, 'Full Name'
     = f.text_field :name, :class => 'control'
     - unless @user.errors[:name].empty?
       %p.error= @user.errors.messages[:name]
   .control-group
-    = label_tag :email
-    = text_field_tag :email, params[:email], :class => 'control', :type => 'email'
+    = f.label :email
+    = f.text_field :email, :class => 'control', :type => 'email'
     - unless @user.errors[:emails].empty?
       %p.error= @user.errors.messages[:emails][1]
   .control-group

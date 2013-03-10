@@ -1,7 +1,7 @@
 = form_tag sessions_path do
   .control-group
-    = label_tag :username_or_email, 'Username or Email', :class => 'control-label'
-    = text_field_tag :username_or_email, params[:username_or_email], :class => 'control', tabindex: 1, autofocus: 'autofocus'
+    = label_tag :handle, 'Username or Email', :class => 'control-label'
+    = text_field_tag :handle, params[:handle], :class => 'control', tabindex: 1, autofocus: 'autofocus'
   .control-group
     = label_tag :password, raw("Password #{link_to '(forgot password)', new_password_reset_path}"), :class => 'control-label'
     = password_field_tag :password, '', :class => 'control', tabindex: 2

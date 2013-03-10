@@ -18,7 +18,7 @@ describe PasswordResetsController do
     end
 
     it 'sends password reset instructions and redirects to root url when passed a valid email address' do
-      user = create(:user_with_email)
+      user = create(:user)
       post :create, :email => user.email
 
       response.should redirect_to root_url
@@ -28,7 +28,7 @@ describe PasswordResetsController do
 
   describe 'GET #edit' do
     it "returns http success" do
-      user = create(:user_with_email)
+      user = create(:user)
       user.send_password_reset
 
       get :edit, id: user.reset_password_token
@@ -44,7 +44,7 @@ describe PasswordResetsController do
 
   describe 'POST #update' do
     before(:each) do
-      @user = create(:user_with_email)
+      @user = create(:user)
       @user.send_password_reset
     end
 

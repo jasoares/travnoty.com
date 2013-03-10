@@ -1,10 +1,10 @@
 class UserMailer < ActionMailer::Base
   default from: "welcome@travnoty.com"
 
-  def email_confirmation(user, email)
-    @user, @email = user, email
+  def email_confirmation(user)
+    @user = user
 
-    mail to: email.address, subject: "Welcome to Travnoty!"
+    mail to: user.email, subject: "Welcome to Travnoty!"
   end
 
   def password_reset(user)

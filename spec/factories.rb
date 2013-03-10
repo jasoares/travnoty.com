@@ -1,31 +1,10 @@
 FactoryGirl.define do
 
-  sequence(:email)    { |n| "johndoe#{n}@gmail.com" }
-
-  factory :email do
-    address { generate(:email) }
-
-    factory :email_with_user do
-      after(:build) do |email|
-        email.user = build(:user, emails: [email])
-      end
-    end
-  end
-
-  sequence(:username) { |n| "username#{n}" }
+  sequence(:username) { |n| "johndoe#{n}" }
 
   factory :user do
     password 'hersecretpassword'
-
-    trait :with_username do
-      username { generate(:username) }
-    end
-
-    factory :user_with_email do
-      after(:build) do |user|
-        user.emails << build(:email, user: user, main_address: true)
-      end
-    end
+    email    { generate(:username) + "@example.com" }
   end
 
   sequence(:past_start_date, 1) { |n| n.years.ago.to_datetime }

@@ -121,10 +121,28 @@ label {
 }
 
 .error {
-  color: #d55;
-  background-color: #fcc;
-  border: 1px solid #d55;
+  color: #c22;
+  background-color: #ecc;
+  border: 1px solid #c22;
 }
+
+.error.form {
+  font-size: .8em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.error.attr {
+  border-top: 0px;
+  margin-top: -2px;
+  margin-left: 3px;
+  padding: 2px 10px;
+  width: 160px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
 
 .alert {
   color: #d55;
@@ -298,14 +316,4 @@ label {
 
 .signup .box {
   width: 300px;
-}
-
-.control-group p.error {
-  border-top: 0px;
-  margin-top: -2px;
-  margin-left: 3px;
-  padding: 2px 10px;
-  width: 160px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
 }

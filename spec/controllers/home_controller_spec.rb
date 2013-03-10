@@ -7,6 +7,13 @@ describe HomeController do
       get 'welcome'
       response.should be_success
     end
+
+    it 'redirects to user profile if already signed in' do
+      controller.stub(signed_in?: true)
+      get :welcome
+
+      response.should redirect_to profile_path
+    end
   end
 
 end

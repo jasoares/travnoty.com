@@ -1,19 +1,26 @@
 require 'spec_helper'
 
 describe SessionsController do
+  let(:user) { create(:user_with_email) }
 
   describe "GET #new" do
     it "returns http success" do
       get :new
       response.should be_success
     end
+
+    it 'redirects to users/profile when successfully signed in' do
+      post :create, email: user.email, password: user.password
+      get :new
+
+      response.should redirect_to profile_path
+    end
   end
 
-  describe "GET #create" do
-    let(:user) { create(:user_with_email) }
-
-    it "redirects_to users/profile when successfully signed in" do
+  describe "POST #create" do
+    it "redirects to users/profile when successfully signed in" do
       post :create, email: user.email, password: user.password
+      post :create
 
       response.should redirect_to profile_path
       flash[:notice].should == 'Signed in!'
@@ -33,12 +40,19 @@ describe SessionsController do
     end
   end
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get 'destroy'
+  describe "DELETE #destroy" do
+    it 'deletes the user_id from session' do
+      post :create, email: user.email, password: user.password
+      expect {
+        delete :destroy
+      }.to change { session[:user_id] }.from(user.id).to(nil)
+    end
+
+    it "redirects to the root_path" do
+      post :create, email: user.email, password: user.password
+      delete :destroy
 
       response.should redirect_to root_path
-      session[:user_id].should be_nil
     end
   end
 

@@ -5,6 +5,7 @@ module Extensions
 
     included do
       attr_accessor :password
+      before_validation :normalize_email
       before_save :encrypt_password
     end
 
@@ -19,6 +20,12 @@ module Extensions
       self[:"#{column}_sent_at"] + self.class.token_valid_duration < DateTime.now.utc
     end
 
+  private
+
+    def normalize_email
+      self.email = self.class.normalize_email(email)
+    end
+
     module ClassMethods
 
       def authenticate(handle, password)
@@ -30,6 +37,10 @@ module Extensions
         end
       end
 
+      def find_by_normalized_email(email)
+        self.find_by_email normalize_email(email)
+      end
+
       def generate_token(column)
         loop do
           token = SecureRandom.urlsafe_base64(15)
@@ -39,6 +50,10 @@ module Extensions
 
       def token_valid_duration
         3.hours
+      end
+
+      def normalize_email(email)
+        email.strip.downcase
       end
 
     end

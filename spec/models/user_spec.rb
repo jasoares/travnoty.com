@@ -34,6 +34,11 @@ describe User do
       create(:user, email: 'johndoe@gmail.com')
       expect(build(:user, email: 'johndoe@gmail.com').errors_on(:email)).to include('is already associated to an account')
     end
+
+    it 'should be converted to lowercase when persisted' do
+      create(:user, email: 'JohnDoe@gmail.com')
+      User.find_by_normalized_email('JohnDoe@gmail.com').email.should == 'johndoe@gmail.com'
+    end
   end
 
   describe '#password' do
@@ -219,6 +224,16 @@ describe User do
       mail.should_receive(:deliver)
       UserMailer.should_receive(:password_reset).with(user).and_return(mail)
       user.send_reset_password_instructions
+    end
+  end
+
+  describe '.normalize_email' do
+    it 'removes extra whitespace' do
+      User.normalize_email('  johndoe@example.com ').should == 'johndoe@example.com'
+    end
+
+    it 'converts to downcase' do
+      User.normalize_email('JohnDoe@Example.Com').should == 'johndoe@example.com'
     end
   end
 

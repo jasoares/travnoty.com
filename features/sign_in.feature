@@ -4,8 +4,8 @@ Feature: Sign in
   I want to be able to sign in with the credentials I used to sign up.
 
   Background:
-    Given I am signed up as "johndoe@example.com"
-    And my username is "johndoe"
+    Given I am signed up as "JohnDoe@example.com"
+    And my username is "JohnDoe"
 
   Scenario: User signs in successfully with email and password
     When I go to the sign in page

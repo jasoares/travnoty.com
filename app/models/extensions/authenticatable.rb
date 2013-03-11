@@ -16,11 +16,11 @@ module Extensions
       end
     end
 
+  private
+
     def is_token_expired?(column)
       self[:"#{column}_sent_at"] + self.class.token_valid_duration < DateTime.now.utc
     end
-
-  private
 
     def normalize_email
       self.email = self.class.normalize_email(email)

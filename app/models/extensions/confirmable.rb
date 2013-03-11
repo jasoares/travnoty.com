@@ -33,7 +33,7 @@ module Extensions
     end
 
     def confirmation_period_expired?
-      confirmation_sent_at + self.class.confirmation_period < DateTime.now.utc
+      is_token_expired?(:confirmation)
     end
 
     def generate_confirmation_token
@@ -53,10 +53,6 @@ module Extensions
 
       def confirmation_token
         generate_token(:confirmation_token)
-      end
-
-      def confirmation_period
-        4.hours
       end
 
     end

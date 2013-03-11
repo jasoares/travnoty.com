@@ -15,6 +15,10 @@ module Extensions
       end
     end
 
+    def is_token_expired?(column)
+      self[:"#{column}_sent_at"] + self.class.token_valid_duration < DateTime.now.utc
+    end
+
     module ClassMethods
 
       def authenticate(handle, password)
@@ -31,6 +35,10 @@ module Extensions
           token = SecureRandom.urlsafe_base64(15)
           break token unless self.exists?(column => token)
         end
+      end
+
+      def token_valid_duration
+        3.hours
       end
 
     end

@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
 
   def update
     @user = User.find_by_reset_password_token(params[:id])
-    if @user.reset_token_sent_at < 3.hours.ago
+    if @user.reset_period_expired?
       redirect_to new_password_reset_path, :alert => 'Password reset has expired.'
     elsif @user.reset_password(params[:user][:password], params[:user][:password_confirmation])
       redirect_to sign_in_path, :notice => 'Password has been reset!'

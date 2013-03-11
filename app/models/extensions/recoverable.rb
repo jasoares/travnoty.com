@@ -7,8 +7,15 @@ module Extensions
       self.password = new_password
       self.password_confirmation = new_pasword_confirmation
 
-      clear_reset_password_token if valid?
+      if valid?
+        clear_reset_password_token
+      end
+
       save
+    end
+
+    def reset_period_expired?
+      is_token_expired?(:reset_token)
     end
 
     def send_reset_password_instructions

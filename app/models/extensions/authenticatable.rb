@@ -29,7 +29,7 @@ module Extensions
     module ClassMethods
 
       def authenticate(handle, password)
-        authable = self.where(email: handle).first || self.where(username: handle).first
+        authable = find_by_normalized_email(handle) || find_by_username(handle)
         if authable && authable.password_hash == BCrypt::Engine.hash_secret(password, authable.password_salt)
           authable
         else
@@ -39,6 +39,10 @@ module Extensions
 
       def find_by_normalized_email(email)
         self.find_by_email normalize_email(email)
+      end
+
+      def find_by_username(username)
+        self.where('lower(username) = ?', username.downcase).first
       end
 
       def generate_token(column)

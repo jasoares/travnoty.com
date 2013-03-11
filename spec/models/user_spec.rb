@@ -15,6 +15,11 @@ describe User do
       create(:user)
       expect(build(:user).errors_on(:username)).not_to include("has already been taken")
     end
+
+    it 'should preserve letter case when persisted' do
+      create(:user, username: 'JohnDoe')
+      User.find_by_username('JohnDoe').username.should == 'JohnDoe'
+    end
   end
 
   describe '#email' do
@@ -224,6 +229,44 @@ describe User do
       mail.should_receive(:deliver)
       UserMailer.should_receive(:password_reset).with(user).and_return(mail)
       user.send_reset_password_instructions
+    end
+  end
+
+  describe '.authenticate' do
+    let(:user) { create(:user) }
+
+    it 'returns a user object when successfully authenticated with email' do
+      User.authenticate(user.email, user.password).should == user
+    end
+
+    it 'returns a user object when successfully authenticated with username' do
+      User.authenticate(user.username, user.password).should == user
+    end
+
+    it 'returns nil when authentication fails' do
+      User.authenticate(user.email, 'wrongpassword').should be_nil
+    end
+
+    it 'returns a user object when successfully authenticated with different case email' do
+      User.authenticate(user.email.upcase, user.password).should == user
+    end
+
+    it 'returns a user object when successfully authenticated with different case username' do
+      User.authenticate(user.username.upcase, user.password).should == user
+    end
+  end
+
+  describe '.find_by_normalized_email' do
+    it 'performs case insensitive queries for email' do
+      user = create(:user)
+      User.find_by_normalized_email(user.email.upcase).should == user
+    end
+  end
+
+  describe '.find_by_username' do
+    it 'performs case insensitive queries against persisted mixed case usernames' do
+      user = create(:user, :username => 'JohnDoe')
+      User.find_by_username('joHndoE').should == user
     end
   end
 

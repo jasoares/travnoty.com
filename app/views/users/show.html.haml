@@ -1,5 +1,5 @@
 %article#article.container
-  %h2= "Welcome #{@current_user.try(:name) or @current_user.try(:username) or @current_user.email}"
+  %h2= @current_user.handle
 
   %div.account_info
     %p

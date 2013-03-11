@@ -70,6 +70,23 @@ describe User do
     end
   end
 
+  describe '#handle' do
+    it 'returns username if it is set' do
+      user = build(:user)
+      user.handle.should == user.username
+    end
+
+    it 'returns name if username is not set' do
+      user = build(:user, username: nil, name: 'John Doe')
+      user.handle.should == user.name
+    end
+
+    it 'returns email if neither username nor name are available' do
+      user = build(:user, username: nil, name: nil)
+      user.handle.should == user.email
+    end
+  end
+
   describe '#password' do
     it "can't be blank" do
       expect(build(:user, password: '').errors_on(:password)).to include("can't be blank")

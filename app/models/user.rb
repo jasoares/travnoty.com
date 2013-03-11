@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, email_format: true
   validates :email, uniqueness: { case_sensitive: false, message: 'is already associated to an account' }
 
+  def handle
+    username || name || email
+  end
+
 end

@@ -5,7 +5,7 @@ FactoryGirl.define do
   factory :user do
     username { generate(:username) }
     password 'hersecretpassword'
-    email    { username + "@example.com" }
+    email    { (username.blank? ? generate(:username) : username) + "@example.com" }
   end
 
   sequence(:past_start_date, 1) { |n| n.years.ago.to_datetime }

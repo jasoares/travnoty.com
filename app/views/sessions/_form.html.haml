@@ -3,7 +3,7 @@
     = label_tag :handle, 'Username or Email', :class => 'control-label'
     = text_field_tag :handle, params[:handle], :class => 'control', tabindex: 1, autofocus: 'autofocus'
   .control-group
-    = label_tag :password, raw("Password #{link_to '(forgot password)', new_password_reset_path}"), :class => 'control-label'
+    = label_tag :password, raw("Password #{link_to '(forgot password)', new_password_path}"), :class => 'control-label'
     = password_field_tag :password, '', :class => 'control', tabindex: 2
   .control-group
     = label_tag :submit, '', :class => 'control-label'

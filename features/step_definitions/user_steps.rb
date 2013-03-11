@@ -23,7 +23,7 @@ Given /^the email is already confirmed$/ do
 end
 
 When /^I follow the password reset link sent in the email(?: again)?$/ do
-  visit edit_password_reset_path(id: @user.reset_password_token)
+  visit edit_password_path(id: @user.reset_password_token)
 end
 
 When /^I follow the confirmation link sent in the email(?: again)?$/ do

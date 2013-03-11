@@ -3,7 +3,7 @@
     .box-header
       %h2 Change Password
     .box-content.clearfix
-      = form_for @user, url: password_reset_path(params[:id]) do |f|
+      = form_for @user, url: password_path(params[:id]) do |f|
         - if @user.errors.any?
           .error_messages
             %ul

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PasswordResetsController do
+describe PasswordsController do
 
   describe 'GET #new' do
     it 'returns http success' do
@@ -37,7 +37,7 @@ describe PasswordResetsController do
 
     it 'redirects to password_resets/new if no valid reset token is passed' do
       get :edit, id: ''
-      response.should redirect_to new_password_reset_path
+      response.should redirect_to new_password_path
     end
 
   end
@@ -60,7 +60,7 @@ describe PasswordResetsController do
       post :update, id: @user.reset_password_token
       Timecop.return
 
-      response.should redirect_to new_password_reset_path
+      response.should redirect_to new_password_path
       flash[:alert].should == 'Password reset has expired.'
     end
 

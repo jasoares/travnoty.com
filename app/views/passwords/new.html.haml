@@ -3,7 +3,7 @@
     .box-header
       %h2 Recover Password
     .box-content.clearfix
-      = form_tag password_resets_path, method: 'post' do
+      = form_tag passwords_path, method: 'post' do
         .control-group
           = label_tag :email
           = text_field_tag :email, params[:email], :class => 'control', :type => 'email'

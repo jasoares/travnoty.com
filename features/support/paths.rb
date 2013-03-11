@@ -15,7 +15,7 @@ module NavigationHelpers
     when /^sign\s?in$/
       sign_in_path
     when /^request\spassword\sreset$/
-      new_password_reset_path
+      new_password_path
     when /^profile$/
       profile_path
     # Add more mappings here.

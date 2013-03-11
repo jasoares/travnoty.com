@@ -20,6 +20,26 @@ describe User do
       create(:user, username: 'JohnDoe')
       User.find_by_username('JohnDoe').username.should == 'JohnDoe'
     end
+
+    it 'should not have spaces' do
+      expect(build(:user, username: 'John Doe').errors_on(:username).first).to match /may only contain/
+    end
+
+    it 'should not start with a dash' do
+      expect(build(:user, username: '-johndoe').errors_on(:username).first).to match /may only contain/
+    end
+
+    it 'should not contain any characters other than dashes, letters or numbers' do
+      expect(build(:user, username: 'john_doe').errors_on(:username).first).to match /may only contain/
+    end
+
+    it 'allows dashes when not starting with one' do
+      expect(build(:user, username: 'john-doe543')).to be_valid
+    end
+
+    it 'accepts numbers at the start and beyond' do
+      expect(build(:user, username: '12john3doe45')).to be_valid
+    end
   end
 
   describe '#email' do

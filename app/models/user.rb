@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :username, :password,
     :last_sign_in_at, :sign_in_count
 
-  validates :username, uniqueness: { case_sensitive: false, allow_blank: true }
+  validates :username, uniqueness: { case_sensitive: false, allow_blank: true }, username_format: true
   validates :password, presence: { :on => :create }, confirmation: true
   validates :password, length: { :within => 8..128, :allow_blank => true }
   validates :email, presence: true, email_format: true

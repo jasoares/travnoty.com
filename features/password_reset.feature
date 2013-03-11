@@ -24,4 +24,11 @@ Feature: Password Reset
   Scenario: User resets his password successfully and tries to use link again
     Given I just reset my password successfully
     When I follow the password reset link sent in the email again
-    Then I should see "Invalid reset password token"
+    Then I should see "The reset password token is invalid or has expired. Please request a new one."
+    And I should be on the request password reset page
+
+  Scenario: User tries to reset password after token expired
+    Given the token has expired
+    When I follow the password reset link sent in the email
+    Then I should see "The reset password token is invalid or has expired. Please request a new one."
+    And I should be on the request password reset page

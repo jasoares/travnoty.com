@@ -12,7 +12,7 @@ Travnoty::Application.routes.draw do
   post 'users' => 'users#create'
   get 'users/:id/confirm_email' => 'users#confirm_email', :as => 'confirm_email'
 
-  resources :password_resets
+  resources :password_resets, only: [:new, :create, :edit, :update]
 
   scope :module => :api, constraints: Subdomain[:api], defaults: { format: :json } do
     scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do

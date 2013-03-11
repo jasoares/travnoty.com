@@ -14,6 +14,10 @@ Given /^I just reset my password successfully$/ do
   step "I should see \"Password has been reset!\""
 end
 
+Given /^the token has expired$/ do
+  Timecop.freeze(Time.now.utc + 1.hour + @user.class.token_valid_duration)
+end
+
 When /^I follow the password reset link sent in the email(?: again)?$/ do
   visit edit_password_reset_path(id: @user.reset_password_token)
 end

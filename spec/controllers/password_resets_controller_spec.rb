@@ -35,9 +35,9 @@ describe PasswordResetsController do
       response.should be_success
     end
 
-    it 'redirects to sessions/new if no valid reset token is passed' do
+    it 'redirects to password_resets/new if no valid reset token is passed' do
       get :edit, id: ''
-      response.should redirect_to sign_in_path
+      response.should redirect_to new_password_reset_path
     end
 
   end

@@ -15,7 +15,10 @@ class PasswordResetsController < ApplicationController
 
   def edit
     @user = User.find_by_reset_password_token(params[:id])
-    redirect_to(sign_in_path, :alert => 'Invalid reset password token') unless @user
+    if @user.nil? or @user.reset_period_expired?
+      msg = "The reset password token is invalid or has expired. Please request a new one."
+      redirect_to(new_password_reset_path, :alert => msg)
+    end
   end
 
   def update

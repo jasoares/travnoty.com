@@ -65,7 +65,7 @@ describe PasswordResetsController do
     end
 
     it 'renders :edit again if the password is invalid or does not pass validations' do
-      @user.stub(:change_password).and_return(false)
+      @user.stub(:reset_password).and_return(false)
       post :update, id: @user.reset_password_token, user: { password: 'secret' }
       response.should render_template :edit
     end

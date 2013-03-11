@@ -29,7 +29,7 @@ describe PasswordResetsController do
   describe 'GET #edit' do
     it "returns http success" do
       user = create(:user)
-      user.send_password_reset
+      user.send_reset_password_instructions
 
       get :edit, id: user.reset_password_token
       response.should be_success
@@ -45,7 +45,7 @@ describe PasswordResetsController do
   describe 'POST #update' do
     before(:each) do
       @user = create(:user)
-      @user.send_password_reset
+      @user.send_reset_password_instructions
     end
 
     it 'redirects to sessions/new if the password is reset successfully' do

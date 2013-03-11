@@ -203,9 +203,9 @@ describe User do
   end
 
   describe '#reset_password' do
-    before(:each) do
+    before do
       @user = create(:user)
-      @user.send_reset_password_instructions
+      @user.generate_reset_password_token!
     end
 
     it 'resets the reset_password_token to nil when passed a valid password' do

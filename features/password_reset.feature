@@ -15,10 +15,6 @@ Feature: Password Reset
     And I fill in "Password confirmation" with "newpassword"
     And I press "Change password"
     Then I should see "Password has been reset!"
-    And I should be on the sign in page
-    When I fill in "Username or Email" with "email@example.com"
-    And I fill in "Password" with "newpassword"
-    And I press "Sign in"
     Then I should be signed in
 
   Scenario: User resets his password successfully and tries to use link again

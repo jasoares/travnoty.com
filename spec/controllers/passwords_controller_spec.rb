@@ -48,10 +48,10 @@ describe PasswordsController do
       @user.generate_reset_password_token!
     end
 
-    it 'redirects to sessions/new if the password is reset successfully' do
+    it 'redirects to users/show if the password is reset successfully' do
       post :update, id: @user.reset_password_token, user: { password: 'mysecretpass' }
 
-      response.should redirect_to sign_in_path
+      response.should redirect_to profile_path
       flash[:notice].should == 'Password has been reset!'
     end
 

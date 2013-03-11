@@ -26,7 +26,8 @@ class PasswordsController < ApplicationController
     if @user.reset_period_expired?
       redirect_to new_password_path, :alert => 'Password reset has expired.'
     elsif @user.reset_password(params[:user][:password], params[:user][:password_confirmation])
-      redirect_to sign_in_path, :notice => 'Password has been reset!'
+      sign_in @user
+      redirect_to profile_path, :notice => 'Password has been reset!'
     else
       render :edit
     end

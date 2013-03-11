@@ -16,6 +16,8 @@ module NavigationHelpers
       sign_in_path
     when /^request\spassword\sreset$/
       new_password_reset_path
+    when /^profile$/
+      profile_path
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

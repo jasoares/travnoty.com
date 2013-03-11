@@ -10,7 +10,7 @@ Travnoty::Application.routes.draw do
   get 'sign_up' => 'users#new', :as => 'sign_up'
   get 'profile' => 'users#show', :as => 'profile'
   post 'users' => 'users#create'
-  get 'users/:id/confirm_email' => 'users#confirm_email', :as => 'confirm_email'
+  get 'users/:id/confirm_email/:confirmation_token' => 'users#confirm_email', :as => 'confirm_email'
 
   resources :password_resets, only: [:new, :create, :edit, :update]
 

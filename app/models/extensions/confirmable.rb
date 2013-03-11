@@ -9,31 +9,16 @@ module Extensions
     end
 
     def confirm
-      unless confirmation_pending?
-        self.errors[:base] << 'Already confirmed.'
-        return false
-      end
-
-      if confirmation_period_expired?
-        self.errors[:base] << 'Confirmation period expired.'
-        return false
-      end
-      
       self.confirmed_at = DateTime.now.utc
-      self.confirmation_token = nil
       save
     end
 
     def confirmed?
-      !!confirmed_at
+      !!self.confirmed_at
     end
 
     def confirmation_pending?
-      !!confirmation_token
-    end
-
-    def confirmation_period_expired?
-      is_token_expired?(:confirmation)
+      !confirmed?
     end
 
     def generate_confirmation_token

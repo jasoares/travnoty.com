@@ -21,4 +21,8 @@ class ApplicationController < ActionController::Base
   def signed_in?
     !!current_user
   end
+
+  def sign_in(user)
+    session[:user_id] = user.id
+  end
 end

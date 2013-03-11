@@ -97,57 +97,27 @@ describe User do
     let(:user) { create(:user) }  
 
     it 'sets the confirmed_at attribute to now' do
-      user.stub(:confirmation_period_expired? => false)
       user.confirmed_at.should be_nil
       user.confirm
       user.confirmed_at.should be_an ActiveSupport::TimeWithZone
-      user.errors.should be_empty
-    end
-
-    it 'resets the confirmation token when successfully confirmed' do
-      user.stub(:confirmation_period_expired? => false)
-      user.confirm
-      user.confirmation_token.should be_nil
     end
 
     it 'returns true when successfully confirmed' do
-      user.stub(:confirmation_period_expired? => false)
       user.confirm.should be_true
-    end
-
-    it 'returns false when unsuccessfully confirmed' do
-      user.stub(:confirmation_period_expired? => true)
-      user.confirm.should be_false
-    end
-
-    it 'returns false and adds an error to the base object if the user is already confirmed' do
-      user.stub(:confirmation_period_expired? => false)
-      user.confirm
-      user.confirm
-      expect(user.errors[:base]).to include('Already confirmed.')
-    end
-
-    it 'returns false and adds an error to the base object if the period expired' do
-      user.stub(:confirmation_period_expired? => true)
-      user.confirm
-      user.confirmed_at.should be_nil
-      expect(user.errors[:base]).to include('Confirmation period expired.')
     end
   end
 
-  describe '#confirmation_period_expired?' do
-    it 'returns true if the confirmation period expired' do
-      Timecop.freeze(2.days.ago)
-      user = create(:user)
-      Timecop.return
-      user.confirmation_period_expired?.should be_true
+  describe 'confirmed?' do
+    let(:user) { create(:user) }
+
+    it 'returns true when confirmed_at has a value' do
+      user.stub(confirmed_at: Time.now.utc)
+      user.confirmed?.should be_true
     end
 
-    it 'returns false if the confirmation period has not expired' do
-      Timecop.freeze(2.hours.ago)
-      user = create(:user)
-      Timecop.return
-      user.confirmation_period_expired?.should be_false
+    it 'returns false when confirmed_at is nill' do
+      user.stub(confirmed_at: nil)
+      user.confirmed?.should be_false
     end
   end
 

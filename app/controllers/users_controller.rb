@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      session[:user_id] = @user.id
+      sign_in @user
       redirect_to profile_path, :notice => 'Signed Up!'
     else
       render 'new'
@@ -21,10 +21,17 @@ class UsersController < ApplicationController
 
   def confirm_email
     user = User.where(confirmation_token: params[:confirmation_token]).first
-    if user.confirm
-      redirect_to sign_in_path, :notice => 'Email confirmed successfully!'
+    if user
+      msg = if user.confirmed?
+        "Your email was already verified."
+      else
+        user.confirm
+        "Your email has been verified."
+      end
+      sign_in user
+      redirect_to profile_path, :notice => msg
     else
-      redirect_to resend_confirmation_path, :notice => 'Confirmation token not found'
+      redirect_to root_url, :notice => 'Confirmation token not found'
     end
   end
 

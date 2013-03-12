@@ -11,3 +11,17 @@ Feature: Sign up
     And I fill in "Password" with "mysecretpassword"
     And I press "Sign up"
     Then I should be signed in
+
+  Scenario: User signs up without username
+    When I go to the sign up page
+    And I fill in "Email" with "email@example.com"
+    And I fill in "Password" with "mysecretpassword"
+    And I press "Sign up"
+    Then I should see an error message
+
+  Scenario: User signs up without email
+    When I go to the sign up page
+    And I fill in "Username" with "JohnDoe"
+    And I fill in "Password" with "mysecretpassword"
+    And I press "Sign up"
+    Then I should see an error message

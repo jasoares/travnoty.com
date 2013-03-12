@@ -26,3 +26,7 @@ end
 Then /^I should see "([^"]+)"$/ do |text|
   page.should have_content(text)
 end
+
+Then /^I should see an error message$/ do
+  page.should have_selector('.error.form')
+end

@@ -2,10 +2,10 @@
   - unless @user.errors.empty?
     %p.error.form= "There were problems creating your account." unless @user.errors.empty?
   .control-group
-    = f.label :name, 'Full Name'
-    = f.text_field :name, :class => 'control'
-    - unless @user.errors[:name].empty?
-      %p.error.attr= @user.errors.messages[:name]
+    = f.label :username, 'Username'
+    = f.text_field :username, :class => 'control'
+    - unless @user.errors[:username].empty?
+      %p.error.attr= @user.errors.messages[:username].first
   .control-group
     = f.label :email
     = f.text_field :email, :class => 'control', :type => 'email'

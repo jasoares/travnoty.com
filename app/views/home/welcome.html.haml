@@ -2,9 +2,9 @@
   .container
     = form_for @user do |f|
       .control-group
-        = f.text_field :name, :class => 'control', :placeholder => 'Full Name'
+        = f.text_field :username, :class => 'control', :placeholder => 'Pick a username'
       .control-group
-        = f.text_field :email, :class => 'control', :type => 'email', :placeholder => 'Email'
+        = f.text_field :email, :class => 'control', :type => 'email', :placeholder => 'Your email'
       .control-group
         = f.password_field :password, :class => 'control', :placeholder => 'Password'
         %p Tip: Must have at least 8 characters.

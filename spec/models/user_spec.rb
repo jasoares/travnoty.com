@@ -6,6 +6,10 @@ describe User do
   end
 
   describe '#username' do
+    it 'is required' do
+      expect(build(:user, username: '').errors_on(:username)).to include('can\'t be blank')
+    end
+
     it 'should be unique' do
       create(:user, username: 'johndoe')
       expect(build(:user, username: 'johndoe').errors_on(:username)).to include("has already been taken")

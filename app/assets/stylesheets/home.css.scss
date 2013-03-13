@@ -2,21 +2,61 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.article.welcome {
+  margin: -30px 0px;
+}
+
+.welcome .section {
+  padding: 30px 0px;
+  border-bottom: 1px solid #393;
+}
+
+.welcome .section:last-child {
+  border-bottom: 0px;
+}
+
+.banner {
+  width: 610px;
+}
+
+.client .container {
+  background-image: url(travnoty_client_linux_alpha.png);
+  background-repeat: no-repeat;
+  background-position: -60px;
+  height: 360px;
+
+  .banner {
+    width: 590px;
+    text-align: right;
+    .heading {
+      font-size: 3.1em;
+    }
+  }
+
+  .os_logos {
+    margin-top: 80px;
+    text-align: center;
+    span {
+      margin-left: 25px;
+      padding: 5px 50px;
+      background-color: #5ba740;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      box-shadow: 1px 1px 3px #333;
+
+    }
+  }
+}
+
 .heading {
   font-size: 3.5em;
-  min-width: 730px;
+  padding-bottom: 30px;
 }
 
 .subheading {
   font-size: 1.2em;
 }
 
-.welcome form.new_user {
-  margin-left: 60px;
-  margin-top: 10px;
-  float: right;
-
-  input {
-    margin: 5px 0px;
-  }
-}
+#new_user input { margin: 5px 0px; }

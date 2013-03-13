@@ -1,6 +1,0 @@
-%ul.sign
-  - if current_user
-    %li= current_user.handle
-    %li= link_to "Sign out", sign_out_path
-  - else
-    %li= link_to "Sign in", sign_in_path

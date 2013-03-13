@@ -1,15 +1,25 @@
-%article#article.welcome
-  .container
-    = form_for @user do |f|
-      .control-group
-        = f.text_field :username, :class => 'control', :placeholder => 'Pick a username'
-      .control-group
-        = f.text_field :email, :class => 'control', :type => 'email', :placeholder => 'Your email'
-      .control-group
-        = f.password_field :password, :class => 'control', :placeholder => 'Password'
-        %p Tip: Must have at least 8 characters.
-      .control-group
-        = submit_tag 'Sign up', :class => 'button primary'
-
-    %h1.heading Get notifications from your Travian account.
-    %h2.subheading Know when you are being attacked, your troops are near starvation or your warehouse is near capacity limit.
+%article.article.welcome
+  %section.section.wall-hash
+    .container.clearfix
+      .banner.left
+        %h1.heading Get notifications from your Travian account.
+        %h2.subheading Know when you are being attacked, your troops are near starvation or your warehouse is near capacity limit.
+      = form_for @user, html: { :class => 'right' } do |f|
+        .control-group
+          = f.text_field :username, :class => 'control', :placeholder => 'Pick a username'
+        .control-group
+          = f.text_field :email, :class => 'control', :type => 'email', :placeholder => 'Your email'
+        .control-group
+          = f.password_field :password, :class => 'control', :placeholder => 'Password'
+          %p Tip: Must have at least 8 characters.
+        .control-group
+          = submit_tag 'Sign up', :class => 'button primary'
+  %section.section.client
+    .container.clearfix
+      .banner.right
+        %h1.heading Get out for you day life, we keep you posted.
+        %h2.subheading Just leave the Travnoty client app running at home.
+        .os_logos
+          %span Windows
+          %span Mac OS
+          %span Linux

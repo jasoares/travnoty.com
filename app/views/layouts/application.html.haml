@@ -3,9 +3,8 @@
   %head
     %meta{:charset => "utf-8"}
     %meta{:name => "viewport", :content => "width=960, initial-scale=0, maximum-scale=1.8"}
-    %title= content_for?(:title) ? yield(:title) : "Travnoty.com"
-    %meta{:content => "", :name => "description"}
-    %meta{:content => "", :name => "author"}
+    %title= content_for?(:title) ? "#{yield(:title)} · Travnoty" : "Travnoty - Get notifications from your Travian account."
+    %meta{:content => "Get notifications from your travian account every time you are being attacked or when your wharehouse is full.", :name => "description"}
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags

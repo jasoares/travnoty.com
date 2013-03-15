@@ -1,5 +1,12 @@
 FactoryGirl.define do
 
+  sequence(:name, 'A') { |n| "John Doe #{n.upcase}" }
+
+  factory :pre_subscription do
+    name  { generate(:name) }
+    email { (name.blank? ? generate(:name) : name).gsub(/\s/, '') + "@example.com" }
+  end
+
   sequence(:username) { |n| "johndoe#{n}" }
 
   factory :user do

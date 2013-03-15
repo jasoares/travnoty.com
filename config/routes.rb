@@ -3,16 +3,20 @@ require 'api_version'
 
 Travnoty::Application.routes.draw do
 
-  get 'sign_out' => 'sessions#destroy', :as => 'sign_out'
-  get 'sign_in' => 'sessions#new', :as => 'sign_in'
-  post 'sessions' => 'sessions#create'
+  if ENV['LAUNCH']
+    get 'sign_out' => 'sessions#destroy', :as => 'sign_out'
+    get 'sign_in' => 'sessions#new', :as => 'sign_in'
+    post 'sessions' => 'sessions#create'
 
-  get 'sign_up' => 'users#new', :as => 'sign_up'
-  get 'profile' => 'users#show', :as => 'profile'
-  post 'users' => 'users#create'
-  get 'users/:id/confirm_email/:confirmation_token' => 'users#confirm_email', :as => 'confirm_email'
+    get 'sign_up' => 'users#new', :as => 'sign_up'
+    get 'profile' => 'users#show', :as => 'profile'
+    post 'users' => 'users#create'
+    get 'users/:id/confirm_email/:confirmation_token' => 'users#confirm_email', :as => 'confirm_email'
 
-  resources :passwords, only: [:new, :create, :edit, :update]
+    resources :passwords, only: [:new, :create, :edit, :update]
+  end
+
+  resources :pre_subscriptions, only: [:new, :create]
 
   scope :module => :api, constraints: Subdomain[:api], defaults: { format: :json } do
     scope :module => :v1, constraints: ApiVersion[version: 1, default: true] do
@@ -77,7 +81,11 @@ Travnoty::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'home#welcome'
+  if ENV['LAUNCH']
+    root :to => 'home#welcome'
+  else
+    root :to => 'home#pre_welcome'
+  end
 
   # See how all your routes lay out with "rake routes"
 

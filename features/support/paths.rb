@@ -8,7 +8,7 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^home\s?page$/
+    when /^home$/
       root_path
     when /^sign\s?up$/
       sign_up_path
@@ -18,6 +18,8 @@ module NavigationHelpers
       new_password_path
     when /^profile$/
       profile_path
+    when /^pre\ssubscribe$/
+      new_pre_subscription_path
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #

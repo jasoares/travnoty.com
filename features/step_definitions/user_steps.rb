@@ -39,3 +39,7 @@ Then /^an email with confirmation instructions should be sent to "(.*)"$/ do |em
   @user = User.find_by_email(email)
   @user.confirmation_token.should_not be_blank
 end
+
+Then /^an email with the pre subscription confirmation should be sent to "(.*)"$/ do |email|
+  PreSubscription.find_by_email(email).should_not be_nil
+end

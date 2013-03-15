@@ -6,15 +6,16 @@
       = image_tag 'travnoty_logo_2_black.png', size: '128x40'
   .beta beta
   %nav#nav
-    %ul
+    - if ENV['LAUNCH']
+      %ul
+        - if signed_in?
+          %li= link_to current_user.handle, profile_path
+          %li= link_to "Sign out", sign_out_path
+        - else
+          %li= link_to "Sign in", sign_in_path
+      %ul
+        - if signed_in?
+          %li= link_to "Notifications", hubs_path
+          %li= link_to "Accounts", servers_path
       - if signed_in?
-        %li= link_to current_user.handle, profile_path
-        %li= link_to "Sign out", sign_out_path
-      - else
-        %li= link_to "Sign in", sign_in_path
-    %ul
-      - if signed_in?
-        %li= link_to "Notifications", hubs_path
-        %li= link_to "Accounts", servers_path
-    - if signed_in?
-      .vertical-div
+        .vertical-div

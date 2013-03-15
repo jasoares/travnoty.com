@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130226115800) do
+ActiveRecord::Schema.define(:version => 20130313185536) do
 
   create_table "hubs", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(:version => 20130226115800) do
 
   add_index "hubs", ["code"], :name => "index_hubs_on_code", :unique => true
   add_index "hubs", ["host"], :name => "index_hubs_on_host", :unique => true
+
+  create_table "pre_subscriptions", :force => true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.integer  "hub_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "pre_subscriptions", ["email"], :name => "index_pre_subscriptions_on_email", :unique => true
+  add_index "pre_subscriptions", ["hub_id"], :name => "index_pre_subscriptions_on_hub_id"
 
   create_table "rounds", :force => true do |t|
     t.datetime "start_date"

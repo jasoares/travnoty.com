@@ -1,0 +1,38 @@
+%article.article.welcome
+  %section.section.prelaunch
+    .container.clearfix
+      %h2 We will launch soon.
+      %p Pre subscribe below and we will let you know when it's ready.
+  %section.section.wall-hash
+    .container.clearfix
+      .banner.left
+        %h1.heading Get notifications from your Travian account.
+        %h2.subheading Know when you are being attacked, your troops are near starvation or your warehouse is near capacity limit.
+      = form_for @pre_subscription, html: { :class => 'right' } do |f|
+        - unless @pre_subscription.errors.empty?
+          %p.error.form= "There were problems with your subscription."
+        .control-group
+          = f.text_field :name, :placeholder => 'Full Name'
+          - unless @pre_subscription.errors[:name].empty?
+            %p.error.attr= @pre_subscription.errors.messages[:email].first
+        .control-group
+          = f.select :hub, [['Country', 0]] + @hubs.map { |hub| [hub.name, hub.id] }, selected: '0', disabled: '0', autocomplete: 'off'
+          - if @pre_subscription.errors[:hub].any?
+            %p.error.attr= @pre_subscription.errors.messages[:hub].first
+          - else
+            %p.tip Tip: the country of the travian servers you play on.
+        .control-group
+          = f.text_field :email, :type => 'email', :placeholder => 'Your email'
+          - unless @pre_subscription.errors[:email].empty?
+            %p.error.attr= @pre_subscription.errors.messages[:email].first
+        .control-group
+          = f.submit 'Pre subscribe', :class => 'button primary'
+  %section.section.client
+    .container.clearfix
+      .banner.right
+        %h1.heading Get out for your day life, we keep you posted.
+        %h2.subheading Just leave the Travnoty client app running at home and we will send you an email if something happens.
+        .os_logos
+          %span Windows
+          %span Mac OS
+          %span Linux

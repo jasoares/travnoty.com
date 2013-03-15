@@ -1,0 +1,22 @@
+= form_for @pre_subscription do |f|
+  - unless @pre_subscription.errors.empty?
+    %p.error.form= "There were problems with your subscription."
+  .control-group
+    = f.label :name
+    = f.text_field :name
+    - unless @pre_subscription.errors[:name].empty?
+      %p.error.attr= @pre_subscription.errors.messages[:email].first
+  .control-group
+    = f.label :hub, 'Country'
+    = f.select :hub, @hubs.map { |hub| [hub.name, hub.id] }, { include_blank: (@hub.nil?), selected: @hub.try(:id) }
+    - if @pre_subscription.errors[:hub].any?
+      %p.error.attr= @pre_subscription.errors.messages[:hub].first
+    - else
+      %p.tip Tip: The country of the travian servers you play on.
+  .control-group
+    = f.label :email
+    = f.text_field :email, :type => 'email'
+    - unless @pre_subscription.errors[:email].empty?
+      %p.error.attr= @pre_subscription.errors.messages[:email].first
+  .control-group
+    = f.submit 'Pre subscribe', :class => 'button primary'

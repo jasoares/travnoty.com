@@ -60,3 +60,26 @@
 }
 
 #new_user input { margin: 5px 0px; }
+
+.tip {
+  margin-top: 5px;
+  font-size: .7em;
+  color: #666;
+}
+
+.dim {
+  color: #aaa;
+}
+
+#pre_subscription_hub option[value="0"] {
+  color: #aaa;
+}
+
+.welcome .section.prelaunch {
+  padding: 10px 0px;
+  background-color: #fdd;
+  color: #b44;
+  h1 {
+    font-size: 1.6em;
+  }
+}

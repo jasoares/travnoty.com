@@ -9,7 +9,7 @@ class PreSubscriptionsController < ApplicationController
     @pre_subscription = PreSubscription.new(params[:pre_subscription])
     @pre_subscription.hub = @hub
     if @pre_subscription.save
-      redirect_to root_url, :notice => "Thank you for showing you care #{@pre_subscription.name}"
+      redirect_to root_url, :notice => "Thank you for your interest #{@pre_subscription.name}."
     else
       @hubs = Hub.main_hubs.order(:name).all
       render :new

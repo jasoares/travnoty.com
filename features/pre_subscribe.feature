@@ -11,4 +11,4 @@ Feature: Pre subscribe
     And I press "Pre subscribe"
     Then an email with the pre subscription confirmation should be sent to "email@example.com"
     And I should be on the home page
-    And I should see "Thank you for showing you care John Doe"
+    And I should see "Thank you for your interest John Doe."

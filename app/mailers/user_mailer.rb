@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
   def send_pre_subscription_confirmation(pre_subscription)
     @pre_subscription = pre_subscription
 
-    mail to: pre_subscription.email, subject: "Thank you for showing you care", from: "contact@travnoty.com"
+    mail to: pre_subscription.email, subject: "Thank you for your interest in Travnoty", from: "contact@travnoty.com"
   end
 
 end

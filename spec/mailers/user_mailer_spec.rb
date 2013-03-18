@@ -54,6 +54,17 @@ describe UserMailer do
       header = { category: ['User'] }.to_json
       mail.header['X-SMTPAPI'].value.should == header
     end
+
+    it "adds category 'Test' to X-SMTPAPI header when in development" do
+      DevelopmentMailInterceptor.delivering_email(mail)
+      smtpapi_header = { category: ['User', 'Test'] }.to_json
+      mail.header['X-SMTPAPI'].value.should == smtpapi_header
+    end
+
+    it 'changes the to: email to dev@travnoty.com' do
+      DevelopmentMailInterceptor.delivering_email(mail)
+      mail.to.should eq ["dev@travnoty.com"]
+    end
   end
 
 end

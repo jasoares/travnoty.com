@@ -47,7 +47,7 @@ describe PreSubscription do
     it 'sends an email to the pre subscriber' do
       mail = double('Mail')
       mail.should_receive(:deliver)
-      UserMailer.should_receive(:send_pre_subscription_confirmation).with(pre_subscription).and_return(mail)
+      UserMailer.should_receive(:pre_subscription_confirmation).with(pre_subscription).and_return(mail)
       pre_subscription.send_pre_subscription_confirmation
     end
   end

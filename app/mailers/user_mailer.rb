@@ -16,7 +16,7 @@ class UserMailer < ActionMailer::Base
           from: "Travnoty <noreply@travnoty.com>"
   end
 
-  def send_pre_subscription_confirmation(pre_subscription)
+  def pre_subscription_confirmation(pre_subscription)
     @pre_subscription = pre_subscription
 
     mail  to: "#{pre_subscription.name} <#{pre_subscription.email}>",

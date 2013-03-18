@@ -14,7 +14,7 @@ class PreSubscription < ActiveRecord::Base
   end
 
   def send_pre_subscription_confirmation
-    UserMailer.send_pre_subscription_confirmation(self).deliver
+    UserMailer.pre_subscription_confirmation(self).deliver
   end
 
   class << self

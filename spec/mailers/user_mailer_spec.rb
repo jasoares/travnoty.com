@@ -31,9 +31,9 @@ describe UserMailer do
     end
   end
 
-  describe 'send_pre_subscription_confirmation' do
+  describe 'pre_subscription_confirmation' do
     let(:pre_subscription) { create(:pre_subscription) }
-    let(:mail) { UserMailer.send_pre_subscription_confirmation(pre_subscription) }
+    let(:mail) { pre_subscription.send_pre_subscription_confirmation }
 
     it 'renders the headers' do
       mail.subject.should eq "Thank you for your interest in Travnoty"

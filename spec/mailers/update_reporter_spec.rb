@@ -52,4 +52,15 @@ describe UpdateReporter do
       mail.body.encoded.should include(server.host)
     end
   end
+
+  describe 'on all mails' do
+    let(:server) { mock_model(Server, host: 'ts1.travian.com', url: 'http://ts1.travian.com') }
+    let(:round) { mock_model(Round, start_date: DateTime.now, version: "4.0", server: server) }
+    let(:mail) { UpdateReporter.start_round_notice(round) }
+
+    it "adds default category 'Admin' to X-SMTPAPI header for sendgrid" do
+      header = { category: ["Admin"] }.to_json
+      mail.header['X-SMTPAPI'].value.should == header
+    end
+  end
 end

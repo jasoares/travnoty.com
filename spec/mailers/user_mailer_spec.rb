@@ -46,4 +46,14 @@ describe UserMailer do
     end
   end
 
+  describe 'on all mails' do
+    let(:user) { create(:user) }
+    let(:mail) { UserMailer.email_confirmation(user) }
+
+    it "adds default category 'User' to X-SMTPAPI header for sendgrid" do
+      header = { category: ['User'] }.to_json
+      mail.header['X-SMTPAPI'].value.should == header
+    end
+  end
+
 end

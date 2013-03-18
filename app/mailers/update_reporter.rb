@@ -1,5 +1,6 @@
 class UpdateReporter < ActionMailer::Base
   default from: "Travnoty Administrator <admin@travnoty.com>"
+  default "X-SMTPAPI" => { category: ["Admin"] }.to_json
 
   ADMIN = 'Travnoty Administrator <admin@travnoty.com>'
 

@@ -11,11 +11,11 @@ describe UpdateReporter do
     end
 
     it 'renders the receiver email' do
-      mail.to.should == [UpdateReporter::ADMIN]
+      mail.header['to'].value.should == UpdateReporter::ADMIN
     end
 
     it 'renders the sender email' do
-      mail.from.should == ['internal@travnoty.com']
+      mail.header['from'].value.should == 'Travnoty Administrator <admin@travnoty.com>'
     end
 
     it 'assigns @round' do
@@ -37,11 +37,11 @@ describe UpdateReporter do
     end
 
     it 'renders the receiver email' do
-      mail.to.should == [UpdateReporter::ADMIN]
+      mail.header['to'].value.should == UpdateReporter::ADMIN
     end
 
     it 'renders the sender email' do
-      mail.from.should == ['internal@travnoty.com']
+      mail.header['from'].value.should == UpdateReporter::ADMIN
     end
 
     it 'assigns @round' do

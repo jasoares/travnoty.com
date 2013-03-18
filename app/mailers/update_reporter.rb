@@ -1,7 +1,7 @@
 class UpdateReporter < ActionMailer::Base
-  default from: "internal@travnoty.com"
+  default from: "Travnoty Administrator <admin@travnoty.com>"
 
-  ADMIN = 'jsoaresgeral@gmail.com'
+  ADMIN = 'Travnoty Administrator <admin@travnoty.com>'
 
   def update_error(hub, msg)
     @hub = hub

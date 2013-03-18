@@ -1,21 +1,26 @@
 class UserMailer < ActionMailer::Base
-  default from: "welcome@travnoty.com"
+  default from: "Travnoty <welcome@travnoty.com>"
 
   def email_confirmation(user)
     @user = user
 
-    mail to: user.email, subject: "Welcome to Travnoty!"
+    mail  to: "#{user.name} <#{user.email}>",
+          subject: "Welcome to Travnoty!"
   end
 
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "Password Reset"
+    mail  to: "#{user.name} <#{user.email}>",
+          subject: "Password Reset",
+          from: "Travnoty <noreply@travnoty.com>"
   end
 
   def send_pre_subscription_confirmation(pre_subscription)
     @pre_subscription = pre_subscription
 
-    mail to: pre_subscription.email, subject: "Thank you for your interest in Travnoty", from: "contact@travnoty.com"
+    mail  to: "#{pre_subscription.name} <#{pre_subscription.email}>",
+          from: "Travnoty <contact@travnoty.com>",
+          subject: "Thank you for your interest in Travnoty"
   end
 
 end

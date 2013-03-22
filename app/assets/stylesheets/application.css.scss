@@ -315,18 +315,19 @@ form .control-group:last-child {
   border-radius: 3px;
   border-bottom-color: #c5c5c5;
   box-shadow: 0 1px 3px rgba(0,0,0,0.075);
+  border: 1px solid #cacaca;
   &:hover {
-    background-color: #5ba740;
-    background-image: -moz-linear-gradient(#82db63, #5ba740);
-    background-image: -webkit-linear-gradient(#82db63, #5ba740);
-    background-image: linear-gradient(#82db63, #5ba740);
+    background-color: #dadada;
+    background-image: -moz-linear-gradient(#f2f2f2, #e2e2e2);
+    background-image: -webkit-linear-gradient(#f2f2f2, #e2e2e2);
+    background-image: linear-gradient(#f2f2f2, #e2e2e2);
     background-repeat: repeat-x;
-    border-color: #4a993e;
+    border-color: #c3c3c3;
   }
   &:active {
-    background-color: #569e3d;
+    background-color: #c5c5c5;
     background-image: none;
-    border-color: #418737;
+    border-color: #9f9f9f;
   }
 }
 

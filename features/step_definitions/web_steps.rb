@@ -27,6 +27,14 @@ Then /^I should see "([^"]+)"$/ do |text|
   page.should have_content(text)
 end
 
+Then /^I should see a blank "([^"]+)" field$/ do |field_name|
+  find_field(field_name).value.should == nil
+end
+
+Then /^I should see (?:a|an) "([^"]+)" field with "([^"]+)"$/ do |field_name, value|
+  find_field(field_name).value.should == value
+end
+
 Then /^I should see an error message$/ do
   page.should have_selector('.error.form')
 end

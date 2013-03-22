@@ -10,21 +10,20 @@ describe SessionsController do
       response.should be_success
     end
 
-    it 'redirects to users/profile when successfully signed in' do
+    it 'redirects to user account when signed in' do
       post :create, params
       get :new
 
-      response.should redirect_to profile_path
+      response.should redirect_to account_path
     end
   end
 
   describe "POST #create" do
-    it "redirects to users/profile when successfully signed in" do
+    it "redirects to user account when successfully signed in" do
       post :create, params
       post :create
 
-      response.should redirect_to profile_path
-      flash[:notice].should == 'Signed in!'
+      response.should redirect_to account_path
     end
 
     it 'sets the session[:user_id] to the user id' do
@@ -37,7 +36,7 @@ describe SessionsController do
       post :create, handle: '', password: ''
 
       response.should render_template :new
-      flash[:alert].should == 'Invalid email or password'
+      flash[:error].should == 'Invalid email or password'
     end
   end
 

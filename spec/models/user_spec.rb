@@ -142,23 +142,44 @@ describe User do
       SecureRandom.should_receive(:urlsafe_base64).exactly(3).times
       user.generate_confirmation_token
     end
-  end
 
-  describe '#confirm' do
-    let(:user) { create(:user) }  
-
-    it 'sets the confirmed_at attribute to now' do
+    it 'sets the confirmed_at attribute to nil for the on_update case' do
+      user.save!
+      user.confirm!(user.confirmation_token)
+      user.confirmed_at.should_not be_nil
+      user.update_attributes(email: 'janedoe@example.com')
       user.confirmed_at.should be_nil
-      user.confirm
-      user.confirmed_at.should be_an ActiveSupport::TimeWithZone
-    end
-
-    it 'returns true when successfully confirmed' do
-      user.confirm.should be_true
     end
   end
 
-  describe 'confirmed?' do
+  describe '#confirm!' do
+    let(:user) { create(:user) }
+
+    context 'when passed a valid token' do
+      it 'returns true' do
+        user.confirm!(user.confirmation_token).should be_true
+      end
+
+      it 'sets the confirmed_at attribute to now' do
+        user.confirmed_at.should be_nil
+        user.confirm!(user.confirmation_token)
+        user.confirmed_at.should be_an ActiveSupport::TimeWithZone
+      end
+    end
+
+    context 'when passed an invalid or already used token' do
+      it 'returns false' do
+        user.confirm!('').should be_false
+      end
+
+      it 'does not change the user' do
+        user.should_not_receive(:save)
+        user.confirm!('')
+      end
+    end
+  end
+
+  describe '#confirmed?' do
     let(:user) { create(:user) }
 
     it 'returns true when confirmed_at has a value' do
@@ -197,7 +218,7 @@ describe User do
     end
 
     it 'does not send the confirmation email if it is already confirmed' do
-      user.stub(:confirmation_pending? => false)
+      user.stub(:confirmed? => true)
       user.should_not_receive(:send_confirmation_instructions)
       user.send :resend_confirmation_instructions
     end

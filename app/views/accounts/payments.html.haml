@@ -1,0 +1,8 @@
+- content_for(:title) { 'Account' }
+%article.article.profile
+  .container.clearfix
+    = render partial: 'menu', locals: { :user => @user}
+    .box.right.content
+      .box-header
+        %h1 Payment History
+      .box-content

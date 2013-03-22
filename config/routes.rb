@@ -9,10 +9,17 @@ Travnoty::Application.routes.draw do
     post 'sessions' => 'sessions#create'
 
     get 'sign_up' => 'users#new', :as => 'sign_up'
-    get 'profile' => 'users#show', :as => 'profile'
+    get 'profile' => 'accounts#settings', :as => 'profile'
     post 'users' => 'users#create'
     get 'users/:id/confirm_email/:confirmation_token' => 'users#confirm_email', :as => 'confirm_email'
+    post 'users/:id/request_verification' => 'users#request_verification', :as => 'request_verification'
 
+    get "account/settings" => 'accounts#settings', as: 'account'
+    get "account/notifications" => 'accounts#notifications', as: 'account_notifications'
+    get "account/billing" => 'accounts#billing', as: 'account_billing'
+    get "account/payments" => 'accounts#payments', as: 'account_payments'
+
+    resources :users, only: [:new, :create, :show, :edit, :update]
     resources :passwords, only: [:new, :create, :edit, :update]
   end
 

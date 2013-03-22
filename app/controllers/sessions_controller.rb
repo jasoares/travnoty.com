@@ -9,9 +9,11 @@ class SessionsController < ApplicationController
       user.increment(:sign_in_count)
       user.update_attributes(last_sign_in_at: DateTime.now.utc)
       sign_in user
-      redirect_to profile_path, :notice => 'Signed in!'
+      url = session[:return_to] || account_path
+      session[:return_to] = account_path
+      redirect_to url
     else
-      flash.now.alert = "Invalid email or password"
+      flash.now[:error] = "Invalid email or password"
       render 'new'
     end
   end

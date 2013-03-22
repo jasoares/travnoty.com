@@ -4,18 +4,16 @@ class ApplicationController < ActionController::Base
   private
 
   def require_login
-    unless signed_in?
-      flash[:error] = "Please sign in."
-      redirect_to sign_in_path
-    end
+    session[:return_to] = request.fullpath
+    redirect_to sign_in_path
   end
 
   def current_user
-    @current_user ||= session[:user_id] && User.find(session[:user_id])
+    @user ||= session[:user_id] && User.find(session[:user_id])
   end
 
   def redirect_to_profile
-    redirect_to profile_path
+    redirect_to account_path
   end
 
   def signed_in?

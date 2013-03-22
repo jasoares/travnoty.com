@@ -1,0 +1,33 @@
+- content_for(:title) { 'Account' }
+%article.article.profile
+  .container.clearfix
+    = render partial: 'accounts/menu', locals: { :user => current_user }
+    .box.right.content
+      .box-header
+        %h1 Account Settings
+      .box-content
+        %h2 Profile
+        = form_for @user do |f|
+          .control-group
+            = f.label :username, :class => 'block'
+            = f.text_field :username
+            - unless @user.errors[:username].empty?
+              %p.error.attr.dropdown= @user.errors.messages[:username].first
+          .control-group
+            = f.label :name
+            = f.text_field :name
+          .control-group{ class: confirmed? ? '' : 'field_with_alerts' }
+            = f.label :email
+            = f.text_field :email, type: 'email'
+            - unless confirmed?
+              %span= link_to 'Verify', request_verification_path(@user), method: :post, :class => 'button verification'
+              %p.alert.attr.dropdown= "Please verify your email."
+            - unless @user.errors[:email].empty?
+              %p.error.attr.dropdown= @user.errors.messages[:email].first
+          .control-group.save
+            = f.submit 'Update', :class => 'button primary'
+        %br
+        %h2 Password
+        %p
+          Need a new password? Request a new one
+          %span= link_to 'here.', new_password_path

@@ -9,7 +9,7 @@
     - if ENV['LAUNCH']
       %ul
         - if signed_in?
-          %li= link_to current_user.handle, profile_path
+          %li= link_to current_user.handle, account_path
           %li= link_to "Sign out", sign_out_path
         - else
           %li= link_to "Sign in", sign_in_path

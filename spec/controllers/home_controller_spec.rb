@@ -12,7 +12,7 @@ describe HomeController do
       controller.stub(signed_in?: true)
       get :welcome
 
-      response.should redirect_to profile_path
+      response.should redirect_to account_path
     end
   end
 

@@ -1,0 +1,62 @@
+// Place all the styles related to the Accounts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.profile .box.menu .box-header {
+  padding-left: 14px;
+}
+
+.profile .box.menu .box-content {
+  padding: 0px;
+}
+
+.profile .box.menu {
+  min-width: 200px;
+}
+
+.profile .menu li {
+  border-bottom: 1px solid #ccc;
+
+  a {
+    display: block;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  &.current a {
+    color: #636363;
+    border-left: 2px solid #5caf5c;
+    font-weight: bold;
+    padding-left: 8px;
+  }
+
+  &:last-child {
+    border-bottom: 0px;
+  }
+}
+
+.profile h2 {
+  margin-bottom: 10px;
+}
+
+.profile label {
+  display: block;
+  font-weight: bold;
+}
+
+.profile .error.form {
+  width: 300px;
+}
+
+.profile .box.content {
+  min-width: 700px;
+}
+
+.button.verification {
+  padding: 5px 10px;
+  color: #636363;
+}
+
+a.button.verification {
+  display: inline;
+}

@@ -16,8 +16,8 @@ module NavigationHelpers
       sign_in_path
     when /^request\spassword\sreset$/
       new_password_path
-    when /^profile$/
-      profile_path
+    when /^account\ssettings$/
+      account_path
     when /^pre\ssubscribe$/
       new_pre_subscription_path
     # Add more mappings here.

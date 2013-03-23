@@ -1,5 +1,6 @@
 class Round < ActiveRecord::Base
   belongs_to :server
+  has_many :travian_accounts
   attr_accessible :end_date, :start_date, :version
 
   validates :server_id, presence: true

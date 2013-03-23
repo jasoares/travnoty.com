@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313185536) do
+ActiveRecord::Schema.define(:version => 20130322232405) do
 
   create_table "hubs", :force => true do |t|
     t.string   "name"
@@ -60,6 +60,19 @@ ActiveRecord::Schema.define(:version => 20130313185536) do
   end
 
   add_index "servers", ["host"], :name => "index_servers_on_host", :unique => true
+
+  create_table "travian_accounts", :force => true do |t|
+    t.integer  "round_id"
+    t.integer  "user_id"
+    t.integer  "uid"
+    t.string   "username"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "travian_accounts", ["round_id"], :name => "index_travian_accounts_on_round_id"
+  add_index "travian_accounts", ["user_id"], :name => "index_travian_accounts_on_user_id"
+  add_index "travian_accounts", ["username", "round_id"], :name => "index_travian_accounts_on_username_and_round_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"

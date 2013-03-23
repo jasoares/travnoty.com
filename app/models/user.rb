@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   include Extensions::Confirmable
   include Extensions::Recoverable
 
+  has_many :travian_accounts
+
   attr_accessible :email, :name, :username, :password,
     :last_sign_in_at, :sign_in_count
 

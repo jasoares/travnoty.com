@@ -108,4 +108,16 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :travian_account do
+    sequence(:uid, 3) { |n| n }
+    sequence(:username, 'username') { |n| n }
+
+    trait :with_user_and_round do
+      after(:build) do |account|
+        account.user = create(:user)
+        account.round = create(:server, :with_running_round).rounds.first
+      end
+    end
+  end
 end

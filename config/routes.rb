@@ -30,8 +30,7 @@ Travnoty::Application.routes.draw do
       get 'hubs' => 'hubs#index'
       get 'hubs/:id' => 'hubs#show'
       get 'hubs/:id/servers' => 'hubs#servers'
-      get 'hubs/:id/active_servers' => 'hubs#active_servers'
-      get 'hubs/:id/archived_servers' => 'hubs#archived_servers'
+      get 'hubs/:id/supported_servers' => 'hubs#supported_servers'
       get 'servers' => 'servers#index'
       get 'servers/:id' => 'servers#show', id: /\d+/
       get 'servers/active' => 'servers#active'

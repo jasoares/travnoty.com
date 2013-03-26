@@ -19,12 +19,8 @@ describe 'Api::V1::HubsRouting' do
     { get: "#{url}/hubs/1/servers" }.should route_to action :servers, id: '1'
   end
 
-  it 'GET /hubs/:id/active_servers' do
-    { get: "#{url}/hubs/1/active_servers" }.should route_to action :active_servers, id: '1'
-  end
-
-  it 'GET /hubs/:id/archived_servers' do
-    { get: "#{url}/hubs/1/archived_servers" }.should route_to action :archived_servers, id: '1'
+  it 'GET /hubs/:id/supported_servers' do
+    { get: "#{url}/hubs/1/supported_servers" }.should route_to action :supported_servers, id: '1'
   end
 
 end

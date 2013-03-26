@@ -8,21 +8,22 @@ describe Api::V1::HubsController do
   end
 
   context 'GET #index' do
+    before { create_list(:hub, 3) }
+
     it 'it renders the collection of all hubs as json' do
-      hubs = create_list(:hub, 3).to_json
       get :index, format: :json
 
-      response.body.should == hubs
+      response.body.should == Hub.order(:name).all.to_json
     end
   end
 
   context 'GET #show' do
+    let(:hub) { create(:hub, :with_servers, :with_mirrors) }
+
     it 'renders the requested hub as json' do
-      hub = create(:hub, :with_servers, :with_mirrors)
-      json = hub.to_json
       get :show, id: hub, format: :json
 
-      response.body.should == json
+      response.body.should == hub.to_json
     end
   end
 end

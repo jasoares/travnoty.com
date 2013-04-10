@@ -7,6 +7,7 @@ module Extensions
       attr_accessor :password
       before_validation :normalize_email
       before_save :encrypt_password
+      before_create :generate_client_key
     end
 
     def encrypt_password
@@ -14,6 +15,10 @@ module Extensions
         self.password_salt = BCrypt::Engine.generate_salt
         self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
       end
+    end
+
+    def generate_client_key
+      self.client_key = self.class.generate_token(:client_key)
     end
 
   private
@@ -27,6 +32,17 @@ module Extensions
     end
 
     module ClassMethods
+
+      def authenticate_with_key(key)
+        authable = find_by_client_key(key)
+        if authable
+          authable.increment(:sign_in_count)
+          authable.update_attributes(last_sign_in_at: DateTime.now.utc)
+          authable
+        else
+          nil
+        end
+      end
 
       def authenticate(handle, password)
         authable = find_by_normalized_email(handle) || find_by_username(handle)

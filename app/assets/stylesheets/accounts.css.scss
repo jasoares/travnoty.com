@@ -60,3 +60,19 @@
 a.button.verification {
   display: inline;
 }
+
+span.bold {
+  font-weight: bold;
+}
+
+span.copy {
+  background-color: #fafafa;
+  padding: 3px 8px;
+  border: 1px solid #acacac;
+  border-radius: 4px;
+}
+
+p.fade {
+  color: #8a8a8a;
+  font-size: .9em;
+}

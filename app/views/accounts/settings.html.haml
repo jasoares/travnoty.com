@@ -27,6 +27,13 @@
           .control-group.save
             = f.submit 'Update', :class => 'button primary'
         %br
+        %h2 Travnoty Client
+        %p
+          %span.bold Client Key:
+          %span.copy= current_user.client_key
+        %br
+        %p.fade Copy the above key and paste it on the Travnoty Client app on first launch.
+        %br
         %h2 Password
         %p
           Need a new password? Request a new one

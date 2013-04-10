@@ -15,7 +15,7 @@
           %li= link_to "Sign in", sign_in_path
       %ul
         - if signed_in?
-          %li= link_to "Notifications", hubs_path
-          %li= link_to "Accounts", servers_path
+          %li= link_to "Notifications", account_notifications_path
+          %li= link_to "Accounts", travian_accounts_path
       - if signed_in?
         .vertical-div

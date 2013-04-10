@@ -6,6 +6,10 @@
       .box-header
         %h1 Travian Accounts
       .box-content
-        - current_user.travian_accounts.each do |account|
-          = render partial: 'travian_account', locals: { :account => account }
+        - if current_user.travian_accounts.empty?
+          %p.fade No Travian accounts being monitored yet. Just install the Travnoty Client to get started.
+        - else
+          - current_user.travian_accounts.each do |account|
+            = render partial: 'travian_account', locals: { :account => account }
+            %br
 

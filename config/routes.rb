@@ -36,6 +36,7 @@ Travnoty::Application.routes.draw do
       get 'servers/:id' => 'servers#show', id: /\d+/
       get 'servers/active' => 'servers#active'
       get 'servers/archived' => 'servers#archived'
+      resources :travian_accounts, only: [:index, :create]
     end
   end
 

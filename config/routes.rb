@@ -18,6 +18,7 @@ Travnoty::Application.routes.draw do
     get "account/notifications" => 'accounts#notifications', as: 'account_notifications'
     get "account/billing" => 'accounts#billing', as: 'account_billing'
     get "account/payments" => 'accounts#payments', as: 'account_payments'
+    get "account/travian_accounts" => 'accounts#travian_accounts', as: 'travian_accounts'
 
     resources :users, only: [:new, :create, :show, :edit, :update]
     resources :passwords, only: [:new, :create, :edit, :update]

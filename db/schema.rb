@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130322232405) do
+ActiveRecord::Schema.define(:version => 20130410144158) do
+
+  create_table "api_keys", :force => true do |t|
+    t.integer  "travian_account_id"
+    t.string   "key"
+    t.integer  "valid_for"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
 
   create_table "hubs", :force => true do |t|
     t.string   "name"

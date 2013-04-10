@@ -1,0 +1,11 @@
+- content_for(:title) { 'Travian Accounts' }
+%article.article.profile
+  .container.clearfix
+    = render partial: 'menu', locals: { :user => @user}
+    .box.right.content
+      .box-header
+        %h1 Travian Accounts
+      .box-content
+        - current_user.travian_accounts.each do |account|
+          = render partial: 'travian_account', locals: { :account => account }
+

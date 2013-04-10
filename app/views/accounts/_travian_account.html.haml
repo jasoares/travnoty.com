@@ -1,0 +1,14 @@
+.header
+  %h2
+    = image_tag "flags/32/#{account.hub.code}.png", size: '32x32', alt: account.hub.name, title: account.hub.name
+    = account.server.host
+.content
+  %p
+    %span.bold Username:
+    %span= account.username
+  %p
+    %span.bold Account key:
+    %span= account.api_key.key
+  %p
+    %span.bold Valid until:
+    %span= Time.now.localtime + account.api_key.valid_for

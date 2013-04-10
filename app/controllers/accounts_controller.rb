@@ -4,6 +4,9 @@ class AccountsController < ApplicationController
   def settings
   end
 
+  def travian_accounts
+  end
+
   def notifications
   end
 

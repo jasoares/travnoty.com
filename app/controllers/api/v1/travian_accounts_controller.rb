@@ -9,7 +9,7 @@ class Api::V1::TravianAccountsController < Api::V1::BaseController
     @travian_account.user = @current_user
     @travian_account.round = Round.find(params[:round_id])
     if @travian_account.save
-      render :text => 'Travian account added successfully.'
+      respond_with @travian_account, location: travian_account_path(@travian_account)
     else
       render :text => "#{@travian_account.errors.first}", :status => :bad_request
     end

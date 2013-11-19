@@ -9,17 +9,9 @@ class Round < ActiveRecord::Base
   validates :end_date, date_coherence: true, uniqueness: { scope: :server_id }
   validates :version, format: { with: /\A\d\.\d(?:\.\d)?\Z/ }
 
-  def self.running
-    where('end_date is null AND start_date < ?', Time.now.utc)
-  end
-
-  def self.restarting
-    where('start_date > ?', Time.now.utc)
-  end
-
-  def self.ended
-    where('end_date is not null')
-  end
+  scope :running, -> { where 'end_date is null AND start_date < ?', Time.now.utc }
+  scope :restarting, -> { where 'start_date > ?', Time.now.utc }
+  scope :ended, -> { where 'end_date IS NOT NULL' }
 
   def self.last_end_date_by(server)
     round = select('MAX(end_date) AS end_date').

@@ -6,7 +6,7 @@ class Server < ActiveRecord::Base
   validates :host, presence: true, uniqueness: { case_sensitive: false }, travian_host: true
   validates :speed, numericality: { only_integer: true, greater_than: 0 }
 
-  scope :without_classics, where("host NOT ILIKE 'tc%'")
+  scope :without_classics, -> { where "host NOT ILIKE 'tc%'" }
 
   class << self
     def ended

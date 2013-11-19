@@ -8,14 +8,6 @@ Travnoty::Application.routes.draw do
   get 'countries' => 'hubs#index', as: 'countries'
   get 'countries/:code' => 'hubs#show', as: 'country'
 
-  resources :hubs, only: [:index, :show] do
-    resources :servers do
-      resources :rounds
-    end
-  end
-
-  resources :servers, only: [:index, :show]
-
   if ENV['LAUNCH']
     get 'sign_out' => 'sessions#destroy', :as => 'sign_out'
     get 'sign_in' => 'sessions#new', :as => 'sign_in'
@@ -53,6 +45,14 @@ Travnoty::Application.routes.draw do
       resources :users, only: [:show, :create]
     end
   end
+
+  resources :hubs, only: [:index, :show] do
+    resources :servers do
+      resources :rounds
+    end
+  end
+
+  resources :servers, only: [:index, :show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

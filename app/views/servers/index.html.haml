@@ -1,0 +1,24 @@
+.container
+  %h3 Restarting Servers
+  - @restarting_servers.each do |server|
+    %p
+      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
+      = link_to server.name, server_path(server)
+      = link_to '#', "http://#{server.host}"
+      %span= "(#{server.speed}x)"
+      = server.rounds.first.start_date.to_s(:short)
+  %h3 Running Servers
+  - @running_servers.each do |server|
+    %p
+      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
+      = link_to server.name, server_path(server)
+      = link_to '#', "http://#{server.host}"
+      %span= "(#{server.speed}x)"
+      = server.rounds.first.start_date.to_s(:short)
+  %h3 Ended Servers
+  - @ended_servers.each do |server|
+    %p
+      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
+      = link_to (server.name ? server.name : server.host), server_path(server)
+      = link_to "http://#{server.host}", "http://#{server.host}"
+      %span= "(#{server.speed}x)"

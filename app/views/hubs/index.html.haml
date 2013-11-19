@@ -1,0 +1,12 @@
+%article.article.container
+  - @hubs.each do |hub|
+    %p
+      = image_tag "flags/32/#{hub.code}.png", size: '32x32', alt: hub.name, title: hub.name
+      = hub.name
+      - if hub.mirror?
+        %span
+          (
+          = link_to hub.main_hub.name, country_path(hub.main_hub.code)
+          mirror
+          )
+      = link_to "#{hub.servers.size} servers", country_path(hub.mirror? ? hub.main_hub.code : hub.code)

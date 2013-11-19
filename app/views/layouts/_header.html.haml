@@ -7,6 +7,9 @@
   .beta beta
   %nav#nav
     - if ENV['LAUNCH']
+      %ul{style: 'float: left' }
+        %li= link_to 'Countries', countries_path
+        %li= link_to 'Servers', servers_path
       %ul
         - if signed_in?
           %li= link_to current_user.handle, account_path

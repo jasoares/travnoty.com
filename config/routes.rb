@@ -3,6 +3,19 @@ require 'api_version'
 
 Travnoty::Application.routes.draw do
 
+  # Public information
+
+  get 'countries' => 'hubs#index', as: 'countries'
+  get 'countries/:code' => 'hubs#show', as: 'country'
+
+  resources :hubs, only: [:index, :show] do
+    resources :servers do
+      resources :rounds
+    end
+  end
+
+  resources :servers, only: [:index, :show]
+
   if ENV['LAUNCH']
     get 'sign_out' => 'sessions#destroy', :as => 'sign_out'
     get 'sign_in' => 'sessions#new', :as => 'sign_in'

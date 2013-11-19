@@ -2,7 +2,6 @@
   - @hub.servers.each do |server|
     %p
       = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
-      = link_to server.name, server_path(server)
+      = link_to (server.name || server.code).humanize, server_path(server)
       = link_to '#', "http://#{server.host}"
       %span= "(#{server.speed}x)"
-      = server.rounds.first.start_date.to_s(:short)

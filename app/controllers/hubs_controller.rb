@@ -1,7 +1,7 @@
 class HubsController < ApplicationController
 
   def index
-    @hubs = Hub.select("hubs.*, servers.id").includes(:servers).order("hubs.name asc")
+    @hubs = Hub.includes(:servers).order("hubs.name asc")
   end
 
   def show

@@ -34,13 +34,18 @@ module Updater
   end
 
   def add_round(round, server_record)
-    server_record.rounds << Round.new(start_date: round.restart_date, version: round.version)
+    round_record = Round.new(start_date: round.restart_date, version: round.version)
+    server_record.rounds << round_record
+    puts round_record.inspect
+    UpdateReporter.start_round_notice(round_record).deliver
     log("Restarting round on #{round.restart_date} for #{server_record.host} added.")
   end
 
   def end_round(round)
-    changed = round.update_attributes(end_date: Date.today.to_datetime)
-    log("Current round ended for server #{round.server.host}") if changed
+    if round.update_attributes(end_date: Date.today.to_datetime)
+      UpdateReporter.end_round_notice(round).deliver
+      log("Current round ended for server #{round.server.host}")
+    end
   end
 
   def log(message)

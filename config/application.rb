@@ -28,8 +28,6 @@ module Travnoty
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
-    # Activate observers that should always be running.
-    config.active_record.observers = :round_observer
     config.after_initialize do
     # If config.active_record.observers is not nil, we must load ActiveRecord::Base forcibly.
       _ = ActiveRecord::Base if config.active_record.observers

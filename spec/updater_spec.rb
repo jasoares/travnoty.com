@@ -138,17 +138,23 @@ describe Updater do
       round = double('Server')
       round.should_receive(:restart_date).twice.and_return(DateTime.new(2012,12,4))
       round.should_receive(:version).and_return('4.0')
-      server_record = stub_model(Server, host: 'ts1.travian.net')
-      server_record.should_receive(:rounds).and_return(rounds = [])
-      rounds.should_receive(:<<).with(kind_of(Round))
+      server_record = create(:server)
       Updater.send :add_round, round, server_record
     end
 
     it 'calls log with "There is a new round starting on 2013-02-22T06:00:00+04:00 for ts1.travian.net added."' do
       attributes = { code: 'ts1', host: 'ts1.travian.net', name: 'Servidor 1', speed: 1, world_id: 'net11' }
       round = double('Server', restart_date: DateTime.new(2013,2,22,6,0,0,"+04:00"), version: '4.0')
-      server_record = stub_model(Server, host: 'ts1.travian.net')
-      Updater.should_receive(:log).with("Restarting round on 2013-02-22T06:00:00+04:00 for ts1.travian.net added.")
+      server_record = create(:server)
+      Updater.should_receive(:log)
+      Updater.send :add_round, round, server_record
+    end
+
+    it 'calls UpdateReporter#start_round_notice and #deliver' do
+      attributes = { code: 'ts1', host: 'ts1.travian.net', name: 'Servidor 1', speed: 1, world_id: 'net11' }
+      round = double('Server', restart_date: DateTime.new(2013,2,22,6,0,0,"+04:00"), version: '4.0')
+      server_record = create(:server)
+      UpdateReporter.should_receive(:start_round_notice).and_return(double('Email', deliver: true))
       Updater.send :add_round, round, server_record
     end
   end
@@ -163,6 +169,7 @@ describe Updater do
 
     it 'calls log with "Current round ended for server ts1.travian.net" when it passes validations' do
       round.stub(:update_attributes).and_return(true)
+      UpdateReporter.stub_chain(:end_round_notice, :deliver)
       Updater.should_receive(:log).with("Current round ended for server ts1.travian.net")
       Updater.send :end_round, round
     end
@@ -170,6 +177,12 @@ describe Updater do
     it 'does not call log when validations fail' do
       round.stub(:update_attributes).and_return(false)
       Updater.should_not_receive(:log)
+      Updater.send :end_round, round
+    end
+
+    it 'calls UpdateReporter#end_round_notice and #deliver' do
+      round.stub(:update_attributes).and_return(true)
+      UpdateReporter.should_receive(:end_round_notice).and_return(double('Email', deliver: true))
       Updater.send :end_round, round
     end
   end

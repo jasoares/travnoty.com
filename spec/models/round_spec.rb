@@ -103,20 +103,20 @@ describe Round do
 
   describe '.last_end_date_by' do
     context 'given a server with only ended rounds' do
-      let(:server) { create(:server, :with_ended_rounds) }
+      before { @server = create(:server, :with_ended_rounds) }
 
       it 'returns the end_date of the latest ended round' do
-        last_ended_round = server.rounds.order('end_date DESC').first
-        Round.last_end_date_by(server).should == last_ended_round.end_date
+        last_ended_round = @server.rounds.order('end_date DESC').first
+        Round.last_end_date_by(@server).should == last_ended_round.end_date
       end
     end
 
     context 'given a server with ended and running rounds' do
-      let(:server) { create(:server_with_rounds, rounds_count: 3) }
+      before { @server = create(:server_with_rounds, rounds_count: 3) }
 
       it 'returns the end_date of the latest ended round' do
-        last_ended_round = server.rounds.order('end_date DESC')[1]
-        Round.last_end_date_by(server).should == last_ended_round.end_date
+        last_ended_round = @server.rounds.order('end_date DESC')[1]
+        Round.last_end_date_by(@server).should == last_ended_round.end_date
       end
     end
 

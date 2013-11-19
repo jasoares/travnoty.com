@@ -1,7 +1,6 @@
 class Server < ActiveRecord::Base
   belongs_to :hub
-  has_many :rounds, order: "start_date desc"
-  attr_accessible :host, :name, :speed, :world_id, :code
+  has_many :rounds, -> { order "start_date desc" }
 
   validates :host, presence: true, uniqueness: { case_sensitive: false }, travian_host: true
   validates :speed, numericality: { only_integer: true, greater_than: 0 }
@@ -18,7 +17,7 @@ class Server < ActiveRecord::Base
       SQL
 
       includes(:rounds).
-      where("rounds.id is null OR servers.id IN (#{subquery})")
+      where("rounds.id is null OR servers.id IN (#{subquery})").references(:rounds)
     end
 
     def restarting

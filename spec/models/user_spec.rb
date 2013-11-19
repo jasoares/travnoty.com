@@ -97,7 +97,7 @@ describe User do
     end
 
     it 'must match confirmation' do
-      expect(build(:user, password_confirmation: 'other').errors_on(:password)).to include("doesn't match confirmation")
+      expect(build(:user, password_confirmation: 'other').errors_on(:password_confirmation)).to include("doesn't match Password")
     end
 
     it 'must have a length of at least 8' do
@@ -108,18 +108,18 @@ describe User do
   describe '#password_confirmation' do
     it 'should be required when creating a new record' do
       user = build(:user, password_confirmation: '')
-      expect(user.errors_on(:password)).to include('doesn\'t match confirmation')
+      expect(user.errors_on(:password_confirmation)).to include('doesn\'t match Password')
     end
 
     it 'should be required when updating/resetting password' do
       user = create(:user)
       user.password_confirmation = ''
-      expect(user.errors_on(:password)).to include('doesn\'t match confirmation')
+      expect(user.errors_on(:password_confirmation)).to include('doesn\'t match Password')
     end
 
     it 'should match the password field when it is present' do
       user = build(:user, password: '12345678', password_confirmation: '87654321')
-      expect(user.errors_on(:password)).to include('doesn\'t match confirmation')
+      expect(user.errors_on(:password_confirmation)).to include('doesn\'t match Password')
     end
   end
 

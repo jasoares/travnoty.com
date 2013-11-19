@@ -1,6 +1,5 @@
 class ApiKey < ActiveRecord::Base
   belongs_to :travian_account
-  attr_accessible :key
 
   before_create :generate_key
   before_save :default_values

@@ -13,7 +13,7 @@ namespace :travian do
     end
 
     task :rounds => :servers do
-      Round.observers.disable(:all) { Loader.load_rounds }
+      Loader.load_rounds
     end
 
     task :all => :rounds

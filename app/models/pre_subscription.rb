@@ -1,6 +1,5 @@
 class PreSubscription < ActiveRecord::Base
   belongs_to :hub
-  attr_accessible :email, :name, :hub
 
   before_validation :normalize_email
   after_create :send_pre_subscription_confirmation

@@ -13,7 +13,7 @@ describe Api::V1::HubsController do
     it 'it renders the collection of all hubs as json' do
       get :index, format: :json
 
-      response.body.should == Hub.order(:name).all.to_json
+      response.body.should == Hub.order(:name).to_json
     end
   end
 

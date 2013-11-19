@@ -6,9 +6,6 @@ class User < ActiveRecord::Base
 
   has_many :travian_accounts
 
-  attr_accessible :email, :name, :username, :password,
-    :last_sign_in_at, :sign_in_count
-
   validates :username, presence: true, uniqueness: { case_sensitive: false }, username_format: true
   validates :password, presence: { :on => :create }, confirmation: true
   validates :password, length: { :within => 8..128, :allow_blank => true }

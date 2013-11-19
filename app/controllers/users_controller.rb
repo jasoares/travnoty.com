@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(permitted_params.user)
     if @user.save
       sign_in @user
       redirect_to account_path, :notice => 'Signed Up!'
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if current_user.update_attributes(params[:user])
+    if current_user.update_attributes(permitted_params.user)
       if current_user.need_reconfirmation?
         flash.now[:notice] = 'An email was sent with verification instructions'
       else

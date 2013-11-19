@@ -38,11 +38,6 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  # Disable observers while testing
-  config.before(:suite) do
-    ActiveRecord::Base.observers.disable :all
-  end
-
   # Mixin FactoryGirl::Syntax::Methods
   config.include FactoryGirl::Syntax::Methods
 

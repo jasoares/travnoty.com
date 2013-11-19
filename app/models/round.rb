@@ -1,7 +1,6 @@
 class Round < ActiveRecord::Base
   belongs_to :server
   has_many :travian_accounts
-  attr_accessible :end_date, :start_date, :version
 
   validates :server_id, presence: true
   validates :start_date, presence: true, uniqueness: { scope: :server_id }
@@ -14,9 +13,10 @@ class Round < ActiveRecord::Base
   scope :ended, -> { where 'end_date IS NOT NULL' }
 
   def self.last_end_date_by(server)
-    round = select('MAX(end_date) AS end_date').
+    round = select('rounds.id, MAX(end_date) AS end_date').
       where(:server_id => server.id).
-      group(:server_id).first
+      where("rounds.end_date IS NOT NULL").
+      group("rounds.id, rounds.server_id").first
     round and round.end_date
   end
 

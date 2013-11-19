@@ -2,7 +2,6 @@ class Hub < ActiveRecord::Base
   has_many :mirrors, class_name: 'Hub', foreign_key: 'main_hub_id'
   belongs_to :main_hub, class_name: 'Hub', foreign_key: 'main_hub_id'
   has_many :servers
-  attr_accessible :code, :host, :name, :language
 
   validates :name, presence: true
   validates :host, presence: true, uniqueness: { case_sensitive: false }, travian_host: true

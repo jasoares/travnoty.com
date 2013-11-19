@@ -82,7 +82,7 @@ describe UsersController do
       before { controller.stub(current_user: user) }
 
       it 'renders the account settings template' do
-        put :update, id: user.id
+        put :update, id: user.id, user: user.attributes
 
         response.should render_template 'accounts/settings'
       end

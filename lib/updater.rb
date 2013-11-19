@@ -36,7 +36,6 @@ module Updater
   def add_round(round, server_record)
     round_record = Round.new(start_date: round.restart_date, version: round.version)
     server_record.rounds << round_record
-    puts round_record.inspect
     UpdateReporter.start_round_notice(round_record).deliver
     log("Restarting round on #{round.restart_date} for #{server_record.host} added.")
   end

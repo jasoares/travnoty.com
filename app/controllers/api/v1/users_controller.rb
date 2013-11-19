@@ -2,12 +2,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   skip_before_filter :restrict_access, only: [:create]
 
   def create
-    @user = User.new(
-      username: params[:username],
-      password: params[:password],
-      email: params[:email],
-    )
-    @user.password_confirmation = params[:password_confirmation]
+    @user = User.new(permitted_params.user)
     if @user.save
       respond_with @user, location: users_path(@user)
     else

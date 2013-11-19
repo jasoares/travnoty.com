@@ -15,15 +15,12 @@ FactoryGirl.define do
     email    { (username.blank? ? generate(:username) : username) + "@example.com" }
   end
 
-  sequence(:past_start_date, 1) { |n| n.years.ago.to_datetime }
-  sequence(:past_end_date, 0)   { |n| (n.years + 20.days).ago.to_datetime }
-
   factory :round do
     version '4.0'
 
     factory :ended_round do
-      start_date { generate(:past_start_date) }
-      end_date   { generate(:past_end_date)   }
+      start_date { 2.years.ago.to_datetime }
+      end_date   { (2.years.ago + 20.days).to_datetime }
     end
 
     factory :running_round do

@@ -41,7 +41,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: pg_test
+  database: travnoty_test
   pool: 5
   username: jsoares
   password:
@@ -49,7 +49,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: pg_production
+  database: travnoty_production
   pool: 5
   username: jsoares
   password:

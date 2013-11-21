@@ -1,0 +1,14 @@
+.col-sm-12.col-lg-6
+  .well
+    %small.label.label-success.pull-right= "Speed #{server.speed.to_s}x"
+    %h3
+      = image_tag "flags/32/#{server.hub.code == 'tw' ? 'asia' : server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
+      = link_to server.name, "http://#{server.host}"
+      %small.text-muted= server.host
+    %p.lead= server.current_round.start_date
+    %small.text-muted
+      Estimated end date base on
+      = link_to(server_path server) do
+        previous rounds
+      &dash;
+      = server.estimated_end_date.to_date.to_s(:long)

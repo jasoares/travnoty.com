@@ -42,4 +42,8 @@ class Server < ActiveRecord::Base
   def url
     "http://#{host}"
   end
+
+  def estimated_end_date
+    (current_round.start_date + rounds.average("end_date - start_date").to_i.days).to_datetime
+  end
 end

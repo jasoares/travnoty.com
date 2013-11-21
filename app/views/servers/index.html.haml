@@ -1,24 +1,31 @@
 .container
-  %h3 Restarting Servers
-  - @restarting_servers.each do |server|
-    %p
-      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
-      = link_to server.name, server_path(server)
-      = link_to '#', "http://#{server.host}"
-      %span= "(#{server.speed}x)"
-      = server.rounds.first.start_date.to_s(:short)
-  %h3 Running Servers
-  - @running_servers.each do |server|
-    %p
-      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
-      = link_to server.name, server_path(server)
-      = link_to '#', "http://#{server.host}"
-      %span= "(#{server.speed}x)"
-      = server.rounds.first.start_date.to_s(:short)
-  %h3 Ended Servers
-  - @ended_servers.each do |server|
-    %p
-      = image_tag "flags/32/#{server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
-      = link_to (server.name ? server.name : server.host), server_path(server)
-      = link_to "http://#{server.host}", "http://#{server.host}"
-      %span= "(#{server.speed}x)"
+  .row
+    .col-md-12
+      %h2 Travian Servers Information
+  .row
+    .col-sm-12.col-md-6
+      .row
+        .col-md-12
+          %h3
+            Most recently started servers
+            %span.badge= @recently_started_servers_count
+          %p.text-muted Travian servers just started, recommended to start playing now.
+      .row
+        - @recently_started_servers.each do |server|
+          = render server
+        .col-sm-12.col-lg-6
+          .well
+            = link_to "See all recently started servers", recently_started_servers_path
+    .col-sm-12.col-md-6
+      .row
+        .col-sm-12
+          %h3
+            New Servers
+            %span.badge= @restarting_servers_count
+          %p.text-muted The list of Travian servers with future announced starting dates.
+      .row
+        - @last_restarting_servers.each do |server|
+          = render server
+        .col-sm-12.col-lg-6
+          .well
+            = link_to "See all new servers", scheduled_servers_path

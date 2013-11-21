@@ -8,6 +8,7 @@ gem 'rails', '~> 4.0.0'
 
 gem 'pg'
 
+gem 'less-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'

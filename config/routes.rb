@@ -52,7 +52,12 @@ Travnoty::Application.routes.draw do
     end
   end
 
-  resources :servers, only: [:index, :show]
+  resources :servers, only: [:index, :show] do
+    collection do
+      get 'recently_started'
+      get 'scheduled'
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

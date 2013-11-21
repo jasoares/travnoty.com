@@ -1,0 +1,22 @@
+.container
+  .row
+    .col-sm-12.col-lg-6
+      %h3
+        New Servers
+        %span.badge= @scheduled_servers.size
+      %p.text-muted The list of Travian servers with future announced starting dates.
+  .row
+    - @scheduled_servers.each do |server|
+      .col-sm-12.col-md-6.col-lg-4
+        .well
+          %small.label.label-success.pull-right= "Speed #{server.speed.to_s}x"
+          %h3
+            = image_tag "flags/32/#{server.hub.code == 'tw' ? 'asia' : server.hub.code}.png", size: '32x32', alt: server.hub.name, title: server.hub.name
+            = link_to server.name, "http://#{server.host}"
+            %small.text-muted= server.host
+          %p.lead= server.current_round.start_date
+          %small.text-muted
+            Estimated end date base on
+            = link_to 'previous rounds:', server_path(server)
+            %br
+            = server.estimated_end_date.to_date.to_s(:long)

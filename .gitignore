@@ -16,4 +16,5 @@
 /.rake_tasks~
 /.rails_generators~
 /.env
+/.public
 rerun.txt

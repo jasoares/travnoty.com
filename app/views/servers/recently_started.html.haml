@@ -1,0 +1,10 @@
+.container
+  .row
+    .col-md-12
+      %h3
+        Most recently started servers
+        %span.badge= @recently_started_servers.size
+      %p.text-muted Travian servers just started recommended to start playing now.
+  .row
+    - @recently_started_servers.each do |server|
+      = render server

@@ -9,7 +9,7 @@ require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(:default, Rails.env)
   # If you want your assets lazily compiled in production, use this line
   # Bundler.require(:default, :assets, Rails.env)
 end
@@ -48,6 +48,9 @@ module Travnoty
     # This is necessary if your schema can't be completely dumped by the schema dumper,
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
+
+    # Folders to include in the assets pipeline
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
 
     # Enable the asset pipeline
     config.assets.enabled = true
